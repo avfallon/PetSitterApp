@@ -96,7 +96,7 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
 
 
 
-        if(!(SetFormInfo( v ))) { //if !false then there are no errors
+        if(!(SetFormInfo() ) ) { //if !false then there are no errors
             //continue on, no errors found
             Log.w("Testing", "No Errors");
             //call jeffs code
@@ -114,18 +114,30 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
     }
 
 
-    public boolean SetFormInfo( View v ) {
+    public boolean SetFormInfo(  ) {
         boolean errorCheck = false; //false means no errors.
-        boolean name = setName( v );
-        boolean species = setPetSpecies( v );
 
-        return errorCheck;
+        boolean name = setName();
+        if(name) {
+            return errorCheck = true; //error found
+        }
+
+        boolean species = setPetSpecies();
+        if(species) {
+            return errorCheck = true; //error found
+        }
+
+
+
+        else {
+            return errorCheck;
+        }
     }
 
     //The area below here is for grabbing the info from the view, or saying there is no new info.
-    public boolean setName(View v) {
+    public boolean setName(  ) {
         //get the info from name input
-        EditText nameInput = ( EditText ) findViewById( R.id.PetNameInput );
+        EditText nameInput = findViewById( R.id.PetNameInput );
         String textInput = nameInput.getText().toString();
         if(textInput.equals("")) {//This is an errorCheck, Checks if input is empty.
             if(textInput.equals("null") || textInput.equals("Null") || textInput.equals("NULL"))
@@ -147,7 +159,7 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
-    public boolean setPetSpecies( View v ) {
+    public boolean setPetSpecies(  ) {
         String petSpecies = petOne.getPetSpecies();
         if(petSpecies.equals("Click me to select species.")) {
             //Set PetSpecies ErrorTag visibility to true.
