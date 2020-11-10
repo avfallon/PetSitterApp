@@ -3,6 +3,7 @@ package com.example.petsitterapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,8 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
     private PetObject petOne = new PetObject();
 
 
+    Controller controller;
+
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,10 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
         Spinner spinner = (Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner);
         spinner.setOnItemSelectedListener(this);
 
+        Intent intent  = this.getIntent();
+
+//        controller =  intent.getExtra("controller");
+//        intent.getClass();
 
     }
 
@@ -103,6 +110,8 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
 
             // send the petObject.JSONObject to code
                 JSONObject petInfoForReturn = petOne.getJSON();
+                controller.createNewPet(petInfoForReturn);
+
                 //JEFFS CODE FOR GOING BACKWARDS GOES HERE
                 //JEFFS CODE FOR GOING BACKWARDS GOES HERE
                 //JEFFS CODE FOR GOING BACKWARDS GOES HERE
