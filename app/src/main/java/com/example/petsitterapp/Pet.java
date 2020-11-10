@@ -1,3 +1,5 @@
+package com.example.petsitterapp;
+
 public class Pet {
 		public int petID;
 
@@ -13,6 +15,8 @@ public class Pet {
 		 */
 		public int addPet(String[] info) {
 
+
+			return 0;
 		}
 
 		/**
@@ -22,6 +26,8 @@ public class Pet {
 		 */
 		public String[] getPetInfo(int petID) {
 
+			String[] s = (null);
+			return s;
 		}
 
 		/**
@@ -29,8 +35,10 @@ public class Pet {
 		 * Input: a list of the new values to be put in the DB
 		 * Return: true if the pet row is successfully edited
 		 */
-		public boolean editPet(Stirng[] newInfo) {
+		public boolean editPet(String[] newInfo) {
 
+
+			return false;
 		}
 
 		/**
@@ -40,6 +48,8 @@ public class Pet {
 		 */
 		public boolean deletePet() {
 
+
+			return false;
 		}
 
 

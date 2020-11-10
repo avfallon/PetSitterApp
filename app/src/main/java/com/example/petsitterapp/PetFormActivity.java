@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PetFormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private PetObject petOne = new PetObject();;
+    private PetObject petOne = new PetObject();
 
 
     @Override
@@ -90,7 +90,7 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
     }
 
     //Get the view, go one by one down the form, checking each input for new info, then setting it into the petObject
-    public void submitPetFormInfo( View v ) {
+    public void submitPetFormInfo( View v ) throws JSONException {
         Log.w("Testing", "Inside Method: submitPetFormInfo");
         printPetObject(petOne);
 
@@ -101,9 +101,13 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
             Log.w("Testing", "No Errors");
             //call jeffs code
 
-            // send the petObject to code
-
+            // send the petObject.JSONObject to code
+                JSONObject petInfoForReturn = petOne.getJSON();
+                //JEFFS CODE FOR GOING BACKWARDS GOES HERE
+                //JEFFS CODE FOR GOING BACKWARDS GOES HERE
+                //JEFFS CODE FOR GOING BACKWARDS GOES HERE
             //close activity
+            finish();
         }
 
 
