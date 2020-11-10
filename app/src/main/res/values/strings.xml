@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">PetSitterApp</string>
+
+    <!--PetForm Strings Start-->
+    <!--Label Text-->
+    <string name="String_petFormTitle">Pet Profile</string>
+
+    <string name="String_petForm_PetNameTitle">Pet Name:</string>
+    <string name="String_petForm_PetNameInput">Enter Pet Name HERE</string>
+
+    <string name="String_petForm_PetSpeciesTitle">Pet Species:</string>
+
+
+
+    <!--Error Tags-->
+    <string name="String_ErrorTag_PetName">*Please Enter a Valid Pet Name</string>
+    <string name="String_ErrorTag_PetSpecies">*Please Enter Your Pets Species</string>
+
+
+
+    <!--Button Text-->
+    <string name="SubmitButton">Submit Pet Form</string>
+    <!--PetForm Strings Stop-->
+
 </resources>

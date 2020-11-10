@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="petSpecies_array">
+        <item>Click me to select species.</item>
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Bird</item>
+        <item>Fish</item>
+        <item>Chicken</item>
+        <item>Guinea Pig</item>
+        <item>Ferret</item>
+        <item>Bunny</item>
+        <item>Mouse</item>
+        <item>Rat</item>
+        <item>HedgeHog</item>
+    </string-array>
+</resources>

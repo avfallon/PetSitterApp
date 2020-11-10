@@ -3,4 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="Color_ErrorTag">#FF0000</color>
+    <color name="petFormTitle_color">#75788a</color>
+    <color name="petFormInput_color">#dadce6</color>
 </resources>

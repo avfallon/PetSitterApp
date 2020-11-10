@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    -<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/PetFormTitle"
+        android:text="@string/String_petFormTitle"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="20dp"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+
+        android:textColor="@color/petFormTitle_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_PetName"
+        android:layout_below="@+id/PetFormTitle"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/PetNameTitle"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="@string/String_petForm_PetNameTitle"
+            android:textColor="@color/petFormTitle_color"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="5dp"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="start"
+            />
+
+        <EditText
+            android:id="@+id/PetNameInput"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/PetNameTitle"
+            android:background="@color/petFormInput_color"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+
+            android:paddingHorizontal="10dp"
+            android:hint="@string/String_petForm_PetNameInput"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayout_PetForm_PetName"
+        >
+
+        <!--Error Tag FOR Pet Name-->
+        <TextView
+            android:id="@+id/ErrorTag_PetName"
+            android:visibility = "invisible"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/String_ErrorTag_PetName"
+            android:textColor="@color/Color_ErrorTag"
+            />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_Species"
+        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetName"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/PetSpeciesTitle"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="@string/String_petForm_PetSpeciesTitle"
+            android:textColor="@color/petFormTitle_color"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="5dp"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="start"
+            />
+
+        <Spinner
+            android:id="@+id/PetForm_PetSpeciesSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+
+            android:layout_toRightOf="@+id/PetSpeciesTitle"
+            android:layout_toEndOf="@+id/PetSpeciesTitle"
+
+            android:background="@color/petFormInput_color"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayout_PetForm_Species"
+        >
+
+        <!--Error Tag FOR Pet Name-->
+        <TextView
+            android:id="@+id/ErrorTag_PetSpecies"
+            android:visibility = "invisible"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/String_ErrorTag_PetSpecies"
+            android:textColor="@color/Color_ErrorTag"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_SubmitButton"
+        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetSpecies"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/PetForm_SubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/SubmitButton"
+
+            android:onClick = "submitPetFormInfo"
+            />
+    </RelativeLayout>
+
+    -</RelativeLayout>
+</ScrollView>
