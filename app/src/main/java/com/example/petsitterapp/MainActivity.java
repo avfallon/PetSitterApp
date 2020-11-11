@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static JSONObject petInfoReturned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Log.w("Testing","---This Is The Start Of The Test!!!---");
-        TestPetApp();
-        Log.w("Testing","---This Is The End Of The Test!!!---");
+        //TestPetApp();
+
 
         //Current Testing results, shows what will be send through intent using PutExtra for both.
         //These messeges below show the CONNECTIONS between this activity(Psuedo Owner) &
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
          */
     }
 
-    public void TestPetApp() {
+    public void TestPetApp( View v ) {
+        Log.w("Testing", "Inside TestPetApp");
         //Testing PetformRoutes, newPet and editPet
         JSONObject PetChoiceNew  =  new JSONObject();
         JSONObject PetChoiceEdit  =  new JSONObject();
@@ -71,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
             //This is for Making an activity for a new pet.
         //JSONObject result = goToPetFormActivity_CreateNewPet(PetChoiceNew);
             //This is for Making an activity for editing a pet.
-        JSONObject result = goToPetFormActivity_CreateNewPet(PetChoiceEdit);
-        Log.w("Testing", "The returned JSON Object is: " + result);
+        goToPetFormActivity_CreateNewPet(PetChoiceEdit);
+       //Log.w("Testing", "The returned JSON Object is: " + result);
 
     }
 
@@ -93,17 +95,25 @@ public class MainActivity extends AppCompatActivity {
         return petHolder;
     }
 
-    public JSONObject goToPetFormActivity_CreateNewPet(JSONObject PetChoice) {
+    //public JSONObject goToPetFormActivity_CreateNewPet(JSONObject PetChoice) {
+    public void goToPetFormActivity_CreateNewPet(JSONObject PetChoice) {
         Log.w("Testing","This is what will be sent to petForm Acitivty: " + PetChoice.toString());
 
         // Create an Intent to go to DataActivity
-        //  Intent intent = new Intent(this, PetFormActivity.class);
-        //  intent.putExtra("Json_NewOrEdit", PetChoice.toString());
+        Intent intent = new Intent(this, PetFormActivity.class);
+        intent.putExtra("Json_NewOrEdit", PetChoice.toString());
         //start a DataActivity
-        //  startActivity(intent);
+        startActivity(intent);
 
 
-        return PetChoice;
+        //return PetChoice;
+    }
+
+    protected void onResume( ) {
+        super.onResume( );
+        Log.w( "MA", "Inside MainActivity::onResume" );
+        //get the new/updated petInfo
+        Log.w("Testing", "The data returned is: " + petInfoReturned);
     }
 
 

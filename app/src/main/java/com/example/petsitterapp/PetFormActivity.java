@@ -3,6 +3,7 @@ package com.example.petsitterapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,10 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petform);
+        Log.w("Testing","Inside PetFormActivity onCreate.");
+
+        JSONObject transferData = getTransferredPetData();
+
 
         setSpinnerData();
 
@@ -35,7 +40,20 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
+    //Method slowly for taking the petData that was transferred through intent.putExtra,
+        //Takes that data which is received as a String and turns it back into a JSONObject.
+    public JSONObject getTransferredPetData() {
+        Intent intent = this.getIntent();
+        JSONObject transferData = null;
+        try {
+            transferData = new JSONObject(intent.getStringExtra("Json_NewOrEdit"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.w("Testing", "The data collected is: " + transferData);
 
+        return transferData;
+    }
 
     //For Testing petObject
     public void printPetObject( PetObject petOne ) {
@@ -102,10 +120,9 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
             //call jeffs code
 
             // send the petObject.JSONObject to code
-                JSONObject petInfoForReturn = petOne.getJSON();
-                //JEFFS CODE FOR GOING BACKWARDS GOES HERE
-                //JEFFS CODE FOR GOING BACKWARDS GOES HERE
-                //JEFFS CODE FOR GOING BACKWARDS GOES HERE
+            JSONObject petInfoForReturn = petOne.getJSON();
+            Log.w("Testing", "PetOne info, inside submitPetFormInfo, JSON of petOne: " + petOne);
+            MainActivity.petInfoReturned = petInfoForReturn;
             //close activity
             finish();
         }
