@@ -1,10 +1,19 @@
 package com.example.petsitterapp;
 
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 public class Pet {
 		public int petID;
 
-		public Pet(String[] attributeList, String DBName) {
+		public Pet(String[] attributeList) {
 				this.petID = addPet(attributeList);
+				getPetInfo(678);
 				//instantiate SQL database
 		}
 
@@ -27,6 +36,47 @@ public class Pet {
 		public String[] getPetInfo(int petID) {
 
 			String[] s = (null);
+
+			try {
+
+				String[] cmdArr = {"Desktop/Atom1.exe"};
+				Process proc = Runtime.getRuntime().exec(cmdArr);
+
+				proc.waitFor();
+				Log.w("MA", "AHHHHH");
+
+
+				String line;
+
+				BufferedReader error = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+				while ((line = error.readLine()) != null) {
+					System.out.println(line);
+					Log.w("MA", line);
+				}
+				error.close();
+
+				BufferedReader input = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+				while ((line = input.readLine()) != null) {
+					System.out.println(line);
+					Log.w("MA", line);
+
+				}
+
+				input.close();
+
+				OutputStream outputStream = proc.getOutputStream();
+				PrintStream printStream = new PrintStream(outputStream);
+				printStream.println();
+				printStream.flush();
+				printStream.close();
+			}
+			catch(IOException io) {
+				Log.w("MA", "io exception"+io);
+			}
+			catch(InterruptedException ie) {
+				Log.w("MA", "ie exception");
+			}
+
 			return s;
 		}
 
