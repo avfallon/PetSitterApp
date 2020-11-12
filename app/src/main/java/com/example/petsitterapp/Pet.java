@@ -2,6 +2,8 @@ package com.example.petsitterapp;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,11 +12,16 @@ import java.io.PrintStream;
 
 public class Pet {
 		public int petID;
+		public JSONObject petInfo;
 
-		public Pet(String[] attributeList) {
-				this.petID = addPet(attributeList);
-				getPetInfo(678);
-				//instantiate SQL database
+		public Pet(JSONObject petInfo) {
+			this.petInfo = petInfo;
+			this.petID = addPet(petInfo);
+		}
+
+		public Pet(int petID) {
+			this.petID = petID;
+			//TODO call to database to get the information, store it in petInfo
 		}
 
 		/**
@@ -22,9 +29,12 @@ public class Pet {
 		 * Input: a list of values for every field in the Pet table of the DB
 		 * Return: the integer pet ID, primary key for the Pet table
 		 */
-		public int addPet(String[] info) {
+		public int addPet(JSONObject petInfo) {
+			int petID;
+			//TODO Create a new row in the pet table with the petInfo
+			//TODO return the created petID
 
-
+			//return petID;
 			return 0;
 		}
 
@@ -33,7 +43,7 @@ public class Pet {
 		 * Input: the primary key ID of the pet
 		 * Return: A list of the pet's information, or null if the pet cannot be found
 		 */
-		public String[] getPetInfo(int petID) {
+		public String[] getPetInfo() {
 
 			String[] s = (null);
 
@@ -83,12 +93,14 @@ public class Pet {
 		/**
 		 * Purpose: edit the information of an existing pet in the DB
 		 * Input: a list of the new values to be put in the DB
-		 * Return: true if the pet row is successfully edited
+		 * Return: true if the pet row is successfully found and edited
 		 */
-		public boolean editPet(String[] newInfo) {
+		public boolean editPet(JSONObject newInfo) {
+			this.petInfo = newInfo;
+			//TODO command to change the row of the pet database,
+			// returns false if the given pet cannot be found
 
-
-			return false;
+			return true;
 		}
 
 		/**
@@ -97,7 +109,8 @@ public class Pet {
 		 * Return: true if the pet was successfully deleted, false if pet is not found
 		 */
 		public boolean deletePet() {
-
+			//TODO command to delete this pet's row from the database
+			// returns false if the pet cannot be found in the database
 
 			return false;
 		}
