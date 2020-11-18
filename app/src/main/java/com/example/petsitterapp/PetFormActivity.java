@@ -23,10 +23,12 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
+        Log.w("MA", "PetFormView");
         setContentView(R.layout.activity_petform);
         Log.w("Testing","Inside PetFormActivity onCreate.");
 
         JSONObject transferData = getTransferredPetData();
+        Log.w("MA", "PetForm");
 
 
         setSpinnerData();

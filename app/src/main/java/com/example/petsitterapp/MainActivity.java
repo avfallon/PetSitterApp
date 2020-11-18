@@ -16,7 +16,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_petform);
+
+        String[] tester = {"one", "two"};
+//        Pet testPet = new Pet(tester);
 
         Log.w("Testing","---This Is The Start Of The Test!!!---");
         //TestPetApp();

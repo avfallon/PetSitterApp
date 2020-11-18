@@ -26,6 +26,7 @@ public class Controller extends Activity {
 //        context = context;
 //        pet = new Pet();
 //        String dataBase = dataB;
+        Log.w("MA", "Controller");
         view = v;
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences( context );
   //      startFirstScreen();
