@@ -11,15 +11,19 @@
     <string name="String_petForm_PetSpeciesTitle">Pet Species:</string>
 
 
-
     <!--Error Tags-->
     <string name="String_ErrorTag_PetName">*Please Enter a Valid Pet Name</string>
     <string name="String_ErrorTag_PetSpecies">*Please Enter Your Pets Species</string>
 
 
-
     <!--Button Text-->
     <string name="SubmitButton">Submit Pet Form</string>
     <!--PetForm Strings Stop-->
+
+    <!-- All Pets Strings -->
+    <string name="allPetsTitle">Your Pets</string>
+    <string name="newPetBtn">Add Pet</string>
+    <string name="newJobBtn">New Sitting Job</string>
+
 
 </resources>

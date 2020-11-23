@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:id="@+id/parentLayout"
+android:orientation="vertical"
+tools:context=".MyController">
+
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/newJobBtn"
+            />
+
+        <TextView
+            android:id="@+id/allPetsTitle"
+            android:text="@string/allPetsTitle"
+            android:textSize="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+
+            android:textColor="@color/petFormTitle_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/newPetBtn"
+            android:onClick="addPetView"
+            />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/petList"
+        android:dividerHeight="5dp"
+        />
+
+</LinearLayout>

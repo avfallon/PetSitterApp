@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,6 +33,17 @@ public class MyController extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void allPetsView(View v){
+        setContentView(R.layout.all_pets_view);
+        String[] pets = {"Johnny   -   German Shepherd", "Rick        -   Fish", "Benny     -   Siamese"};
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.simple_pet_view, R.id.listText, pets);
+
+        ListView listView = (ListView) findViewById(R.id.petList);
+        listView.setAdapter(adapter);
+    }
+
 
     public void editPetView(View v) {
         Intent intent = new Intent(this, PetFormActivity.class);
