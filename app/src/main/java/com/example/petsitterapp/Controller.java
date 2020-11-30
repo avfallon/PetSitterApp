@@ -1,18 +1,23 @@
 package com.example.petsitterapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Parcelable;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Controller extends Activity {
 
@@ -29,6 +34,7 @@ public class Controller extends Activity {
         Log.w("MA", "Controller");
         view = v;
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences( context );
+        getJSON("http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php");
   //      startFirstScreen();
     }
 
@@ -117,7 +123,7 @@ public class Controller extends Activity {
      * Get the information about a specific pet
      * @param petID The petID to search for
      */
-    public void retrievePetInfo( String petID )
+    public void retrievePetInfo( String petID ) throws JSONException
     {
 
 
@@ -125,6 +131,61 @@ public class Controller extends Activity {
 
     }
 
+    private void getJSON(final String urlWebService) {
+
+        class GetJSON extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                try {
+                    loadIntoListView(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(urlWebService);
+
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+                    System.out.println(sb.toString().trim());
+                    return sb.toString().trim();
+                } catch (Exception e) {
+                    return null;
+                }
+
+            }
+        }
+        GetJSON getJSON = new GetJSON();
+        getJSON.execute();
+    }
+
+    private void loadIntoListView(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        System.out.println(jsonArray.toString());
+        String[] pets = new String[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+            pets[i] = obj.getString("name");
+            System.out.println("name");
+        }
+
+    }
 
 
 
