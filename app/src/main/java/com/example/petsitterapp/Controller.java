@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,11 +29,39 @@ public class Controller extends AppCompatActivity {
         Log.w("Testing", "Inside PetFormActivity onCreate.");
     }
 
+    /**
+     * This method is called when the user presses the Login button
+     * It checks if their login credentials are correct,
+     * @param v
+     */
     public void login(View v) {
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-        model.authenticateUser(username, password);
+        boolean accountExists = model.authenticateUser(username, password);
+        if(accountExists) {
+            allPetsView();
+            ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
+        }
+        else {
+            ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * This method is called when the user hits the "create account" button on the login page
+     * it switches to the general "create account" activity
+     * @param v - the login view that the method is called from
+     */
+    public void createAccount(View v) {
+        setContentView(R.layout.activity_create_account);
+    }
+
+    /**
+     * This method is called when the user clicks the "Save" button on the account creation page
+     * @param v - the Create Account view that the method is called from
+     */
+    public void saveNewAccount(View v) {
         allPetsView();
     }
 

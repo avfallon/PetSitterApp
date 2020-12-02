@@ -25,5 +25,15 @@
     <string name="newPetBtn">Add Pet</string>
     <string name="newJobBtn">New Sitting Job</string>
 
+    <!-- Login Strings   -->
+    <string name="loginError">Incorrect Username or Password</string>
+    <string name="usernameLabel">Username/Email</string>
+    <string name="passwordLabel">Password</string>
+    <string name="createAccountQuestion">Don\'t have an account yet?</string>
+    <string name="createAccountBtn">Create Account</string>
+
+    <!-- Create Account Strings   -->
+    <string name="saveNewAccount">Save</string>
+
 
 </resources>

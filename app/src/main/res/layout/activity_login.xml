@@ -11,8 +11,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:textSize="15dp"
+        android:visibility="invisible"
+        android:textColor="@color/errorRed"
+        android:text="@string/loginError"
+        android:id="@+id/loginError"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@id/username"
-        android:text="Username"
+        android:layout_below="@id/loginError"
+        android:text="@string/usernameLabel"
         android:id="@+id/userLabel"
         />
 
@@ -31,7 +44,7 @@
         android:layout_below="@id/username"
         android:layout_alignLeft="@id/password"
         android:id="@+id/passwordLabel"
-        android:text="Password"
+        android:text="@string/passwordLabel"
         />
 
     <EditText
@@ -44,7 +57,7 @@
         />
 
     <Button
-        android:id="@+id/MainActivity_TestingButton"
+        android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
@@ -52,6 +65,27 @@
         android:text="Login"
 
         android:onClick = "login"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/createAccountQuestion"
+        android:id="@+id/createAccountQuestion"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@id/createAccountQuestion"
+        android:layout_centerHorizontal="true"
+        android:text="@string/createAccountBtn"
+        android:textSize="10dp"
+        android:id="@+id/createAccountBtn"
+        android:onClick="createAccount"
         />
 
 </RelativeLayout>

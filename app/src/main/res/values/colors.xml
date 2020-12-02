@@ -6,4 +6,5 @@
     <color name="Color_ErrorTag">#FF0000</color>
     <color name="petFormTitle_color">#75788a</color>
     <color name="petFormInput_color">#dadce6</color>
+    <color name="errorRed">#FF0000</color>
 </resources>
