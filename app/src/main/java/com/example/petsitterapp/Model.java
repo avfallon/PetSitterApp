@@ -23,6 +23,7 @@ public class Model {
     public Owner user;
 
     public Model() {
+        getJSON();
     }
 
     /**

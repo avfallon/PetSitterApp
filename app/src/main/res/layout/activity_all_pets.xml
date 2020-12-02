@@ -44,7 +44,7 @@ tools:context=".Controller">
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/newPetBtn"
-            android:onClick="addPetView"
+            android:onClick="addPetForm"
             />
     </LinearLayout>
 

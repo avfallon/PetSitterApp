@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 public class Controller extends AppCompatActivity {
     Model model;
@@ -24,7 +23,6 @@ public class Controller extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         model = new Model();
 
-        //getJSON("http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php");
         setContentView(R.layout.activity_login);
         Log.w("Testing", "Inside PetFormActivity onCreate.");
     }
@@ -40,8 +38,8 @@ public class Controller extends AppCompatActivity {
 
         boolean accountExists = model.authenticateUser(username, password);
         if(accountExists) {
-            allPetsView();
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
+            allPetsActivity();
         }
         else {
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
@@ -62,7 +60,8 @@ public class Controller extends AppCompatActivity {
      * @param v - the Create Account view that the method is called from
      */
     public void saveNewAccount(View v) {
-        allPetsView();
+        // Do some stuff in the model to save the account info
+        allPetsActivity();
     }
 
 
@@ -71,7 +70,7 @@ public class Controller extends AppCompatActivity {
      *
      * @param v - the view that this method is triggered from (activity_all_pets)
      */
-    public void addPetView(View v) {
+    public void addPetForm(View v) {
         Intent intent = new Intent(this, PetFormActivity.class);
         intent.putExtra("Json_NewOrEdit", "New");
 
@@ -83,7 +82,7 @@ public class Controller extends AppCompatActivity {
      *
      * @param v - the view that this method is triggered from (single pet view)
      */
-    public void editPetView(View v) {
+    public void editPetForm(View v) {
         Intent intent = new Intent(this, PetFormActivity.class);
         intent.putExtra("Json_NewOrEdit", "Edit");
 
@@ -91,9 +90,9 @@ public class Controller extends AppCompatActivity {
     }
 
     /**
-     * This method switches to the All pets screen and fills the listview on that screen with all pets
+     * This method switches to the All pets activity and fills the listview on that screen with all pets
      */
-    public void allPetsView() {
+    public void allPetsActivity() {
         setContentView(R.layout.activity_all_pets);
 //        String[] pets = model.user.getPets();
         String[] pets = {"sdf", "sdfgdfgdf"};
