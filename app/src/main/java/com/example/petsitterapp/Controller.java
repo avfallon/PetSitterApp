@@ -1,136 +1,135 @@
 package com.example.petsitterapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 
-import org.json.JSONArray;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
 
-public class Controller extends Activity {
+public class Controller extends AppCompatActivity {
+    Model model;
 
-//    Pet pet;
-    public int view;
-    public static String dataBase;
-//    Context context;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = new Model();
 
-    public Controller( int v , Context context )
-    {
-//        context = context;
-//        pet = new Pet();
-//        String dataBase = dataB;
-        Log.w("MA", "Controller");
-        view = v;
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences( context );
-        getJSON("http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php");
-  //      startFirstScreen();
+        //getJSON("http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php");
+        setContentView(R.layout.activity_login);
+        Log.w("Testing", "Inside PetFormActivity onCreate.");
+    }
+
+    public void login(View v) {
+        String username = ((EditText)findViewById(R.id.username)).getText().toString();
+        String password = ((EditText)findViewById(R.id.password)).getText().toString();
+
+        model.authenticateUser(username, password);
+        allPetsView();
+    }
+
+
+    /**
+     * Switches to the activity of that "add pet" screen (PetFormActivity)
+     *
+     * @param v - the view that this method is triggered from (activity_all_pets)
+     */
+    public void addPetView(View v) {
+        Intent intent = new Intent(this, PetFormActivity.class);
+        intent.putExtra("Json_NewOrEdit", "New");
+
+        startActivity(intent);
     }
 
     /**
-     * Makes the initial screen when the app is first opened
+     * Switched to the "add pet" activity, but with an edit flag
+     *
+     * @param v - the view that this method is triggered from (single pet view)
      */
-    public static void startFirstScreen(Context context)
-    {
+    public void editPetView(View v) {
+        Intent intent = new Intent(this, PetFormActivity.class);
+        intent.putExtra("Json_NewOrEdit", "Edit");
 
-        Intent intent = new Intent(context, PetFormActivity.class);
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.putExtra("context" , Controller.class);
-
-        context.startActivity(intent);
-//        intent.put
-//        intent.putExtra("emptyPet" , new Pet())
-//        startActivity(intent);
+        startActivity(intent);
     }
 
     /**
-     * Retrieve a message from the View in order to do specified work
-     * @param msg The message being sent to the Controller
-     * @return A string to let the View know it got the message
+     * This method switches to the All pets screen and fills the listview on that screen with all pets
      */
-//    public String getMessage(String msg)
-//    {
-//        if (msg == "EDIT")
-//        {
-//
-//        }
-//        else if( msg == "NEW")
-//        {
-//
-//        }
-//    }
+    public void allPetsView() {
+        setContentView(R.layout.activity_all_pets);
+//        String[] pets = model.user.getPets();
+        String[] pets = {"sdf", "sdfgdfgdf"};
 
-    /**
-     * Send a message to the view to update
-     * @param v The current view
-     */
-    public void notifyView(View v)
-    {
 
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
+
+        ListView listView = (ListView) findViewById(R.id.petList);
+        listView.setAdapter(adapter);
     }
 
     /**
-     * Update a pet's information
-     * @param v
+     * Method called when a user has entered a new pet's information, this saves it in the model
+     *
+     * @param petInfo
      */
-    public void updatePet(View v)
-    {
-        //Get information from view
+    public void addPet(JSONObject petInfo) throws JSONException {
+        model.addPet(petInfo);
 
-
-        //get the model being referenced
-
-        //update the
+        setContentView(R.layout.activity_login);
     }
 
     /**
-     * Changes the current screen
-     * @param newV The view to change to
+     * This method edits an existing pet row in the pet database
+     *
+     * @param newPetInfo - the updated information of an existing pet
      */
-    public void changeScreen(View newV) {
+    public void editPet(JSONObject newPetInfo) throws JSONException {
+        model.editPet(newPetInfo);
 
-
-
-//        Intent intent = new Intent( this,  );
-//        startActivity( intent );
+        setContentView(R.layout.activity_login);
     }
 
     /**
-     * Tells the Pet model to create a new pet to be inserted into the database
-     * @param newPet The information about the new pet to be added
+     * This method deletes a pet object from the pet database and removes it from an owner's pet map
+     *
+     * @param petID - the ID of the pet to be deleted
      */
-    public void createNewPet(JSONObject newPet)
-    {
-        Log.w("Testing", "Inside createNewPet " );
-
-//        Pet newPet = new Pet(newPet , dataBase);
-
+    public void deletePet(int petID) {
+        model.deletePet(petID);
     }
 
     /**
-     * Get the information about a specific pet
-     * @param petID The petID to search for
+     * This method attempts to log into a user account
+     *
+     * @param username - the username entered by the user
+     * @param password - the password entered by the user
      */
-    public void retrievePetInfo( String petID ) throws JSONException
-    {
-
-
-//        pet.getPetInfo(petID);
-
+    public void login(String username, String password) {
+        model.authenticateUser(username, password);
     }
 
+
+
+
+
+
+
+
+
+
+    // I moved everything below to Model, im just not deleting it in case I broke something while moving it
+
+
+    /*
     private void getJSON(final String urlWebService) {
 
         class GetJSON extends AsyncTask<Void, Void, String> {
@@ -188,5 +187,5 @@ public class Controller extends Activity {
     }
 
 
-
+ */
 }

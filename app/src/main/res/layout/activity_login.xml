@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".MyController">
+    tools:context=".Controller">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/userEdit"
+        android:layout_alignLeft="@id/username"
         android:text="Username"
         android:id="@+id/userLabel"
         />
@@ -22,14 +22,14 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/userLabel"
         android:inputType="text"
-        android:id="@+id/userEdit"
+        android:id="@+id/username"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userEdit"
-        android:layout_alignLeft="@id/passwordEdit"
+        android:layout_below="@id/username"
+        android:layout_alignLeft="@id/password"
         android:id="@+id/passwordLabel"
         android:text="Password"
         />
@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/passwordLabel"
         android:inputType="text"
-        android:id="@+id/passwordEdit"
+        android:id="@+id/password"
         />
 
     <Button
@@ -48,10 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/passwordEdit"
+        android:layout_below="@id/password"
         android:text="Login"
 
-        android:onClick = "allPetsView"
+        android:onClick = "login"
         />
 
 </RelativeLayout>
