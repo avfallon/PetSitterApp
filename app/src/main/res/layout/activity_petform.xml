@@ -239,6 +239,12 @@
     </RelativeLayout>
 
 
+
+
+
+
+
+
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetTemperament"
         android:layout_width="wrap_content"
@@ -266,10 +272,76 @@
 
 
 
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_PetBreed"
+        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetTemperament"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/PetBreedTitle"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="@string/String_petForm_PetBreedTitle"
+            android:textColor="@color/petFormTitle_color"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="5dp"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="start"
+            />
+
+        <EditText
+            android:id="@+id/PetBreedInput"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/PetBreedTitle"
+            android:background="@color/petFormInput_color"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+
+            android:paddingHorizontal="10dp"
+            android:hint="@string/String_petForm_PetBreedInput"
+            android:maxLength="@string/PetBreed_CharLimit"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetBreed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayout_PetForm_PetBreed"
+        >
+
+        <!--Error Tag FOR Pet Name-->
+        <TextView
+            android:id="@+id/ErrorTag_PetBreed"
+            android:visibility = "invisible"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/String_ErrorTag_PetBreed"
+            android:textColor="@color/Color_ErrorTag"
+            />
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
 
     <RelativeLayout
             android:id="@+id/RelativeLayout_PetForm_SubmitButton"
-            android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetTemperament"
+            android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetBreed"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
