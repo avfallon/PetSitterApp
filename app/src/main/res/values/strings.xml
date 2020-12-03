@@ -21,6 +21,9 @@
     <string name="String_petForm_PetAgeTitle">Pet Age:</string>
     <string name="String_petForm_PetAgeInput">Enter Pet Age HERE</string>
 
+    <string name="String_petForm_PetDietTitle">Pet Diet:</string>
+    <string name="String_petForm_PetDietInput">Enter Pet Diet HERE</string>
+
     <!--Varchar Limits for PetForm-->
     <string name="PetName_CharLimit">80</string>
     <string name="PetSpecies_CharLimit">180</string>
@@ -39,6 +42,7 @@
     <string name="String_ErrorTag_PetTemperament">*Please Choose Your Pets Temperament</string>
     <string name="String_ErrorTag_PetBreed">*Please Enter Your Pets Breed</string>
     <string name="String_ErrorTag_PetAge">*Please Enter Your Pets Age</string>
+    <string name="String_ErrorTag_PetDiet">*What/how sitter should feet your pet</string>
 
 
     <!--Button Text-->
