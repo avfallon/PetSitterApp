@@ -29,7 +29,6 @@
 
     <string name="String_petForm_PetExtraInfoTitle">Pet Extra Info:</string>
     <string name="String_petForm_PetExtraInfoInput">Enter Extra Pet Info HERE</string>
-
     <!--Varchar Limits for PetForm-->
     <string name="PetName_CharLimit">80</string>
     <string name="PetSpecies_CharLimit">180</string>
@@ -40,7 +39,6 @@
     <string name="PetDiet_CharLimit">480</string>
     <string name="PetHealthIssues_CharLimit">480</string>
     <string name="PetExtraInfo_CharLimit">480</string>
-
     <!--Error Tags-->
     <string name="String_ErrorTag_PetName">*Please Enter a Valid Pet Name, less then 80 characters</string>
     <string name="String_ErrorTag_PetSpecies">*Please Choose Your Pets Species</string>
@@ -51,11 +49,28 @@
     <string name="String_ErrorTag_PetDiet">*What/how sitter should feed your pet, where the food is, etc.</string>
     <string name="String_ErrorTag_PetHealthIssues">*Enter Your Pets Health Issues, such as medication that the sitter will need to give to pet and where to find it in the house.</string>
     <string name="String_ErrorTag_PetExtraInfo">*Enter Any Extra Info About Your Pet That The Sitter Should Need To Know.</string>
-
-
     <!--Button Text-->
     <string name="SubmitButton">Submit Pet Form</string>
-    <!--PetForm Strings Stop-->
+    <!--PetForm Strings End-->
+    <!--Label Text-->
+
+    <!--Varchar Limits for PetForm-->
+
+    <!--Error Tags-->
+
+    <!--Button Text-->
+    <string name="CreateAccountButton">Create Account</string>
+    <!--CreatAccount Strings Start-->
+
+
+
+
+
+
+    <!--CreatAccount Strings End-->
+
+
+
 
     <!-- All Pets Strings -->
     <string name="allPetsTitle">Your Pets</string>
