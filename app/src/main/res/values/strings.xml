@@ -52,21 +52,57 @@
     <!--Button Text-->
     <string name="SubmitButton">Submit Pet Form</string>
     <!--PetForm Strings End-->
+
+
+
+    <!--CreateAccount Strings Start-->
     <!--Label Text-->
+    <string name="String_CreateAccountTitle">Account Creation Page</string>
 
-    <!--Varchar Limits for PetForm-->
+    <string name="String_AccountCreation_FirstName_Title">First Name:</string>
+    <string name="String_AccountCreation_FirstName_Hint">Enter Your First Name HERE</string>
 
+    <string name="String_AccountCreation_LastName_Title">Last Name:</string>
+    <string name="String_AccountCreation_LastName_Hint">Enter Your Last Name HERE</string>
+
+    <string name="String_AccountCreation_Address_Title">Address:</string>
+    <string name="String_AccountCreation_Address_Hint">Enter Your Address HERE</string>
+
+    <string name="String_AccountCreation_PhoneNumber_Title">Phone #:</string>
+
+    <string name="String_AccountCreation_Email_Title">Email:</string>
+    <string name="String_AccountCreation_Email_Hint">Enter Your Email HERE</string>
+
+    <string name="String_AccountCreation_TypeOfAccount_Title">Account Type:</string>
+
+    <string name="String_AccountCreation_Password_Title">Password:</string>
+    <string name="String_AccountCreation_Password_Hint">Enter Your Password HERE</string>
+    <!--Radio Button Options-->
+    <string name="RadioButton_Owner">Owner Account</string>
+    <string name="RadioButton_Sitter">Sitter Account</string>
+    <string name="RadioButton_Both">Both</string>
+
+
+
+    <!--Varchar Limits for AccountCreation-->
+    <string name="FirstName_CharLimit"    >90</string>
+    <string name="LastName_CharLimit"     >90</string>
+    <string name="Address_CharLimit"      >190</string>
+    <string name="PhoneNumber_CharLimit"  >15</string>
+    <string name="Email_CharLimit"        >280</string>
+    <string name="TypeOfAccount_CharLimit">20</string>
+    <string name="Password_CharLimit"     >180</string>
     <!--Error Tags-->
-
+    <string name="_">*__</string>
+    <string name="ErrorTag_FirstName"    >*Input Your First Name</string>
+    <string name="ErrorTag_LastName"     >*Input Your Last Name</string>
+    <string name="ErrorTag_Address"      >*Input Your Address</string>
+    <string name="ErrorTag_PhoneNumber"  >*Input Your Phone Number</string>
+    <string name="ErrorTag_Email"        >*Input Your Email</string>
+    <string name="ErrorTag_TypeOfAccount">*Choose What Type Of Account You Would Like (Can be added onto later)</string>
+    <string name="ErrorTag_Password"     >*Input Password</string>
     <!--Button Text-->
     <string name="CreateAccountButton">Create Account</string>
-    <!--CreatAccount Strings Start-->
-
-
-
-
-
-
     <!--CreatAccount Strings End-->
 
 
@@ -83,9 +119,5 @@
     <string name="passwordLabel">Password</string>
     <string name="createAccountQuestion">Don\'t have an account yet?</string>
     <string name="createAccountBtn">Create Account</string>
-
-    <!-- Create Account Strings   -->
-    <string name="saveNewAccount">Save</string>
-
 
 </resources>

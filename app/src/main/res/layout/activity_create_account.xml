@@ -1,27 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    >
 
-    <TextView
-        android:layout_width="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="First Name"
-        android:id="@+id/firstName"
-        />
+        android:orientation="horizontal"
+        tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/firstName"
-        android:layout_centerHorizontal="true"
-        android:text="@string/saveNewAccount"
-        android:id="@+id/saveNewAccount"
-        android:onClick="saveNewAccount"
-        />
+        <TextView
+            android:id="@+id/CreateAccountTitle"
+            android:text="@string/String_CreateAccountTitle"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="20dp"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/petFormTitle_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_FirstName_Title"
+            android:layout_below="@+id/CreateAccountTitle"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/FirstNameTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="@string/String_AccountCreation_FirstName_Title"
+                android:textColor="@color/petFormTitle_color"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/FirstNameInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/FirstNameTitle"
+                android:background="@color/petFormInput_color"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@string/String_AccountCreation_FirstName_Hint"
+                android:maxLength="@string/FirstName_CharLimit"
+                android:inputType="text"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ErrorTag_FirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_FirstName_Title"
+            >
+            <!--Error Tag FOR Pet Name-->
+            <TextView
+                android:id="@+id/ErrorTag_FirstName"
+                android:visibility = "invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/ErrorTag_FirstName"
+                android:textColor="@color/Color_ErrorTag"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_LastName_Title"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_FirstName_Title"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/LastNameTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="@string/String_AccountCreation_LastName_Title"
+                android:textColor="@color/petFormTitle_color"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/LastNameInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/LastNameTitle"
+                android:background="@color/petFormInput_color"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@string/String_AccountCreation_LastName_Hint"
+                android:maxLength="@string/LastName_CharLimit"
+                android:inputType="text"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ErrorTag_LastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_LastName_Title"
+            >
+            <!--Error Tag FOR Pet Name-->
+            <TextView
+                android:id="@+id/ErrorTag_LastName"
+                android:visibility = "invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/ErrorTag_LastName"
+                android:textColor="@color/Color_ErrorTag"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_Address_Title"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_LastName_Title"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/AddressTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="@string/String_AccountCreation_Address_Title"
+                android:textColor="@color/petFormTitle_color"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/AddressInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/AddressTitle"
+                android:background="@color/petFormInput_color"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@string/String_AccountCreation_Address_Hint"
+                android:maxLength="@string/Address_CharLimit"
+                android:inputType="text"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ErrorTag_Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_Address_Title"
+            >
+            <!--Error Tag FOR Pet Name-->
+            <TextView
+                android:id="@+id/ErrorTag_Address"
+                android:visibility = "invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/ErrorTag_Address"
+                android:textColor="@color/Color_ErrorTag"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_Email_Title"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_Address_Title"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/EmailTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="@string/String_AccountCreation_Email_Title"
+                android:textColor="@color/petFormTitle_color"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/EmailInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/EmailTitle"
+                android:background="@color/petFormInput_color"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@string/String_AccountCreation_Email_Hint"
+                android:maxLength="@string/Email_CharLimit"
+                android:inputType="text"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ErrorTag_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_Email_Title"
+            >
+            <!--Error Tag FOR Pet Name-->
+            <TextView
+                android:id="@+id/ErrorTag_Email"
+                android:visibility = "invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/ErrorTag_Email"
+                android:textColor="@color/Color_ErrorTag"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_Password_Title"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_Email_Title"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/PasswordTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="@string/String_AccountCreation_Password_Title"
+                android:textColor="@color/petFormTitle_color"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/PasswordInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/PasswordTitle"
+                android:background="@color/petFormInput_color"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@string/String_AccountCreation_Password_Hint"
+                android:maxLength="@string/Password_CharLimit"
+                android:inputType="textPassword"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ErrorTag_Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_Password_Title"
+            >
+            <!--Error Tag FOR Pet Name-->
+            <TextView
+                android:id="@+id/ErrorTag_Password"
+                android:visibility = "invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/ErrorTag_Password"
+                android:textColor="@color/Color_ErrorTag"
+                />
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreation_SubmitButton"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_ErrorTag_Password"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:id="@+id/PetForm_SubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/CreateAccountButton"
+
+                android:onClick = "saveNewAccount"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
