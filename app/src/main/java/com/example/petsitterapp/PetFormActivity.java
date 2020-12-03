@@ -70,14 +70,26 @@ public class PetFormActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void setSpinnerData(  ) {
-        Spinner spinner = (Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner);
+
+        //SET PETSPECIES SPINNER
+        Spinner spinner_species = (Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter_species = ArrayAdapter.createFromResource(this,
                 R.array.petSpecies_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter_species.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        spinner_species.setAdapter(adapter_species);
+
+        //SET PETSIZE SPINNER
+        Spinner spinner_size = (Spinner) findViewById(R.id.PetForm_PetSizeSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_size = ArrayAdapter.createFromResource(this,
+                R.array.petSize_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_size.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_size.setAdapter(adapter_size);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,

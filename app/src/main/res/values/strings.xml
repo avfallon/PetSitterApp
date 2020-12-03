@@ -10,11 +10,28 @@
 
     <string name="String_petForm_PetSpeciesTitle">Pet Species:</string>
 
+    <string name="String_petForm_PetSizeTitle">Pet Size:</string>
+
+    String_petForm_PetTemperamentInput
+    <string name="String_petForm_PetTemperamentTitle">Temperament:</string>
+    <string name="String_petForm_PetTemperamentInput">Enter Pet Temperament HERE</string>
+
+    <!--Varchar Limits for PetForm-->
+    <string name="PetName_CharLimit">80</string>
+    <string name="PetSpecies_CharLimit">180</string>
+    <string name="PetSize_CharLimit">45</string>
+    <string name="PetTemperament_CharLimit">80</string>
+    <string name="PetBreed_CharLimit">180</string>
+    <string name="PetAge_CharLimit">40</string>
+    <string name="PetDiet_CharLimit">480</string>
+    <string name="PetHealthIssues_CharLimit">480</string>
+    <string name="PetExtraInfo_CharLimit">480</string>
 
     <!--Error Tags-->
-    <string name="String_ErrorTag_PetName">*Please Enter a Valid Pet Name</string>
-    <string name="String_ErrorTag_PetSpecies">*Please Enter Your Pets Species</string>
-
+    <string name="String_ErrorTag_PetName">*Please Enter a Valid Pet Name, less then 80 characters</string>
+    <string name="String_ErrorTag_PetSpecies">*Please Choose Your Pets Species</string>
+    <string name="String_ErrorTag_PetSize">*Please Choose Your Pets Size</string>
+    <string name="String_ErrorTag_PetTemperament">*Please Choose Your Pets Size</string>
 
     <!--Button Text-->
     <string name="SubmitButton">Submit Pet Form</string>
