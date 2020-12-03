@@ -24,6 +24,12 @@
     <string name="String_petForm_PetDietTitle">Pet Diet:</string>
     <string name="String_petForm_PetDietInput">Enter Pet Diet HERE</string>
 
+    <string name="String_petForm_PetHealthIssuesTitle">Pet Health Issues:</string>
+    <string name="String_petForm_PetHealthIssuesInput">Enter Pet Health Issues HERE</string>
+
+    <string name="String_petForm_PetExtraInfoTitle">Pet Extra Info:</string>
+    <string name="String_petForm_PetExtraInfoInput">Enter Extra Pet Info HERE</string>
+
     <!--Varchar Limits for PetForm-->
     <string name="PetName_CharLimit">80</string>
     <string name="PetSpecies_CharLimit">180</string>
@@ -42,7 +48,9 @@
     <string name="String_ErrorTag_PetTemperament">*Please Choose Your Pets Temperament</string>
     <string name="String_ErrorTag_PetBreed">*Please Enter Your Pets Breed</string>
     <string name="String_ErrorTag_PetAge">*Please Enter Your Pets Age</string>
-    <string name="String_ErrorTag_PetDiet">*What/how sitter should feet your pet</string>
+    <string name="String_ErrorTag_PetDiet">*What/how sitter should feed your pet, where the food is, etc.</string>
+    <string name="String_ErrorTag_PetHealthIssues">*Enter Your Pets Health Issues, such as medication that the sitter will need to give to pet and where to find it in the house.</string>
+    <string name="String_ErrorTag_PetExtraInfo">*Enter Any Extra Info About Your Pet That The Sitter Should Need To Know.</string>
 
 
     <!--Button Text-->
