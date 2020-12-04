@@ -1,6 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/Heading"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="NEW CARD"/>
+
+    <TextView
+        android:id="@+id/FirstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:minWidth="140dp"
+        android:background="@color/petFormTitle_color"
+        android:text="First Name"
+        android:textSize = "20sp"
+        android:padding = "10dp" />
+
+    <EditText
+        android:id="@+id/FirstNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/FirstNameLabel"
+        android:layout_alignBottom="@+id/FirstNameLabel"
+        android:layout_alignParentRight="true"
+
+        android:inputType="textPersonName"
+        android:hint="First Name"/>
+
+    <TextView
+        android:id="@+id/LastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="140dp"
+
+        android:background="@color/petFormTitle_color"
+        android:text="Last Name"
+        android:textSize = "20sp"
+        android:padding = "10dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/FirstNameLabel"
+        android:layout_alignLeft="@+id/FirstNameLabel"
+        android:layout_alignRight="@+id/FirstNameLabel"/>
+
+
+    <EditText
+        android:id="@+id/LastNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/LastNameLabel"
+        android:layout_alignBottom="@+id/LastNameLabel"
+        android:layout_alignParentRight="true"
+
+        android:inputType="textPersonName"
+        android:hint="Last Name"/>
+
+    <TextView
+        android:id="@+id/card_number_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="140dp"
+
+        android:background="@color/petFormTitle_color"
+        android:text="Card Number"
+        android:textSize = "20sp"
+        android:padding = "10dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/LastNameLabel"
+        android:layout_alignLeft="@+id/LastNameLabel"
+        android:layout_alignRight="@+id/LastNameLabel"/>
+
+
+    <EditText
+        android:id="@+id/card_number_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/card_number_label"
+        android:layout_alignBottom="@+id/card_number_label"
+        android:layout_alignParentRight="true"
+
+        android:inputType="textPersonName"
+        android:hint="Card Number"/>
+
+    <TextView
+        android:id="@+id/expiration_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="120dp"
+
+        android:background="@color/petFormTitle_color"
+        android:text="Exp Date"
+        android:textSize = "20sp"
+        android:padding = "10dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/card_number_label"
+        android:layout_alignLeft="@+id/card_number_label"/>
+
+
+    <EditText
+        android:id="@+id/expiration_month_input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/expiration_label"
+        android:layout_alignBottom="@+id/expiration_label"
+        android:layout_marginLeft="20dp"
+        android:inputType="textPersonName"
+        android:hint="Month"/>
+
+    <EditText
+        android:id="@+id/expiration_year_input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/expiration_month_input"
+        android:layout_alignBottom="@+id/expiration_month_input"
+        android:layout_marginLeft="10dp"
+
+        android:inputType="textPersonName"
+        android:hint="Year"/>
+
+    <TextView
+        android:id="@+id/security_card_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="180dp"
+
+        android:background="@color/petFormTitle_color"
+        android:text="Security Code"
+        android:textSize = "20sp"
+        android:padding = "10dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/expiration_label"
+        android:layout_alignLeft="@+id/LastNameLabel" />
+
+
+    <EditText
+        android:id="@+id/security_card_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/security_card_label"
+        android:layout_alignBottom="@+id/security_card_label"
+        android:layout_alignParentRight="true"
+
+        android:inputType="textPersonName"
+        android:hint="CVC"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/security_card_input"
+        android:layout_alignRight="@id/security_card_input"
+        android:layout_margin="20dp"
+        android:text="SAVE"
+        />
+
+
+</RelativeLayout>
