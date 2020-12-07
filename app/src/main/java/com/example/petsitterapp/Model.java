@@ -19,11 +19,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Model {
-    private String urlWebService = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
+    private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
+    private String ownerQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getOwners.php";
+
+    private JSONArray allPets;
+    private JSONArray allOwners;
+
     public Owner user;
 
     public Model() {
+
         getJSON();
+        getOwnerJSON();
     }
 
     /**
@@ -195,7 +202,7 @@ public class Model {
 
 
     // Class made by Derek that executes call to the database
-    private class GetJSON extends AsyncTask<Void, Void, String> {
+    private class GetPetJSON extends AsyncTask<Void, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -208,7 +215,7 @@ public class Model {
             Log.w("MA", "DB Call execute");
             //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
             try {
-                loadIntoListView(s);
+                loadIntoListViewPets(s);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -218,7 +225,48 @@ public class Model {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL(urlWebService);
+                URL url = new URL(petQuery);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
+    }
+
+    private class GetOwnerJSON extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            try {
+                loadIntoListViewOwners(s);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(ownerQuery);
 
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 StringBuilder sb = new StringBuilder();
@@ -240,8 +288,13 @@ public class Model {
      * Method to call the getJSON object
      */
     private void getJSON() {
-        GetJSON getJSON = new GetJSON();
+        GetPetJSON getJSON = new GetPetJSON();
         getJSON.execute();
+    }
+
+    private void getOwnerJSON() {
+        GetOwnerJSON ownerJSON = new GetOwnerJSON();
+        ownerJSON.execute();
     }
 
     /**
@@ -249,9 +302,22 @@ public class Model {
      * @param json - the raw string of the json to be parsed
      * @throws JSONException
      */
-    private void loadIntoListView(String json) throws JSONException {
+    private void loadIntoListViewPets(String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
         System.out.println(jsonArray.toString());
+        allPets = jsonArray;
+        String[] pets = new String[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+            pets[i] = obj.getString("name");
+            System.out.println("name");
+        }
+    }
+
+    private void loadIntoListViewOwners(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        System.out.println(jsonArray.toString());
+        allOwners = jsonArray;
         String[] pets = new String[jsonArray.length()];
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = jsonArray.getJSONObject(i);
