@@ -106,6 +106,14 @@
     <!--CreatAccount Strings End-->
 
 
+    <!-- Sitter Page Strings -->
+    <string name ="findNewJobBtn">Search Job Listings</string>
+    <string name ="allAcceptedJobsTitle">Accepted Jobs</string>
+    <string name ="jobPrefBtn">Account Job Preferences</string>
+
+    findNewJobBtn
+    allAcceptedJobsTitle
+    jobPrefBtn
 
 
     <!-- All Pets Strings -->

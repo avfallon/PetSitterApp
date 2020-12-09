@@ -24,6 +24,7 @@ tools:context=".Controller">
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/newJobBtn"
+            android:onClick="newSittingJob"
             />
 
         <TextView

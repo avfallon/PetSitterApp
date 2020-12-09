@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="CANCEL"
+            android:onClick="saveNewAccount"
+            />
+
+
+        <TextView
+            android:id="@+id/sitting_job_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "NEW JOB"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:textSize="35dp"
+            />
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize = "20dp"
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_margin="30dp"
+            />
+
+        <EditText
+            android:id="@+id/day_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Day"
+            android:textSize = "20dp"
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/date_label"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:id="@+id/slash_for_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="/"
+            android:textSize = "25dp"
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/day_input"
+            android:layout_marginTop="30dp"
+            />
+
+        <EditText
+            android:id="@+id/month_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Month"
+            android:textSize = "20dp"
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/slash_for_date"
+            android:layout_marginTop="20dp"
+            />
+
+
+        <ListView
+            android:layout_below="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/petListNewJobPage"
+            android:dividerHeight="5dp"
+            />
+
+        <TextView
+            android:id="@+id/job_details_field"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:layout_below="@+id/petListNewJobPage"
+            android:layout_margin="20dp"
+
+            android:inputType="textCapSentences|textMultiLine"
+            android:scrollbars="none"
+            android:lines="10"
+            android:gravity="center|top|left"
+            android:text=""
+            android:maxLength="300"
+            />
+
+        <TextView
+            android:id="@+id/sleepover_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_details_field"
+            android:text="Sleepover:      "
+            android:textSize="20dp"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sleepover_label"
+            android:layout_alignBottom="@id/sleepover_label"
+            android:text="Yes or No"/>
+
+        <TextView
+            android:id="@+id/token_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sleepover_label"
+            android:text="TOKENS"
+            android:layout_margin="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/token_label"
+            android:layout_alignBottom="@id/token_label"
+            android:text="3"/>
+
+
+
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/token_label"
+            android:text="ADDRESS:"
+            android:layout_margin="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/address_label"
+            android:layout_alignBottom="@id/address_label"
+            android:text="420 Hutchins Ave, Baltimore MD 21212"/>
+
+
+        <Button
+            android:id="@+id/submit_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="ACCEPT JOB"
+            android:layout_below="@id/address_label"
+            />
+
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -78,6 +78,22 @@ public class Controller extends AppCompatActivity {
     }
 
     /**
+     * Switches to the activity of that "add pet" screen (PetFormActivity)
+     *
+     * @param v - the view that this method is triggered from (activity_all_pets)
+     */
+    public void newSittingJob(View v) {
+        setContentView(R.layout.activity_new_job);
+        String[] pets = {"sdf", "sdfgdfgdf"};
+
+
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
+
+        ListView listView = (ListView) findViewById(R.id.petListNewJobPage);
+        listView.setAdapter(adapter);
+    }
+
+    /**
      * Switched to the "add pet" activity, but with an edit flag
      *
      * @param v - the view that this method is triggered from (single pet view)
