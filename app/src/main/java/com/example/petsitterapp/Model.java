@@ -8,15 +8,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 public class Model {
     private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
@@ -41,11 +51,22 @@ public class Model {
      * @return true if the username/password are correct and present in the Owner database
      *         false if the username or password are incorrect
      */
-    public boolean authenticateUser(String username, String password) {
+    public boolean authenticateUser(String username, String password) throws JSONException {
         Log.w("MA", "username: "+username+" password"+password);
-        boolean isAuthenticated = true;
+        boolean isAuthenticated = false;
         int ownerID = 0;
         // DEREK search the database for username+password,
+        for (int i = 0; i < allOwners.length(); i++){
+            JSONObject obj = allOwners.getJSONObject(i);
+            String usernameAuth = obj.getString("email");
+            String passwordAuth = obj.getString("password");
+            // String petsOwners = obj.getString("OwnerIDKey");
+            if (username.equals(usernameAuth) && password.equals(passwordAuth)){
+                ownerID = Integer.parseInt(obj.getString("OwnerIDKey"));
+                isAuthenticated = true;
+                break;
+            }
+        }
         // DEREK if they're both present, set isAuthenticated to true and create a Owner object with the ownerID of that row
         // DEREK if the username/password are wrong, set isAuthenticated to false
 
@@ -63,10 +84,11 @@ public class Model {
      * pet to the owner's pet list to keep it updated
      * @param petInfo - JSONObject of all info entered in the view for a new pet
      */
-    public void addPet(JSONObject petInfo) throws JSONException{
+    public void addPet(JSONObject petInfo) throws JSONException {
         // Creating a pet object with a JSON object adds that pet to the database automatically
         Pet newPet = new Pet(petInfo, user.ownerID);
         user.petMap.put(newPet.petID, newPet);
+
     }
 
     /**
@@ -101,10 +123,20 @@ public class Model {
          * This constructor is for an existing Owner, accessed by login page
          * @return true if the login and password are correct, false if they are not
          */
-        public Owner(int ownerID) {
+        public Owner(int ownerID) throws JSONException {
             this.ownerID = ownerID;
             petMap= new HashMap<Integer, Pet>();
             // DEREK search the Pet database for any matches with the ownerID
+            for (int i = 0; i < allPets.length(); i++) {
+                JSONObject obj = allPets.getJSONObject(i);
+                String petsOwners = obj.getString("OwnerIDKey");
+                if (Integer.parseInt(petsOwners) == ownerID){
+                    Pet newPet = new Pet(obj, Integer.parseInt(petsOwners));
+                    int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
+                    petMap.put(petIdKey, newPet);
+                }
+            }
+            System.out.println(petMap.toString());
             // DEREK create a Pet object from each match of the ownerID, store them in petMap with their petIDs as keys
         }
 
@@ -112,7 +144,7 @@ public class Model {
          * Returns an ArrayList of the Pet objects belonging to the current user
          * @return an Arraylist of the user's petMap values
          */
-        public String[] getPets() {
+        public String[] getPets() throws JSONException {
             String[] petNames = new String[petMap.size()];
             int i=0;
             for(Pet pet:petMap.values()) {
@@ -137,7 +169,7 @@ public class Model {
          */
         public Pet(JSONObject petInfo, int ownerID) {
             this.petInfo = petInfo;
-            this.petID = addPet(petInfo, ownerID);
+            //this.petID = addPet(petInfo, ownerID);
         }
 
         /**
@@ -165,10 +197,20 @@ public class Model {
          * Input: a list of values for every field in the Pet table of the DB
          * Return: the integer pet ID, primary key for the Pet table
          */
-        public int addPet(JSONObject petInfo, int ownerID) {
+        public int addPet(JSONObject petInfo, int ownerID) throws IOException, URISyntaxException {
             int petID = 0;
             // DEREK create a new row in the Pet DB with the petInfo and the owner ID
             // DEREK search for and return the petID that is generated when you make the row
+            URL yahoo = new URL("http://www.yahoo.com/");
+            URLConnection yc = yahoo.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            yc.getInputStream()));
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null)
+                System.out.println(inputLine);
+            in.close();
             return petID;
         }
 
@@ -234,7 +276,7 @@ public class Model {
                 while ((json = bufferedReader.readLine()) != null) {
                     sb.append(json + "\n");
                 }
-                System.out.println(sb.toString().trim());
+                //System.out.println(sb.toString().trim());
                 return sb.toString().trim();
             } catch (Exception e) {
                 return null;
@@ -275,7 +317,7 @@ public class Model {
                 while ((json = bufferedReader.readLine()) != null) {
                     sb.append(json + "\n");
                 }
-                System.out.println(sb.toString().trim());
+                //System.out.println(sb.toString().trim());
                 return sb.toString().trim();
             } catch (Exception e) {
                 return null;
