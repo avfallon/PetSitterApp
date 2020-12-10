@@ -47,7 +47,6 @@
                 android:id="@+id/FirstNameTitle"
                 style="@style/AccountCreationLabel"
                 android:text="@string/String_AccountCreation_FirstName_Title"
-                android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"
@@ -98,7 +97,6 @@
                 style="@style/AccountCreationLabel"
 
                 android:text="@string/String_AccountCreation_LastName_Title"
-                android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"
@@ -148,7 +146,6 @@
                 style="@style/AccountCreationLabel"
 
                 android:text="@string/String_AccountCreation_Address_Title"
-                android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"
@@ -201,7 +198,6 @@
                 style="@style/AccountCreationLabel"
 
                 android:text="@string/String_AccountCreation_Email_Title"
-                android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"
@@ -214,7 +210,6 @@
                 android:id="@+id/EmailInput"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/EmailTitle"
-                android:background="@color/petFormInput_color"
                 style="@style/AccountCreationInput"
 
                 android:paddingHorizontal="10dp"
@@ -254,7 +249,6 @@
                 style="@style/AccountCreationLabel"
 
                 android:text="@string/String_AccountCreation_Password_Title"
-                android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"
@@ -267,7 +261,6 @@
                 android:id="@+id/PasswordInput"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/PasswordTitle"
-                android:background="@color/petFormInput_color"
                 style="@style/AccountCreationInput"
 
                 android:paddingHorizontal="10dp"
@@ -306,7 +299,6 @@
                 style="@style/AccountCreationLabel"
 
                 android:text="@string/String_AccountCreation_ConfirmPassword_Title"
-                android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"
@@ -319,7 +311,6 @@
                 android:id="@+id/ConfirmPasswordInput"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/PasswordConfirmTitle"
-                android:background="@color/petFormInput_color"
                 style="@style/AccountCreationInput"
 
                 android:paddingHorizontal="10dp"
