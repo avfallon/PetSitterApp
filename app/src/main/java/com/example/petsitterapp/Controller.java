@@ -19,14 +19,17 @@ import org.json.JSONObject;
 
 public class Controller extends AppCompatActivity {
     public static Model model;
+    public Pet currentPet;
+    public User currentUser;
+    public SittingJob currentJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         model = new Model();
 
         setContentView(R.layout.activity_login);
-        Log.w("Testing", "Inside PetFormActivity onCreate.");
     }
 
     /**
@@ -35,16 +38,17 @@ public class Controller extends AppCompatActivity {
      * @param v
      */
     public void login(View v) {
+        Log.w("MA", "Login");
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-        boolean accountExists = model.authenticateUser(username, password);
-        if(accountExists) {
-            ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
-            allPetsActivity();
+        currentUser = model.authenticateUser(username, password);
+        if(currentUser == null) {
+            ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         }
         else {
-            ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
+            allPetsActivity();
         }
     }
 
@@ -126,6 +130,7 @@ public class Controller extends AppCompatActivity {
         setContentView(R.layout.activity_all_pets);
 //        String[] pets = model.user.getPets();
         String[] pets = {"Spot  -  Dog (Chihuahua)", "Rover  -  Iguana", "Teddy  -  Cat (Siamese)"};
+
 
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);

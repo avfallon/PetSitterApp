@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.io.BufferedReader;
@@ -39,17 +40,13 @@ public class Model {
 
     /**
      * This method checks the owner database against login credentials from the user
-     * If the credentials are correct, it creates a user object for that account
+     * If the credentials are correct, it returns a user object for that account
      * @param username - username entered by the user
      * @param password - password entered by the user
-     * @return true if the username/password are correct and present in the Owner database
-     *         false if the username or password are incorrect
+     * @return the user associated with the username and password, or null if not found
      */
-    public boolean authenticateUser(String username, String password)  {
-        Log.w("MA", "username: "+username+" password"+password);
-        boolean isAuthenticated = false;
-        int ownerID = 0;
-        // DEREK search the database for username+password,
+    public User authenticateUser(String username, String password)  {
+        Log.w("MA", "username: "+username+" password: "+password);
         try {
             for (int i = 0; i < allOwners.length(); i++) {
                 JSONObject obj = allOwners.getJSONObject(i);
@@ -57,23 +54,18 @@ public class Model {
                 String passwordAuth = obj.getString("password");
                 // String petsOwners = obj.getString("OwnerIDKey");
                 if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
-                    ownerID = Integer.parseInt(obj.getString("OwnerIDKey"));
-                    isAuthenticated = true;
-                    break;
+                    int userID = Integer.parseInt(obj.getString("OwnerIDKey"));
+                    ArrayList<Pet> pets = buildPetList(userID);
+                    User newUser = new User(userID, obj, pets);
+                    return newUser;
                 }
             }
         }
-        catch(JSONException je) { }
-        // DEREK if they're both present, set isAuthenticated to true and create a Owner object with the ownerID of that row
-        // DEREK if the username/password are wrong, set isAuthenticated to false
+        catch(JSONException je) {
+            Log.w("MA", "Authentication JSON Error");
+        }
 
-        if(isAuthenticated) {
-            user = new Owner(ownerID);
-            return true;
-        }
-        else {
-            return false;
-        }
+        return null;
     }
 
     /**
@@ -155,8 +147,16 @@ public class Model {
         }
     }
 
-    public HashMap<Integer, Pet> buildPetMap(int userID){
-        return new HashMap<Integer, Pet>();
+    /**
+     *
+     * @param userID ID of the user whose pets we are finding
+     * @return an ArrayList containing every Pet object that contains this userID
+     */
+    public ArrayList<Pet> buildPetList(int userID){
+
+        // Not yet implemented
+
+        return new ArrayList<Pet>();
     }
 
 
