@@ -224,6 +224,53 @@ public class Model {
         }
     }
 
+    public void createAccount(JSONObject user) {
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
+        CreateAccount getJSON = new CreateAccount(editPetURL);
+        getJSON.execute();
+    }
+
+    private class CreateAccount extends AsyncTask<Void, Void, String> {
+        String urlPHP = "";
+
+        protected CreateAccount(String url){
+            this.urlPHP = url;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            System.out.println("Deleted Pet");
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(urlPHP);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
+    }
+
 
 
 //    public class Owner {
