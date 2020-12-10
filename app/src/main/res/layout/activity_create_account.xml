@@ -290,16 +290,103 @@
                 />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ConfirmPassword_Title"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_ErrorTag_Password"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/PasswordConfirmTitle"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="@string/String_AccountCreation_ConfirmPassword_Title"
+                android:textColor="@color/petFormTitle_color"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/ConfirmPasswordInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/PasswordConfirmTitle"
+                android:background="@color/petFormInput_color"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@string/String_AccountCreation_ConfirmPassword_Hint"
+                android:maxLength="@string/Password_CharLimit"
+                android:inputType="textPassword"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_AccountCreate_ErrorTag_ConfirmPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_ConfirmPassword_Title"
+            >
+            <!--Error Tag FOR Pet Name-->
+            <TextView
+                android:id="@+id/ErrorTag_ConfirmPassword"
+                android:visibility = "invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:text="@string/ErrorTag_Password"
+                android:textColor="@color/Color_ErrorTag"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/account_type_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RelativeLayout_AccountCreate_ErrorTag_ConfirmPassword"
+            android:text="Account Type"
+            android:textSize="20dp"
+            android:layout_margin="20dp"/>
 
 
+        <RadioGroup
+            android:id="@+id/account_type_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@id/account_type_label"
+            android:layout_alignBottom="@id/account_type_label"
 
+            >
+            <RadioButton
+                android:id="@+id/account_type_owner_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RadioButton_Owner"
+                />
+            <RadioButton
+                android:id="@+id/account_type_sitter_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RadioButton_Sitter"
+                />
+            <RadioButton
+                android:id="@+id/account_type_both_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RadioButton_Both"
+                />
+        </RadioGroup>
 
 
 
 
         <RelativeLayout
             android:id="@+id/RelativeLayout_AccountCreation_SubmitButton"
-            android:layout_below="@+id/RelativeLayout_AccountCreate_ErrorTag_Password"
+            android:layout_below="@+id/account_type_input"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
