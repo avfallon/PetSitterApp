@@ -40,6 +40,10 @@ public class PetActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method fills activity_view_pet with the given pet's information
+     * @param pet - the pet who's information you will populate the view with
+     */
     public void populateViewPet(Pet pet) {
         Log.w("MA", pet.toString());
     }
@@ -154,6 +158,7 @@ public class PetActivity extends AppCompatActivity {
         else {
             try {
                 JSONObject petInfo = getPetInfo();
+                Log.w("MA", "petInfo: "+petInfo.toString());
                 Pet pet = new Pet(petInfo);
 
                 if (petInfo != null) {
@@ -164,36 +169,42 @@ public class PetActivity extends AppCompatActivity {
                         Controller.model.addPet(petInfo);
                     }
                     currentPet = pet;
-                    setContentView(R.layout.activity_view_pet);
                     populateViewPet(pet);
+                    setContentView(R.layout.activity_view_pet);
+                    finish();
                 }
                 else {
                     Log.w("MA", "Error in PetActivity.savePetInfo(), JSON is null");
                 }
             }
-            catch(JSONException je) {
+            catch(JSONException | IOException je) {
                 Log.w("MA", "JSONException PetActivity.savePet()");
             }
-            catch(IOException io) {
-                Log.w("MA", "IOException PetActivity.savePet()");
-            }
+//            catch(IOException io) {
+//                Log.w("MA", "IOException PetActivity.savePet()");
+//            }
         }
 
     }
 
     public JSONObject getPetInfo() throws JSONException{
         JSONObject petInfo = new JSONObject();
-        petInfo.put("Name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
+        petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
+        if(editing) {
+            petInfo.put("petIDKey", currentPet.petInfo.get("petIDKey"));
+        }
+        petInfo.put("name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
 
-        petInfo.put("Species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
-        petInfo.put("Size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
 
-        petInfo.put("Temperament", ((EditText) findViewById(R.id.PetTemperamentInput)).getText().toString());
-        petInfo.put("Breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
-        petInfo.put("Age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
-        petInfo.put("Diet", ((EditText) findViewById(R.id.PetDietInput)).getText().toString());
-        petInfo.put("HealthIssues", ((EditText) findViewById(R.id.PetHealthIssuesInput)).getText().toString());
-        petInfo.put("ExtraInfo", ((EditText) findViewById(R.id.PetExtraInfoInput)).getText().toString());
+        petInfo.put("species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
+        petInfo.put("size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
+
+        petInfo.put("temperament", ((EditText) findViewById(R.id.PetTemperamentInput)).getText().toString());
+        petInfo.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
+        petInfo.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
+        petInfo.put("diet", ((EditText) findViewById(R.id.PetDietInput)).getText().toString());
+        petInfo.put("healthIssues", ((EditText) findViewById(R.id.PetHealthIssuesInput)).getText().toString());
+        petInfo.put("extraInfo", ((EditText) findViewById(R.id.PetExtraInfoInput)).getText().toString());
         return petInfo;
     }
 
@@ -201,5 +212,4 @@ public class PetActivity extends AppCompatActivity {
         TextView ErrorTag = findViewById( errorID );
         ErrorTag.setVisibility(visibility);
     }
-
 }

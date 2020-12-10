@@ -75,8 +75,9 @@ public class Model {
         String addPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/addPet.php?json="+petInfo;
         AddPet getJSON = new AddPet(addPetURL);
         getJSON.execute();
-        //Pet newPet = new Pet(petInfo, user.ownerID);
-        //user.petMap.put(newPet.petID, newPet);
+        Pet newPet = new Pet(petInfo);
+        usersPets.add(newPet);
+        System.out.println(usersPets.toString());
 
     }
 
@@ -126,10 +127,19 @@ public class Model {
      * Input: a list of the new values to be put in the DB
      * Return: true if the pet row is successfully found and edited
      */
-    public void editPet(JSONObject newInfo) {
+    public void editPet(JSONObject newInfo) throws JSONException {
         String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editPet.php?json="+newInfo;
         EditPet getJSON = new EditPet(editPetURL);
         getJSON.execute();
+        for (int i = 0; i < usersPets.size(); i++) {
+            JSONObject obj = usersPets.get(i).petInfo;
+            int petsOwners = obj.getInt("petIDKey");
+            System.out.println(petsOwners);
+            if (petsOwners == newInfo.getInt("petIDKey")) {
+                Pet newPet = new Pet(newInfo);
+                usersPets.set(i, newPet);
+            }
+        }
     }
 
     private class EditPet extends AsyncTask<Void, Void, String> {
@@ -177,10 +187,18 @@ public class Model {
      * This method gets the Pet obj. of the petID, deletes it from the database, and removes it from petMap
      * @param pet - the ID of the pet to be deleted
      */
-    public void deletePet(JSONObject pet) {
+    public void deletePet(JSONObject pet) throws JSONException {
         String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deletePet.php?json="+pet;
         DeletePet getJSON = new DeletePet(editPetURL);
         getJSON.execute();
+        for (int i = 0; i < usersPets.size(); i++) {
+            JSONObject obj = usersPets.get(i).petInfo;
+            int petsOwners = obj.getInt("petIDKey");
+            System.out.println(petsOwners);
+            if (petsOwners == pet.getInt("petIDKey")) {
+                usersPets.remove(usersPets.get(i));
+            }
+        }
     }
 
     private class DeletePet extends AsyncTask<Void, Void, String> {
@@ -224,10 +242,12 @@ public class Model {
         }
     }
 
-    public void createAccount(JSONObject user) {
+    public User createAccount(JSONObject user) throws JSONException {
         String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
         CreateAccount getJSON = new CreateAccount(editPetURL);
         getJSON.execute();
+        User newUser = new User(user.getInt("ownerIDKey"), user, usersPets);
+        return newUser;
     }
 
     private class CreateAccount extends AsyncTask<Void, Void, String> {

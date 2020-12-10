@@ -32,9 +32,9 @@ public class Pet {
     public String toString() {
         String returnString = "";
         try {
-            returnString += petInfo.getString("Name")+"   -   ";
-            returnString += petInfo.getString("Species");
-            returnString+= "  ("+petInfo.getString("Breed")+")";
+            returnString += petInfo.getString("name")+"   -   ";
+            returnString += petInfo.getString("species");
+            returnString+= "  ("+petInfo.getString("breed")+")";
         }
         catch(JSONException je) {
             Log.w("MA", "JSONException Pet.toString()");
