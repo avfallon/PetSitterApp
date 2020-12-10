@@ -9,21 +9,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import static com.example.petsitterapp.Controller.currentUser;
 
 public class Model {
     private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
@@ -53,28 +43,24 @@ public class Model {
      * @param password - password entered by the user
      * @return the user associated with the username and password, or null if not found
      */
-    public User authenticateUser(String username, String password)  {
+    public User authenticateUser(String username, String password) throws JSONException {
         Log.w("MA", "username: "+username+" password: "+password);
         boolean isAuthenticated = false;
         int ownerID = 0;
-        try {
-            for (int i = 0; i < allOwners.length(); i++) {
-                JSONObject obj = allOwners.getJSONObject(i);
-                String usernameAuth = obj.getString("email");
-                String passwordAuth = obj.getString("password");
-                // String petsOwners = obj.getString("OwnerIDKey");
-                if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
-                    String userID = obj.getString("OwnerIDKey");
-                    buildPetList(userID);
-                    User newUser = new User(userID, obj, usersPets);
-                    Log.w("MA", "Login Successful");
-                    return newUser;
-                }
+        for (int i = 0; i < allOwners.length(); i++) {
+            JSONObject obj = allOwners.getJSONObject(i);
+            String usernameAuth = obj.getString("email");
+            String passwordAuth = obj.getString("password");
+            // String petsOwners = obj.getString("OwnerIDKey");
+            if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
+                int userID = obj.getInt("ownerIDKey");
+                buildPetList(userID);
+                User newUser = new User(userID, obj, usersPets);
+                Log.w("MA", "Login Successful");
+                return newUser;
             }
         }
-        catch(JSONException je) {
-            Log.w("MA", "Authentication JSON Error");
-        }
+
 
         return null;
     }
@@ -272,19 +258,18 @@ public class Model {
     /**
      *
      * @param userID ID of the user whose pets we are finding
-     * @return an ArrayList containing every Pet object that contains this userID
      */
-    public ArrayList<Pet> buildPetList(String userID) throws JSONException {
+    public void buildPetList(int userID) throws JSONException {
         for (int i = 0; i < allPets.length(); i++) {
             JSONObject obj = allPets.getJSONObject(i);
-            String petsOwners = obj.getString("OwnerIDKey");
-            if (petsOwners.equals(userID)) {
+            int petsOwners = Integer.parseInt(obj.getString("ownerIDKey"));
+            System.out.println(petsOwners);
+            if (petsOwners == userID) {
                 Pet newPet = new Pet(obj);
                 usersPets.add(newPet);
             }
         }
 
-        return new ArrayList<Pet>();
     }
 
 
@@ -413,7 +398,7 @@ public class Model {
         String[] pets = new String[jsonArray.length()];
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = jsonArray.getJSONObject(i);
-            pets[i] = obj.getString("name");
+            pets[i] = obj.getString("firstName");
             System.out.println("name");
         }
     }

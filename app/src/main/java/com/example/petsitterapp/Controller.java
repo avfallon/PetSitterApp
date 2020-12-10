@@ -72,7 +72,7 @@ public class Controller extends AppCompatActivity {
             Pet newPet = new Pet(petInfo);
             ArrayList<Pet> petList = new ArrayList<Pet>();
             petList.add(newPet);
-            currentUser = new User(petInfo.getString("OwnerIDKey"), accountInfo, petList);
+            currentUser = new User(petInfo.getInt("OwnerIDKey"), accountInfo, petList);
             Log.w("MA", currentUser.getPets()[0]);
 
         }
@@ -87,7 +87,7 @@ public class Controller extends AppCompatActivity {
      * It checks if their login credentials are correct,
      * @param v
      */
-    public void login(View v) {
+    public void login(View v) throws JSONException {
         Log.w("MA", "Login");
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
@@ -238,7 +238,7 @@ public class Controller extends AppCompatActivity {
      * @param username - the username entered by the user
      * @param password - the password entered by the user
      */
-    public void login(String username, String password) {
+    public void login(String username, String password) throws JSONException {
         model.authenticateUser(username, password);
     }
 
