@@ -229,7 +229,7 @@ public class Controller extends AppCompatActivity {
      * @param petID - the ID of the pet to be deleted
      */
     public void deletePet(int petID) {
-        model.deletePet(petID);
+        //model.deletePet(petID);
     }
 
     /**
