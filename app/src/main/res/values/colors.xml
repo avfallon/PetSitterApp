@@ -8,5 +8,14 @@
     <color name="petFormInput_color">#dadce6</color>
     <color name="errorRed">#FF0000</color>
 
+    <color name="light_green">#79C864</color>
+    <color name="cream">#FFFFEB</color>
+    <color name="burgundy">#4A050D</color>
+    <color name="tan">#FFBF8E</color>
+    <color name="teal">#1ECC7E</color>
+    <color name="grey">#2B2929</color>
+
+
+
 
 </resources>
