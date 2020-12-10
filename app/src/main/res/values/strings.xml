@@ -130,4 +130,8 @@
     <string name="String_ViewPetForm_PetNameTitle">\"temp\"</string>
     <string name="String_ViewPetFormTitle">\"temp\"</string>
 
+
+    <string name="Go_Back">GO BACK</string>
+
+
 </resources>
