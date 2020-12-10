@@ -37,10 +37,14 @@ public class Model {
 
     public Owner user;
 
-    public Model() {
+    public Model() throws JSONException, IOException {
 
         getJSON();
         getOwnerJSON();
+
+        String examplePet = "{\"ownerIDKey\":\"4\",\"petIDKey\":\"99\",\"name\":\"Jeff\",\"species\":\"Unknown\",\"size\":\"Small\",\"temperament\":\"Lazy\",\"breed\":\"german shep\",\"age\":\"21\",\"diet\":\"Peanut Butter\",\"healthIssues\":\"Needs Glasses\",\"extraInfo\":\"Extras\"}";
+        JSONObject examplePetJSON = new JSONObject(examplePet);
+        addPet(examplePetJSON);
     }
 
     /**
@@ -52,7 +56,7 @@ public class Model {
      *         false if the username or password are incorrect
      */
     public boolean authenticateUser(String username, String password)  {
-        Log.w("MA", "username: "+username+" password"+password);
+        Log.w("MA", "username: "+username+" password: "+password);
         boolean isAuthenticated = false;
         int ownerID = 0;
         // DEREK search the database for username+password,
@@ -87,11 +91,55 @@ public class Model {
      * pet to the owner's pet list to keep it updated
      * @param petInfo - JSONObject of all info entered in the view for a new pet
      */
-    public void addPet(JSONObject petInfo) throws JSONException {
+    public void addPet(JSONObject petInfo) throws JSONException, IOException {
         // Creating a pet object with a JSON object adds that pet to the database automatically
-        Pet newPet = new Pet(petInfo, user.ownerID);
-        user.petMap.put(newPet.petID, newPet);
+        String addPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/addPet.php?json="+petInfo;
+        AddPet getJSON = new AddPet(addPetURL);
+        getJSON.execute();
+        //Pet newPet = new Pet(petInfo, user.ownerID);
+        //user.petMap.put(newPet.petID, newPet);
 
+    }
+
+    private class AddPet extends AsyncTask<Void, Void, String> {
+        String urlPHP = "";
+
+        protected AddPet(String url){
+            this.urlPHP = url;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            System.out.println("Added Pet");
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(urlPHP);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
     }
 
     /**
@@ -136,7 +184,7 @@ public class Model {
                     String petsOwners = obj.getString("OwnerIDKey");
                     if (Integer.parseInt(petsOwners) == ownerID) {
                         Pet newPet = new Pet(obj, Integer.parseInt(petsOwners));
-                        int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
+                        int petIdKey = obj.getInt("PetIDKey");
                         petMap.put(petIdKey, newPet);
                     }
                 }
@@ -212,16 +260,6 @@ public class Model {
             int petID = 0;
             // DEREK create a new row in the Pet DB with the petInfo and the owner ID
             // DEREK search for and return the petID that is generated when you make the row
-            URL yahoo = new URL("http://www.yahoo.com/");
-            URLConnection yc = yahoo.openConnection();
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            yc.getInputStream()));
-            String inputLine;
-
-            while ((inputLine = in.readLine()) != null)
-                System.out.println(inputLine);
-            in.close();
             return petID;
         }
 

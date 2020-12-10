@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 
 
 public class Controller extends AppCompatActivity {
@@ -23,7 +24,13 @@ public class Controller extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = new Model();
+        try {
+            model = new Model();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         setContentView(R.layout.activity_login);
         Log.w("Testing", "Inside PetFormActivity onCreate.");
@@ -146,7 +153,7 @@ public class Controller extends AppCompatActivity {
      *
      * @param petInfo
      */
-    public void addPet(JSONObject petInfo) throws JSONException {
+    public void addPet(JSONObject petInfo) throws JSONException, IOException {
         model.addPet(petInfo);
 
         setContentView(R.layout.activity_login);
