@@ -52,7 +52,7 @@
   $extraInfo = $obj->extraInfo;
   echo $extraInfo;
 
-  $query = "insert into Pets values('$ownerIDKey','$petIDKey', '$name', '$species', '$size', '$temperament', '$breed', '$age', '$diet' , '$healthIssues', '$extraInfo')";
+  $query = "insert into Pets (ownerIDKey, name, species, size, temperament, breed, age, diet, healthIssues, extraInfo) values('$ownerIDKey', '$name', '$species', '$size', '$temperament', '$breed', '$age', '$diet' , '$healthIssues', '$extraInfo')";
   $result = $mysqli->query($query);
   echo "Pet Added Sucessfully";
 ?>
