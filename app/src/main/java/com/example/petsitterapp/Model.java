@@ -30,8 +30,6 @@ public class Model {
     private JSONArray allPets;
     private JSONArray allOwners;
 
-    public Owner user;
-
     public Model() throws JSONException, IOException {
 
         getJSON();
@@ -235,48 +233,34 @@ public class Model {
 
 
 
-    public class Owner {
-        HashMap<Integer, OldPet> petMap;
-        int ownerID;
+//    public class Owner {
+//        HashMap<Integer, OldPet> petMap;
+//        int ownerID;
+//
+//        /**
+//         * This constructor is for an existing Owner, accessed by login page
+//         * @return true if the login and password are correct, false if they are not
+//         */
+//        public Owner(int ownerID)  {
+//            try {
+//                this.ownerID = ownerID;
+//                petMap = new HashMap<Integer, OldPet>();
+//                // DEREK search the Pet database for any matches with the ownerID
+//                for (int i = 0; i < allPets.length(); i++) {
+//                    JSONObject obj = allPets.getJSONObject(i);
+//                    String petsOwners = obj.getString("OwnerIDKey");
+//                    if (Integer.parseInt(petsOwners) == ownerID) {
+//                        OldPet newPet = new OldPet(obj, Integer.parseInt(petsOwners));
+//                        int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
+//                        petMap.put(petIdKey, newPet);
+//                    }
+//                }
+//            }
+//            catch(JSONException je){ }
+//            System.out.println(petMap.toString());
+//            // DEREK create a Pet object from each match of the ownerID, store them in petMap with their petIDs as keys
+//        }
 
-        /**
-         * This constructor is for an existing Owner, accessed by login page
-         * @return true if the login and password are correct, false if they are not
-         */
-        public Owner(int ownerID)  {
-            try {
-                this.ownerID = ownerID;
-                petMap = new HashMap<Integer, OldPet>();
-                // DEREK search the Pet database for any matches with the ownerID
-                for (int i = 0; i < allPets.length(); i++) {
-                    JSONObject obj = allPets.getJSONObject(i);
-                    String petsOwners = obj.getString("OwnerIDKey");
-                    if (Integer.parseInt(petsOwners) == ownerID) {
-                        OldPet newPet = new OldPet(obj, Integer.parseInt(petsOwners));
-                        int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
-                        petMap.put(petIdKey, newPet);
-                    }
-                }
-            }
-            catch(JSONException je){ }
-            System.out.println(petMap.toString());
-            // DEREK create a Pet object from each match of the ownerID, store them in petMap with their petIDs as keys
-        }
-
-        /**
-         * Returns an ArrayList of the Pet objects belonging to the current user
-         * @return an Arraylist of the user's petMap values
-         */
-        public String[] getPets() throws JSONException {
-            String[] petNames = new String[petMap.size()];
-            int i=0;
-            for(OldPet pet:petMap.values()) {
-                petNames[i] = pet.toString();
-                i++;
-            }
-            return petNames;
-        }
-    }
 
     /**
      *
@@ -288,65 +272,6 @@ public class Model {
         // Not yet implemented
 
         return new ArrayList<Pet>();
-    }
-
-
-
-    public class OldPet {
-
-        public int petID;
-        public JSONObject petInfo;
-
-        /**
-         * This constructor is for a brand new Pet object, and adds the input information
-         * to the Pet database as a new row
-         * @param petInfo - JSONObject with the information entered by the user on the addPet view
-         * @param ownerID - foreign key for the Pet database, attaches this pet to its owner in the Owner Database
-         */
-        public OldPet(JSONObject petInfo, int ownerID) {
-            this.petInfo = petInfo;
-            //this.petID = addPet(petInfo, ownerID);
-        }
-
-        /**
-         * This constructor makes a pet object out of an existing row in the Pet database
-         * @param petID - the primary key for the row in the Pet database that you are getting
-         */
-        public OldPet(int petID) {
-            this.petID = petID;
-            // DEREK search the pet database for this existing petID, store the info in petInfo
-        }
-
-        /**
-         * This returns a string of the petInfo for use in the listview when viewing all of your pets at the same time
-         * @return
-         */
-        public String toString() {
-            try{
-                return (String) petInfo.get("name");
-            }
-            catch(JSONException je){return "";}
-        }
-
-        /**
-         * Purpose: add a new row to the Pet table with the input information
-         * Input: a list of values for every field in the Pet table of the DB
-         * Return: the integer pet ID, primary key for the Pet table
-         */
-        public int addPet(JSONObject petInfo, int ownerID) throws IOException, URISyntaxException {
-            int petID = 0;
-            // DEREK create a new row in the Pet DB with the petInfo and the owner ID
-            // DEREK search for and return the petID that is generated when you make the row
-            return petID;
-        }
-
-        /**
-         * Purpose: remove an existing pet from a pet owner's account
-         */
-        public void deletePet() {
-            // DEREK find the Pet row associated with this petID and delete it from the DB
-        }
-
     }
 
 
