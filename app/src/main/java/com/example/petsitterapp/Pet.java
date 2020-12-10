@@ -1,11 +1,13 @@
 package com.example.petsitterapp;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class Pet {
-    public int petID;
+    public String petID;
     public JSONObject petInfo;
 
     /**
@@ -16,10 +18,10 @@ public class Pet {
     public Pet(JSONObject petInfo) {
         this.petInfo = petInfo;
         try {
-            this.petID = petInfo.getInt("petIDKey");
+            this.petID = petInfo.getString("PetIDKey");
         }
         catch(JSONException je) {
-            this.petID = -1;
+            this.petID = "-1";
         }
     }
 
@@ -28,7 +30,16 @@ public class Pet {
      * @return
      */
     public String toString() {
-        return petInfo.toString();
+        String returnString = "";
+        try {
+            returnString += petInfo.getString("Name")+"   -   ";
+            returnString += petInfo.getString("Species");
+            returnString+= "  ("+petInfo.getString("Breed")+")";
+        }
+        catch(JSONException je) {
+            Log.w("MA", "JSONException Pet.toString()");
+        }
+        return returnString;
     }
 
     /**

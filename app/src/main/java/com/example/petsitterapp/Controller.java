@@ -15,10 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.io.IOException;
 
 
 public class Controller extends AppCompatActivity {
+    public static final int BOTHFLAG = 0;
+    public static final int OWNERFLAG = 1;
+    public static final int SITTERFLAG = 2;
+
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
@@ -35,7 +40,46 @@ public class Controller extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        makeTestUser();
         setContentView(R.layout.activity_login);
+    }
+
+    public void makeTestUser() {
+        try {
+            JSONObject petInfo = new JSONObject();
+            petInfo.put("OwnerIDKey", "3333");
+            petInfo.put("PetIDKey", "4444");
+            petInfo.put("Name", "Devin");
+            petInfo.put("Species", "Dog");
+            petInfo.put("Size", "Small");
+            petInfo.put("Temperament", "Calm");
+            petInfo.put("Breed", "Australian Shepherd");
+            petInfo.put("Age", "4");
+            petInfo.put("Diet", "2 scoops of dry food");
+            petInfo.put("HealthIssues", "Bum hip");
+            petInfo.put("ExtraInfo", "Nada");
+
+            JSONObject accountInfo = new JSONObject();
+            accountInfo.put("UserIDKey", "3333");
+            accountInfo.put("firstName", "Andrew");
+            accountInfo.put("lastName", "Fallon");
+            accountInfo.put("address", "3336 Gilman");
+            accountInfo.put("phoneNumber", "666-666-6666");
+            accountInfo.put("email", "username");
+            accountInfo.put("typeOfAccount", ""+BOTHFLAG);
+            accountInfo.put("password", "password");
+
+            Pet newPet = new Pet(petInfo);
+            ArrayList<Pet> petList = new ArrayList<Pet>();
+            petList.add(newPet);
+            currentUser = new User(petInfo.getString("OwnerIDKey"), accountInfo, petList);
+            Log.w("MA", currentUser.getPets()[0]);
+
+        }
+        catch(JSONException je) {
+            Log.w("MA", "makeTestUser JSONException");
+        }
+
     }
 
     /**
@@ -48,7 +92,7 @@ public class Controller extends AppCompatActivity {
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-        currentUser = model.authenticateUser(username, password);
+        //currentUser = model.authenticateUser(username, password);
         if(currentUser == null) {
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         }
@@ -108,7 +152,7 @@ public class Controller extends AppCompatActivity {
         String[] pets = {"sdf", "sdfgdfgdf"};
 
 
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, pets);
 
         ListView listView = (ListView) findViewById(R.id.petListNewJobPage);
         listView.setAdapter(adapter);
@@ -134,22 +178,27 @@ public class Controller extends AppCompatActivity {
      */
     public void allPetsActivity() {
         setContentView(R.layout.activity_all_pets);
-//        String[] pets = model.user.getPets();
-        String[] pets = {"Spot  -  Dog (Chihuahua)", "Rover  -  Iguana", "Teddy  -  Cat (Siamese)"};
 
-
-
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
 
         ListView listView = (ListView) findViewById(R.id.petList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pet selectedPet = currentUser.petList.get(position);
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                Log.w("MA", ""+position+"");
+                Log.w("MA", "\nFrom Model: "+selectedPet.toString()+"\nFrom ListView: "+selectedItem);
+                currentPet = selectedPet;
+                goToPetActivity(false);
             }
         });
+    }
+
+    public void goToPetActivity(boolean newFlag) {
+        Intent intent = new Intent(this, PetActivity.class);
+        intent.putExtra("newPet", newFlag);
+        startActivity(intent);
     }
 
     /**

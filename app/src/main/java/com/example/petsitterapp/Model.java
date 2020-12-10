@@ -60,7 +60,7 @@ public class Model {
                 String passwordAuth = obj.getString("password");
                 // String petsOwners = obj.getString("OwnerIDKey");
                 if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
-                    int userID = Integer.parseInt(obj.getString("OwnerIDKey"));
+                    String userID = obj.getString("OwnerIDKey");
                     ArrayList<Pet> pets = buildPetList(userID);
                     User newUser = new User(userID, obj, pets);
                     return newUser;
@@ -202,7 +202,7 @@ public class Model {
      * @param userID ID of the user whose pets we are finding
      * @return an ArrayList containing every Pet object that contains this userID
      */
-    public ArrayList<Pet> buildPetList(int userID){
+    public ArrayList<Pet> buildPetList(String userID){
 
         // Not yet implemented
 
