@@ -40,6 +40,10 @@ public class PetActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method fills activity_view_pet with the given pet's information
+     * @param pet - the pet who's information you will populate the view with
+     */
     public void populateViewPet(Pet pet) {
         Log.w("MA", pet.toString());
     }

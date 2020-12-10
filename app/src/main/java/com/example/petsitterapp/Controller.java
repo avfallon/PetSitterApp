@@ -38,7 +38,7 @@ public class Controller extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        makeTestUser();
+        //makeTestUser();
         setContentView(R.layout.activity_login);
     }
 
