@@ -77,6 +77,7 @@ public class Model {
         getJSON.execute();
         Pet newPet = new Pet(petInfo);
         usersPets.add(newPet);
+        System.out.println(usersPets.toString());
 
     }
 
