@@ -127,5 +127,7 @@
     <string name="passwordLabel">Password</string>
     <string name="createAccountQuestion">Don\'t have an account yet?</string>
     <string name="createAccountBtn">Create Account</string>
+    <string name="String_ViewPetForm_PetNameTitle">\"temp\"</string>
+    <string name="String_ViewPetFormTitle">\"temp\"</string>
 
 </resources>
