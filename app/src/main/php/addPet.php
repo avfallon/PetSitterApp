@@ -5,8 +5,8 @@
 
   $mysqli = new mysqli( Constants::HOST, $username, Constants::PASSWORD, Constants::DATABASE);
 
-  //$json = $_GET['json'];
-  $json = '{"ownerIDKey":"4","petIDKey":"5","name":"Jeff","species":"Unknown","size":"Small","temperament":"Lazy","breed":"german shep","age":"21","diet":"Peanut Butter","healthIssues":"Needs Glasses","extraInfo":"Extras"}';
+  $json = $_GET['json'];
+  //$json = '{"ownerIDKey":"4","petIDKey":"5","name":"Jeff","species":"Unknown","size":"Small","temperament":"Lazy","breed":"german shep","age":"21","diet":"Peanut Butter","healthIssues":"Needs Glasses","extraInfo":"Extras"}';
 
   // // Decode JSON data to PHP associative array
   // $arr = json_decode($json, true);
