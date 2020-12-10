@@ -37,7 +37,7 @@ public class Model {
 
         String examplePet = "{\"ownerIDKey\":\"4\",\"petIDKey\":\"6\",\"name\":\"Andrew\",\"species\":\"Cowboy\",\"size\":\"Small\",\"temperament\":\"Lazy\",\"breed\":\"german shep\",\"age\":\"21\",\"diet\":\"Peanut Butter\",\"healthIssues\":\"Needs Glasses\",\"extraInfo\":\"Extras\"}";
         JSONObject examplePetJSON = new JSONObject(examplePet);
-        deletePet(examplePetJSON);
+        //deletePet(examplePetJSON);
     }
 
     /**
