@@ -19,8 +19,8 @@ import org.json.JSONObject;
 
 public class Controller extends AppCompatActivity {
     public static Model model;
-    public Pet currentPet;
-    public User currentUser;
+    public static Pet currentPet;
+    public static User currentUser;
     public SittingJob currentJob;
 
     @Override

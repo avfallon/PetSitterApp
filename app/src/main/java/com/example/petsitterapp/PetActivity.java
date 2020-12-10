@@ -10,11 +10,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PetActivity extends AppCompatActivity {
-    private JSONObject petInfo;
+    private Pet currentPet = Controller.currentPet;
 
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
-        petInfo = getTransferredPetData();
     }
     //Method slowly for taking the petData that was transferred through intent.putExtra,
     //Takes that data which is received as a String and turns it back into a JSONObject.
