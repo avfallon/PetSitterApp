@@ -51,22 +51,25 @@ public class Model {
      * @return true if the username/password are correct and present in the Owner database
      *         false if the username or password are incorrect
      */
-    public boolean authenticateUser(String username, String password) throws JSONException {
+    public boolean authenticateUser(String username, String password)  {
         Log.w("MA", "username: "+username+" password"+password);
         boolean isAuthenticated = false;
         int ownerID = 0;
         // DEREK search the database for username+password,
-        for (int i = 0; i < allOwners.length(); i++){
-            JSONObject obj = allOwners.getJSONObject(i);
-            String usernameAuth = obj.getString("email");
-            String passwordAuth = obj.getString("password");
-            // String petsOwners = obj.getString("OwnerIDKey");
-            if (username.equals(usernameAuth) && password.equals(passwordAuth)){
-                ownerID = Integer.parseInt(obj.getString("OwnerIDKey"));
-                isAuthenticated = true;
-                break;
+        try {
+            for (int i = 0; i < allOwners.length(); i++) {
+                JSONObject obj = allOwners.getJSONObject(i);
+                String usernameAuth = obj.getString("email");
+                String passwordAuth = obj.getString("password");
+                // String petsOwners = obj.getString("OwnerIDKey");
+                if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
+                    ownerID = Integer.parseInt(obj.getString("OwnerIDKey"));
+                    isAuthenticated = true;
+                    break;
+                }
             }
         }
+        catch(JSONException je) { }
         // DEREK if they're both present, set isAuthenticated to true and create a Owner object with the ownerID of that row
         // DEREK if the username/password are wrong, set isAuthenticated to false
 
@@ -123,19 +126,22 @@ public class Model {
          * This constructor is for an existing Owner, accessed by login page
          * @return true if the login and password are correct, false if they are not
          */
-        public Owner(int ownerID) throws JSONException {
-            this.ownerID = ownerID;
-            petMap= new HashMap<Integer, Pet>();
-            // DEREK search the Pet database for any matches with the ownerID
-            for (int i = 0; i < allPets.length(); i++) {
-                JSONObject obj = allPets.getJSONObject(i);
-                String petsOwners = obj.getString("OwnerIDKey");
-                if (Integer.parseInt(petsOwners) == ownerID){
-                    Pet newPet = new Pet(obj, Integer.parseInt(petsOwners));
-                    int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
-                    petMap.put(petIdKey, newPet);
+        public Owner(int ownerID)  {
+            try {
+                this.ownerID = ownerID;
+                petMap = new HashMap<Integer, Pet>();
+                // DEREK search the Pet database for any matches with the ownerID
+                for (int i = 0; i < allPets.length(); i++) {
+                    JSONObject obj = allPets.getJSONObject(i);
+                    String petsOwners = obj.getString("OwnerIDKey");
+                    if (Integer.parseInt(petsOwners) == ownerID) {
+                        Pet newPet = new Pet(obj, Integer.parseInt(petsOwners));
+                        int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
+                        petMap.put(petIdKey, newPet);
+                    }
                 }
             }
+            catch(JSONException je){ }
             System.out.println(petMap.toString());
             // DEREK create a Pet object from each match of the ownerID, store them in petMap with their petIDs as keys
         }
@@ -155,9 +161,14 @@ public class Model {
         }
     }
 
+    public HashMap<Integer, Pet> buildPetMap(int userID){
+        return new HashMap<Integer, Pet>();
+    }
+
 
 
     public class Pet {
+
         public int petID;
         public JSONObject petInfo;
 
@@ -233,7 +244,6 @@ public class Model {
         public void deletePet() {
             // DEREK find the Pet row associated with this petID and delete it from the DB
         }
-
 
     }
 

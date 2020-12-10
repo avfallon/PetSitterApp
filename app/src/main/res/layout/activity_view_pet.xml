@@ -21,7 +21,7 @@
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
 
-        android:textColor="@color/ViewPetFormTitle_color"
+        android:textColor="@color/petFormTitle_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -37,7 +37,7 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:text="@string/String_ViewPetForm_PetNameTitle"
-            android:textColor="@color/ViewPetFormTitle_color"
+            android:textColor="@color/petFormTitle_color"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:paddingHorizontal="5dp"

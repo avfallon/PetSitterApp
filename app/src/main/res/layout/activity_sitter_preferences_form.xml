@@ -332,7 +332,7 @@
             android:layout_marginHorizontal="50dp"
             android:text="@string/SubmitButton"
 
-            android:onClick = "submitPetFormInfo"
+            android:onClick = "savePreferences"
             />
     </RelativeLayout>
 

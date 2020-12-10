@@ -169,6 +169,7 @@
         android:layout_alignRight="@id/security_card_input"
         android:layout_margin="20dp"
         android:text="SAVE"
+        android:onClick="saveCreditCard"
         />
 
 

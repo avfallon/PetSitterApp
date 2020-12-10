@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -15,8 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
 public class Controller extends AppCompatActivity {
-    Model model;
+    public static Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,16 @@ public class Controller extends AppCompatActivity {
      */
     public void saveNewAccount(View v) {
         // Do some stuff in the model to save the account info
+        // if sitter, send to sitter preferences first
+        setContentView(R.layout.activity_sitter_preferences_form);
+    }
+
+    public void saveCreditCard(View v) {
         allPetsActivity();
+    }
+
+    public void savePreferences(View v) {
+        setContentView(R.layout.activity_credit_card);
     }
 
 
@@ -99,9 +110,12 @@ public class Controller extends AppCompatActivity {
      * @param v - the view that this method is triggered from (single pet view)
      */
     public void editPetForm(View v) {
+//        Intent intent = new Intent(this, PetFormActivity.class);
+//        intent.putExtra("Json_NewOrEdit", "Edit");
+//        startActivity(intent);
+
         Intent intent = new Intent(this, PetFormActivity.class);
         intent.putExtra("Json_NewOrEdit", "Edit");
-
         startActivity(intent);
     }
 
@@ -111,13 +125,20 @@ public class Controller extends AppCompatActivity {
     public void allPetsActivity() {
         setContentView(R.layout.activity_all_pets);
 //        String[] pets = model.user.getPets();
-        String[] pets = {"sdf", "sdfgdfgdf"};
+        String[] pets = {"Spot  -  Dog (Chihuahua)", "Rover  -  Iguana", "Teddy  -  Cat (Siamese)"};
 
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
 
         ListView listView = (ListView) findViewById(R.id.petList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) parent.getItemAtPosition(position);
+                Log.w("MA", ""+position+"");
+            }
+        });
     }
 
     /**
