@@ -158,12 +158,12 @@ public class PetActivity extends AppCompatActivity {
                 Pet pet = new Pet(petInfo);
 
                 if (petInfo != null) {
-//                    if(editing) {
-//                        Controller.model.editPet(petInfo);
-//                    }
-//                    else {
-//                        Controller.model.addPet(petInfo);
-//                    }
+                    if(editing) {
+                        Controller.model.editPet(petInfo);
+                    }
+                    else {
+                        Controller.model.addPet(petInfo);
+                    }
                     currentPet = pet;
                     populateViewPet(pet);
                     setContentView(R.layout.activity_view_pet);
@@ -173,7 +173,7 @@ public class PetActivity extends AppCompatActivity {
                     Log.w("MA", "Error in PetActivity.savePetInfo(), JSON is null");
                 }
             }
-            catch(JSONException je) {
+            catch(JSONException | IOException je) {
                 Log.w("MA", "JSONException PetActivity.savePet()");
             }
 //            catch(IOException io) {
@@ -189,18 +189,18 @@ public class PetActivity extends AppCompatActivity {
         if(editing) {
             petInfo.put("petIDKey", currentPet.petInfo.get("petIDKey"));
         }
-        petInfo.put("Name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
+        petInfo.put("name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
 
 
-        petInfo.put("Species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
-        petInfo.put("Size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
+        petInfo.put("species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
+        petInfo.put("size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
 
-        petInfo.put("Temperament", ((EditText) findViewById(R.id.PetTemperamentInput)).getText().toString());
-        petInfo.put("Breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
-        petInfo.put("Age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
-        petInfo.put("Diet", ((EditText) findViewById(R.id.PetDietInput)).getText().toString());
-        petInfo.put("HealthIssues", ((EditText) findViewById(R.id.PetHealthIssuesInput)).getText().toString());
-        petInfo.put("ExtraInfo", ((EditText) findViewById(R.id.PetExtraInfoInput)).getText().toString());
+        petInfo.put("temperament", ((EditText) findViewById(R.id.PetTemperamentInput)).getText().toString());
+        petInfo.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
+        petInfo.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
+        petInfo.put("diet", ((EditText) findViewById(R.id.PetDietInput)).getText().toString());
+        petInfo.put("healthIssues", ((EditText) findViewById(R.id.PetHealthIssuesInput)).getText().toString());
+        petInfo.put("extraInfo", ((EditText) findViewById(R.id.PetExtraInfoInput)).getText().toString());
         return petInfo;
     }
 
