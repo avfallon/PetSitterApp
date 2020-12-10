@@ -47,24 +47,24 @@ public class Controller extends AppCompatActivity {
     public void makeTestUser() {
         try {
             JSONObject petInfo = new JSONObject();
-            petInfo.put("OwnerIDKey", "3333");
-            petInfo.put("PetIDKey", "4444");
-            petInfo.put("Name", "Devin");
-            petInfo.put("Species", "Dog");
-            petInfo.put("Size", "Small");
-            petInfo.put("Temperament", "Calm");
-            petInfo.put("Breed", "Australian Shepherd");
-            petInfo.put("Age", "4");
-            petInfo.put("Diet", "2 scoops of dry food");
-            petInfo.put("HealthIssues", "Bum hip");
-            petInfo.put("ExtraInfo", "Nada");
+            petInfo.put("ownerIDKey", "3333");
+            petInfo.put("petIDKey", "4444");
+            petInfo.put("name", "Devin");
+            petInfo.put("species", "Dog");
+            petInfo.put("size", "Small");
+            petInfo.put("temperament", "Calm");
+            petInfo.put("breed", "Australian Shepherd");
+            petInfo.put("age", "4");
+            petInfo.put("diet", "2 scoops of dry food");
+            petInfo.put("healthIssues", "Bum hip");
+            petInfo.put("extraInfo", "Nada");
 
             JSONObject accountInfo = new JSONObject();
-            accountInfo.put("UserIDKey", "3333");
+            accountInfo.put("ownerIDKey", "3333");
             accountInfo.put("firstName", "Andrew");
             accountInfo.put("lastName", "Fallon");
             accountInfo.put("address", "3336 Gilman");
-            accountInfo.put("phoneNumber", "666-666-6666");
+            accountInfo.put("phoneNumber", "6666666666");
             accountInfo.put("email", "username");
             accountInfo.put("typeOfAccount", ""+BOTHFLAG);
             accountInfo.put("password", "password");
