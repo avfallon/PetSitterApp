@@ -21,9 +21,6 @@ import java.io.IOException;
 
 
 public class Controller extends AppCompatActivity {
-    public static final int BOTHFLAG = 0;
-    public static final int OWNERFLAG = 1;
-    public static final int SITTERFLAG = 2;
 
     public static Model model;
     public static Pet currentPet;
@@ -67,14 +64,14 @@ public class Controller extends AppCompatActivity {
             accountInfo.put("address", "3336 Gilman");
             accountInfo.put("phoneNumber", "666-666-6666");
             accountInfo.put("email", "username");
-            accountInfo.put("typeOfAccount", ""+BOTHFLAG);
+            accountInfo.put("typeOfAccount", ""+0);
             accountInfo.put("password", "password");
 
             Pet newPet = new Pet(petInfo);
             ArrayList<Pet> petList = new ArrayList<Pet>();
             petList.add(newPet);
-            currentUser = new User(petInfo.getString("OwnerIDKey"), accountInfo, petList);
-            Log.w("MA", currentUser.getPets()[0]);
+            // currentUser = new User(petInfo.getInt("OwnerIDKey"), accountInfo, petList);
+            //Log.w("MA", currentUser.getPets()[0]);
 
         }
         catch(JSONException je) {
@@ -93,7 +90,12 @@ public class Controller extends AppCompatActivity {
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-        currentUser = model.authenticateUser(username, password);
+        try {
+            currentUser = model.authenticateUser(username, password);
+        }
+        catch(JSONException je) {
+            Log.w("MA", "Error Logging in");
+        }
         System.out.println(currentUser.accountInfo.toString());
         if(currentUser == null) {
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
@@ -131,19 +133,6 @@ public class Controller extends AppCompatActivity {
         setContentView(R.layout.activity_credit_card);
     }
 
-
-    /**
-     * Switches to the activity of that "add pet" screen (PetFormActivity)
-     *
-     * @param v - the view that this method is triggered from (activity_all_pets)
-     */
-    public void addPetForm(View v) {
-        Intent intent = new Intent(this, PetFormActivity.class);
-        intent.putExtra("Json_NewOrEdit", "New");
-
-        startActivity(intent);
-    }
-
     /**
      * Switches to the activity of that "add pet" screen (PetFormActivity)
      *
@@ -158,21 +147,6 @@ public class Controller extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.petListNewJobPage);
         listView.setAdapter(adapter);
-    }
-
-    /**
-     * Switched to the "add pet" activity, but with an edit flag
-     *
-     * @param v - the view that this method is triggered from (single pet view)
-     */
-    public void editPetForm(View v) {
-//        Intent intent = new Intent(this, PetFormActivity.class);
-//        intent.putExtra("Json_NewOrEdit", "Edit");
-//        startActivity(intent);
-
-        Intent intent = new Intent(this, PetFormActivity.class);
-        intent.putExtra("Json_NewOrEdit", "Edit");
-        startActivity(intent);
     }
 
     /**
@@ -223,10 +197,13 @@ public class Controller extends AppCompatActivity {
     public void goToDashBoard(View v)
     {
         setContentView(R.layout.activity_dashboard);
-
-        JSONObject obj = new JSONObject(currentUser.accountInfo);
-
-        String typeAccount = obj.getString("typeOfAccount");
+        String typeAccount = "";
+        try {
+            typeAccount = currentUser.accountInfo.getString("typeOfAccount");
+        }
+        catch (JSONException je) {
+            Log.w("MA", "Error in GoToDashboard");
+        }
 
         if(typeAccount.equals("OWNER"))
         {
@@ -245,47 +222,6 @@ public class Controller extends AppCompatActivity {
             Button sitterButton = findViewById(R.id.sitter_page_button);
             sitterButton.setVisibility(View.VISIBLE);
         }
-    }
-
-    /**
-     * Method called when a user has entered a new pet's information, this saves it in the model
-     *
-     * @param petInfo
-     */
-    public void addPet(JSONObject petInfo) throws JSONException, IOException {
-        model.addPet(petInfo);
-
-        setContentView(R.layout.activity_login);
-    }
-
-    /**
-     * This method edits an existing pet row in the pet database
-     *
-     * @param newPetInfo - the updated information of an existing pet
-     */
-    public void editPet(JSONObject newPetInfo) throws JSONException {
-        model.editPet(newPetInfo);
-
-        setContentView(R.layout.activity_login);
-    }
-
-    /**
-     * This method deletes a pet object from the pet database and removes it from an owner's pet map
-     *
-     * @param petID - the ID of the pet to be deleted
-     */
-    public void deletePet(int petID) {
-        //model.deletePet(petID);
-    }
-
-    /**
-     * This method attempts to log into a user account
-     *
-     * @param username - the username entered by the user
-     * @param password - the password entered by the user
-     */
-    public void login(String username, String password) {
-        model.authenticateUser(username, password);
     }
 
 

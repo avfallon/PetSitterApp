@@ -154,18 +154,20 @@ public class PetActivity extends AppCompatActivity {
         else {
             try {
                 JSONObject petInfo = getPetInfo();
+                Log.w("MA", "petInfo: "+petInfo.toString());
                 Pet pet = new Pet(petInfo);
 
                 if (petInfo != null) {
-                    if(editing) {
-                        Controller.model.editPet(petInfo);
-                    }
-                    else {
-                        Controller.model.addPet(petInfo);
-                    }
+//                    if(editing) {
+//                        Controller.model.editPet(petInfo);
+//                    }
+//                    else {
+//                        Controller.model.addPet(petInfo);
+//                    }
                     currentPet = pet;
-                    setContentView(R.layout.activity_view_pet);
                     populateViewPet(pet);
+                    setContentView(R.layout.activity_view_pet);
+                    finish();
                 }
                 else {
                     Log.w("MA", "Error in PetActivity.savePetInfo(), JSON is null");
@@ -174,16 +176,21 @@ public class PetActivity extends AppCompatActivity {
             catch(JSONException je) {
                 Log.w("MA", "JSONException PetActivity.savePet()");
             }
-            catch(IOException io) {
-                Log.w("MA", "IOException PetActivity.savePet()");
-            }
+//            catch(IOException io) {
+//                Log.w("MA", "IOException PetActivity.savePet()");
+//            }
         }
 
     }
 
     public JSONObject getPetInfo() throws JSONException{
         JSONObject petInfo = new JSONObject();
+        petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
+        if(editing) {
+            petInfo.put("petIDKey", currentPet.petInfo.get("petIDKey"));
+        }
         petInfo.put("Name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
+
 
         petInfo.put("Species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
         petInfo.put("Size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
@@ -201,5 +208,4 @@ public class PetActivity extends AppCompatActivity {
         TextView ErrorTag = findViewById( errorID );
         ErrorTag.setVisibility(visibility);
     }
-
 }
