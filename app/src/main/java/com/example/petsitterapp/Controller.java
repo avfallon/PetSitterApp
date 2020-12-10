@@ -92,7 +92,7 @@ public class Controller extends AppCompatActivity {
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-        //currentUser = model.authenticateUser(username, password);
+        currentUser = model.authenticateUser(username, password);
         if(currentUser == null) {
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         }

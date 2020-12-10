@@ -39,7 +39,7 @@ public class Model {
         getJSON();
         getOwnerJSON();
 
-        buildPetList(currentUser.userID);
+        //buildPetList(currentUser.userID);
 
         String examplePet = "{\"ownerIDKey\":\"4\",\"petIDKey\":\"6\",\"name\":\"Andrew\",\"species\":\"Cowboy\",\"size\":\"Small\",\"temperament\":\"Lazy\",\"breed\":\"german shep\",\"age\":\"21\",\"diet\":\"Peanut Butter\",\"healthIssues\":\"Needs Glasses\",\"extraInfo\":\"Extras\"}";
         JSONObject examplePetJSON = new JSONObject(examplePet);
@@ -65,8 +65,8 @@ public class Model {
                 // String petsOwners = obj.getString("OwnerIDKey");
                 if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
                     String userID = obj.getString("OwnerIDKey");
-                    ArrayList<Pet> pets = buildPetList(userID);
-                    User newUser = new User(userID, obj, pets);
+                    buildPetList(userID);
+                    User newUser = new User(userID, obj, usersPets);
                     return newUser;
                 }
             }
