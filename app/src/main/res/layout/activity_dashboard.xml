@@ -27,6 +27,7 @@
         android:visibility="invisible"
 
         android:text="Sitter Page"
+        android:onClick="allJobsActivity"
         />
 
     <Button
@@ -38,7 +39,10 @@
         android:layout_marginTop="20dp"
         android:visibility="invisible"
         android:text="Owner Page"
+        android:onClick="allPetsActivity"
         />
+
+
 
     <Button
         android:id="@+id/settings_page_button"
@@ -49,6 +53,8 @@
         android:layout_marginTop="20dp"
 
         android:text="Settings Page"
+        android:onClick="goToSettingsActivity"
+
         />
 
     <Button
@@ -60,6 +66,7 @@
         android:layout_marginTop="20dp"
 
         android:text="Log out"
+        android:onClick="logOut"
         />
 
 

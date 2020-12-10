@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,52 +48,39 @@ public class Controller extends AppCompatActivity {
     public void makeTestUser() {
         try {
             JSONObject petInfo = new JSONObject();
-            petInfo.put("ownerIDKey", "3333");
-            petInfo.put("petIDKey", "4444");
-            petInfo.put("name", "Devin");
-            petInfo.put("species", "Dog");
-            petInfo.put("size", "Small");
-            petInfo.put("temperament", "Calm");
-            petInfo.put("breed", "Australian Shepherd");
-            petInfo.put("age", "4");
-            petInfo.put("diet", "2 scoops of dry food");
-            petInfo.put("healthIssues", "Bum hip");
-            petInfo.put("extraInfo", "Nada");
-
-            JSONObject petInfo2 = new JSONObject();
-            petInfo2.put("OwnerIDKey", "3333");
-            petInfo2.put("PetIDKey", "4444");
-            petInfo2.put("Name", "Brad");
-            petInfo2.put("Species", "Cat");
-            petInfo2.put("Size", "Small");
-            petInfo2.put("Temperament", "Calm");
-            petInfo2.put("Breed", "Siamese");
-            petInfo2.put("Age", "4");
-            petInfo2.put("Diet", "2 scoops of dry food");
-            petInfo2.put("HealthIssues", "Bum hip");
-            petInfo2.put("ExtraInfo", "Nada");
+            petInfo.put("OwnerIDKey", "3333");
+            petInfo.put("PetIDKey", "4444");
+            petInfo.put("Name", "Devin");
+            petInfo.put("Species", "Dog");
+            petInfo.put("Size", "Small");
+            petInfo.put("Temperament", "Calm");
+            petInfo.put("Breed", "Australian Shepherd");
+            petInfo.put("Age", "4");
+            petInfo.put("Diet", "2 scoops of dry food");
+            petInfo.put("HealthIssues", "Bum hip");
+            petInfo.put("ExtraInfo", "Nada");
 
             JSONObject accountInfo = new JSONObject();
-            accountInfo.put("ownerIDKey", "3333");
+            accountInfo.put("UserIDKey", "3333");
             accountInfo.put("firstName", "Andrew");
             accountInfo.put("lastName", "Fallon");
             accountInfo.put("address", "3336 Gilman");
-            accountInfo.put("phoneNumber", "6666666666");
+            accountInfo.put("phoneNumber", "666-666-6666");
             accountInfo.put("email", "username");
             accountInfo.put("typeOfAccount", ""+BOTHFLAG);
             accountInfo.put("password", "password");
 
-            Pet pet1 = new Pet(petInfo);
-            Pet pet2 = new Pet(petInfo2);
+            Pet newPet = new Pet(petInfo);
             ArrayList<Pet> petList = new ArrayList<Pet>();
-            petList.add(pet1);
-            petList.add(pet2);
+            petList.add(newPet);
+            currentUser = new User(petInfo.getString("OwnerIDKey"), accountInfo, petList);
+            Log.w("MA", currentUser.getPets()[0]);
 
-            //currentUser = new User(petInfo.getInt("OwnerIDKey"), accountInfo, petList);
         }
         catch(JSONException je) {
             Log.w("MA", "makeTestUser JSONException");
         }
+
     }
 
     /**
@@ -100,7 +88,7 @@ public class Controller extends AppCompatActivity {
      * It checks if their login credentials are correct,
      * @param v
      */
-    public void login(View v) throws JSONException {
+    public void login(View v) {
         Log.w("MA", "Login");
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
@@ -148,6 +136,18 @@ public class Controller extends AppCompatActivity {
      *
      * @param v - the view that this method is triggered from (activity_all_pets)
      */
+    public void addPetForm(View v) {
+        Intent intent = new Intent(this, PetFormActivity.class);
+        intent.putExtra("Json_NewOrEdit", "New");
+
+        startActivity(intent);
+    }
+
+    /**
+     * Switches to the activity of that "add pet" screen (PetFormActivity)
+     *
+     * @param v - the view that this method is triggered from (activity_all_pets)
+     */
     public void newSittingJob(View v) {
         setContentView(R.layout.activity_new_job);
         String[] pets = {"sdf", "sdfgdfgdf"};
@@ -157,6 +157,21 @@ public class Controller extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.petListNewJobPage);
         listView.setAdapter(adapter);
+    }
+
+    /**
+     * Switched to the "add pet" activity, but with an edit flag
+     *
+     * @param v - the view that this method is triggered from (single pet view)
+     */
+    public void editPetForm(View v) {
+//        Intent intent = new Intent(this, PetFormActivity.class);
+//        intent.putExtra("Json_NewOrEdit", "Edit");
+//        startActivity(intent);
+
+        Intent intent = new Intent(this, PetFormActivity.class);
+        intent.putExtra("Json_NewOrEdit", "Edit");
+        startActivity(intent);
     }
 
     /**
@@ -174,14 +189,18 @@ public class Controller extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pet selectedPet = currentUser.petList.get(position);
                 String selectedItem = (String) parent.getItemAtPosition(position);
+                Log.w("MA", "\nFrom Model: "+selectedPet.toString()+"\nFrom ListView: "+selectedItem);
                 currentPet = selectedPet;
                 goToPetActivity(false);
             }
         });
     }
 
-    public void newPet(View v) {
-        goToPetActivity(true);
+    /**
+     * This method switches to the All pets activity and fills the listview on that screen with all pets
+     */
+    public void allJobsActivity(View v) {
+        setContentView(R.layout.activity_sitter_page);
     }
 
     public void goToPetActivity(boolean newFlag) {
@@ -190,12 +209,71 @@ public class Controller extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToSettingsActivity(View v) {
+        setContentView(R.layout.activity_settings_page);
+    }
+
+    public void logOut(View v)
+    {
+        currentUser = null;
+        setContentView(R.layout.activity_login);
+    }
+
+    public void goToDashBoard(View v)
+    {
+        setContentView(R.layout.activity_dashboard);
+
+        JSONObject obj = new JSONObject(currentUser.accountInfo);
+
+        String typeAccount = obj.getString("typeOfAccount");
+
+        if(typeAccount.equals("OWNER"))
+        {
+            Button ownerButton = findViewById(R.id.owner_page_button);
+            ownerButton.setVisibility(View.VISIBLE);
+        }
+        else if(typeAccount.equals("SITTER"))
+        {
+            Button sitterButton = findViewById(R.id.sitter_page_button);
+            sitterButton.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            Button ownerButton = findViewById(R.id.owner_page_button);
+            ownerButton.setVisibility(View.VISIBLE);
+            Button sitterButton = findViewById(R.id.sitter_page_button);
+            sitterButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Method called when a user has entered a new pet's information, this saves it in the model
+     *
+     * @param petInfo
+     */
+    public void addPet(JSONObject petInfo) throws JSONException, IOException {
+        model.addPet(petInfo);
+
+        setContentView(R.layout.activity_login);
+    }
+
+    /**
+     * This method edits an existing pet row in the pet database
+     *
+     * @param newPetInfo - the updated information of an existing pet
+     */
+    public void editPet(JSONObject newPetInfo) throws JSONException {
+        model.editPet(newPetInfo);
+
+        setContentView(R.layout.activity_login);
+    }
+
     /**
      * This method deletes a pet object from the pet database and removes it from an owner's pet map
      *
-     * @param pet - the pet to be deleted
+     * @param petID - the ID of the pet to be deleted
      */
-    public void deletePet(Pet pet) {
+    public void deletePet(int petID) {
         //model.deletePet(petID);
     }
 
@@ -205,7 +283,7 @@ public class Controller extends AppCompatActivity {
      * @param username - the username entered by the user
      * @param password - the password entered by the user
      */
-    public void login(String username, String password) throws JSONException {
+    public void login(String username, String password) {
         model.authenticateUser(username, password);
     }
 
