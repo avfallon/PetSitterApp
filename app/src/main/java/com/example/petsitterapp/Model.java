@@ -2,7 +2,6 @@ package com.example.petsitterapp;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,18 +9,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -89,7 +83,7 @@ public class Model {
      */
     public void addPet(JSONObject petInfo) throws JSONException {
         // Creating a pet object with a JSON object adds that pet to the database automatically
-        Pet newPet = new Pet(petInfo, user.ownerID);
+        OldPet newPet = new OldPet(petInfo, user.ownerID);
         user.petMap.put(newPet.petID, newPet);
 
     }
@@ -102,7 +96,7 @@ public class Model {
      */
     public void editPet(JSONObject newPetInfo) throws JSONException{
         int petID = newPetInfo.getInt("petID");
-        Pet currentPet = user.petMap.get(petID);
+        OldPet currentPet = user.petMap.get(petID);
         currentPet.editPet(newPetInfo);
     }
 
@@ -111,7 +105,7 @@ public class Model {
      * @param petID - the ID of the pet to be deleted
      */
     public void deletePet(int petID) {
-        Pet pet = user.petMap.get(petID);
+        OldPet pet = user.petMap.get(petID);
         pet.deletePet();
         user.petMap.remove(petID);
     }
@@ -119,7 +113,7 @@ public class Model {
 
 
     public class Owner {
-        HashMap<Integer, Pet> petMap;
+        HashMap<Integer, OldPet> petMap;
         int ownerID;
 
         /**
@@ -129,13 +123,13 @@ public class Model {
         public Owner(int ownerID)  {
             try {
                 this.ownerID = ownerID;
-                petMap = new HashMap<Integer, Pet>();
+                petMap = new HashMap<Integer, OldPet>();
                 // DEREK search the Pet database for any matches with the ownerID
                 for (int i = 0; i < allPets.length(); i++) {
                     JSONObject obj = allPets.getJSONObject(i);
                     String petsOwners = obj.getString("OwnerIDKey");
                     if (Integer.parseInt(petsOwners) == ownerID) {
-                        Pet newPet = new Pet(obj, Integer.parseInt(petsOwners));
+                        OldPet newPet = new OldPet(obj, Integer.parseInt(petsOwners));
                         int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
                         petMap.put(petIdKey, newPet);
                     }
@@ -153,7 +147,7 @@ public class Model {
         public String[] getPets() throws JSONException {
             String[] petNames = new String[petMap.size()];
             int i=0;
-            for(Pet pet:petMap.values()) {
+            for(OldPet pet:petMap.values()) {
                 petNames[i] = pet.toString();
                 i++;
             }
@@ -167,7 +161,7 @@ public class Model {
 
 
 
-    public class Pet {
+    public class OldPet {
 
         public int petID;
         public JSONObject petInfo;
@@ -178,7 +172,7 @@ public class Model {
          * @param petInfo - JSONObject with the information entered by the user on the addPet view
          * @param ownerID - foreign key for the Pet database, attaches this pet to its owner in the Owner Database
          */
-        public Pet(JSONObject petInfo, int ownerID) {
+        public OldPet(JSONObject petInfo, int ownerID) {
             this.petInfo = petInfo;
             //this.petID = addPet(petInfo, ownerID);
         }
@@ -187,7 +181,7 @@ public class Model {
          * This constructor makes a pet object out of an existing row in the Pet database
          * @param petID - the primary key for the row in the Pet database that you are getting
          */
-        public Pet(int petID) {
+        public OldPet(int petID) {
             this.petID = petID;
             // DEREK search the pet database for this existing petID, store the info in petInfo
         }

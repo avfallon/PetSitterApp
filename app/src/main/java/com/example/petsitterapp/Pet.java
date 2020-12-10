@@ -32,9 +32,7 @@ public class Pet {
     }
 
     /**
-     * Purpose: edit the information of an existing pet in the DB
-     * Input: a list of the new values to be put in the DB
-     * Return: true if the pet row is successfully found and edited
+     * Purpose: update the petInfo of this pet after it has been edited in the database
      */
     public void editPet(JSONObject newInfo) {
         this.petInfo = newInfo;
