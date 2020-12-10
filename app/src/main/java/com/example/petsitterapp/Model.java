@@ -75,9 +75,9 @@ public class Model {
         String addPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/addPet.php?json="+petInfo;
         AddPet getJSON = new AddPet(addPetURL);
         getJSON.execute();
-        //Pet newPet = new Pet(petInfo, user.ownerID);
-        //user.petMap.put(newPet.petID, newPet);
-
+        Pet newPet = new Pet(petInfo);
+        usersPets.add(newPet);
+        
     }
 
     private class AddPet extends AsyncTask<Void, Void, String> {
