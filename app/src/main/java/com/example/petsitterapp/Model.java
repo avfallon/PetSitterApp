@@ -67,6 +67,7 @@ public class Model {
                     String userID = obj.getString("OwnerIDKey");
                     buildPetList(userID);
                     User newUser = new User(userID, obj, usersPets);
+                    Log.w("MA", "Login Successful");
                     return newUser;
                 }
             }
