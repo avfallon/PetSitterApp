@@ -37,9 +37,9 @@ public class Model {
         getJSON();
         getOwnerJSON();
 
-        String examplePet = "{\"ownerIDKey\":\"4\",\"petIDKey\":\"99\",\"name\":\"Jeff\",\"species\":\"Unknown\",\"size\":\"Small\",\"temperament\":\"Lazy\",\"breed\":\"german shep\",\"age\":\"21\",\"diet\":\"Peanut Butter\",\"healthIssues\":\"Needs Glasses\",\"extraInfo\":\"Extras\"}";
+        String examplePet = "{\"ownerIDKey\":\"4\",\"petIDKey\":\"6\",\"name\":\"Andrew\",\"species\":\"Cowboy\",\"size\":\"Small\",\"temperament\":\"Lazy\",\"breed\":\"german shep\",\"age\":\"21\",\"diet\":\"Peanut Butter\",\"healthIssues\":\"Needs Glasses\",\"extraInfo\":\"Extras\"}";
         JSONObject examplePetJSON = new JSONObject(examplePet);
-        addPet(examplePetJSON);
+        deletePet(examplePetJSON);
     }
 
     /**
@@ -131,25 +131,106 @@ public class Model {
     }
 
     /**
-     * This method takes new Pet information, finds the existing pet object associated with that petID
-     * and changes the database to reflect any of the newly input information for that pet
-     * @param newPetInfo - JSONObject of an ALREADY EXISTING PET and the newly updated info for that pet
-     * @throws JSONException
+     * Purpose: edit the information of an existing pet in the DB
+     * Input: a list of the new values to be put in the DB
+     * Return: true if the pet row is successfully found and edited
      */
-    public void editPet(JSONObject newPetInfo) throws JSONException{
-        int petID = newPetInfo.getInt("petID");
-        OldPet currentPet = user.petMap.get(petID);
-        currentPet.editPet(newPetInfo);
+    public void editPet(JSONObject newInfo) {
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editPet.php?json="+newInfo;
+        EditPet getJSON = new EditPet(editPetURL);
+        getJSON.execute();
+    }
+
+    private class EditPet extends AsyncTask<Void, Void, String> {
+        String urlPHP = "";
+
+        protected EditPet(String url){
+            this.urlPHP = url;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            System.out.println("Edited Pet");
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(urlPHP);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
     }
 
     /**
      * This method gets the Pet obj. of the petID, deletes it from the database, and removes it from petMap
-     * @param petID - the ID of the pet to be deleted
+     * @param pet - the ID of the pet to be deleted
      */
-    public void deletePet(int petID) {
-        OldPet pet = user.petMap.get(petID);
-        pet.deletePet();
-        user.petMap.remove(petID);
+    public void deletePet(JSONObject pet) {
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deletePet.php?json="+pet;
+        DeletePet getJSON = new DeletePet(editPetURL);
+        getJSON.execute();
+    }
+
+    private class DeletePet extends AsyncTask<Void, Void, String> {
+        String urlPHP = "";
+
+        protected DeletePet(String url){
+            this.urlPHP = url;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            System.out.println("Deleted Pet");
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(urlPHP);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
     }
 
 
@@ -257,19 +338,6 @@ public class Model {
             // DEREK create a new row in the Pet DB with the petInfo and the owner ID
             // DEREK search for and return the petID that is generated when you make the row
             return petID;
-        }
-
-        /**
-         * Purpose: edit the information of an existing pet in the DB
-         * Input: a list of the new values to be put in the DB
-         * Return: true if the pet row is successfully found and edited
-         */
-        public boolean editPet(JSONObject newInfo) {
-            this.petInfo = newInfo;
-            // DEREK search the database for this pet's petID, then edit that row so that
-            // newInfo replaces whatever petInfo was already entered for this pet
-
-            return true;
         }
 
         /**
