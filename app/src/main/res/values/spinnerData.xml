@@ -18,11 +18,9 @@
 
     <string-array name="petSize_array">
         <item>Click me to select size.</item>
-        <item>Extra Small(EX: mouse, guinea pig)</item>
-        <item>Small(EX: HouseCat, Chihuahua)</item>
-        <item>Medium(EX: normal dog)</item>
-        <item>Large(EX: great Dane)</item>
-        <item>Extra Large(EX: ?? )</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
     </string-array>
 
 </resources>
