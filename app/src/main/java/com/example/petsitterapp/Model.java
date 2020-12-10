@@ -23,6 +23,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import static com.example.petsitterapp.Controller.currentUser;
+
 public class Model {
     private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
     private String ownerQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getOwners.php";
@@ -30,10 +32,14 @@ public class Model {
     private JSONArray allPets;
     private JSONArray allOwners;
 
+    public static ArrayList<Pet> usersPets = new ArrayList<>();;
+
     public Model() throws JSONException, IOException {
 
         getJSON();
         getOwnerJSON();
+
+        buildPetList(currentUser.userID);
 
         String examplePet = "{\"ownerIDKey\":\"4\",\"petIDKey\":\"6\",\"name\":\"Andrew\",\"species\":\"Cowboy\",\"size\":\"Small\",\"temperament\":\"Lazy\",\"breed\":\"german shep\",\"age\":\"21\",\"diet\":\"Peanut Butter\",\"healthIssues\":\"Needs Glasses\",\"extraInfo\":\"Extras\"}";
         JSONObject examplePetJSON = new JSONObject(examplePet);
@@ -267,9 +273,15 @@ public class Model {
      * @param userID ID of the user whose pets we are finding
      * @return an ArrayList containing every Pet object that contains this userID
      */
-    public ArrayList<Pet> buildPetList(String userID){
-
-        // Not yet implemented
+    public ArrayList<Pet> buildPetList(String userID) throws JSONException {
+        for (int i = 0; i < allPets.length(); i++) {
+            JSONObject obj = allPets.getJSONObject(i);
+            String petsOwners = obj.getString("OwnerIDKey");
+            if (petsOwners.equals(userID)) {
+                Pet newPet = new Pet(obj);
+                usersPets.add(newPet);
+            }
+        }
 
         return new ArrayList<Pet>();
     }
