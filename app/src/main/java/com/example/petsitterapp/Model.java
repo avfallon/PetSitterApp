@@ -242,10 +242,12 @@ public class Model {
         }
     }
 
-    public void createAccount(JSONObject user) {
+    public User createAccount(JSONObject user) throws JSONException {
         String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
         CreateAccount getJSON = new CreateAccount(editPetURL);
         getJSON.execute();
+        User newUser = new User(user.getInt("ownerIDKey"), user, usersPets);
+        return newUser;
     }
 
     private class CreateAccount extends AsyncTask<Void, Void, String> {
