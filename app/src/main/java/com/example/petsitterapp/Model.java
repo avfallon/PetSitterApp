@@ -2,7 +2,6 @@ package com.example.petsitterapp;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,18 +9,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -49,17 +44,15 @@ public class Model {
 
     /**
      * This method checks the owner database against login credentials from the user
-     * If the credentials are correct, it creates a user object for that account
+     * If the credentials are correct, it returns a user object for that account
      * @param username - username entered by the user
      * @param password - password entered by the user
-     * @return true if the username/password are correct and present in the Owner database
-     *         false if the username or password are incorrect
+     * @return the user associated with the username and password, or null if not found
      */
-    public boolean authenticateUser(String username, String password)  {
+    public User authenticateUser(String username, String password)  {
         Log.w("MA", "username: "+username+" password: "+password);
         boolean isAuthenticated = false;
         int ownerID = 0;
-        // DEREK search the database for username+password,
         try {
             for (int i = 0; i < allOwners.length(); i++) {
                 JSONObject obj = allOwners.getJSONObject(i);
@@ -67,23 +60,18 @@ public class Model {
                 String passwordAuth = obj.getString("password");
                 // String petsOwners = obj.getString("OwnerIDKey");
                 if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
-                    ownerID = Integer.parseInt(obj.getString("OwnerIDKey"));
-                    isAuthenticated = true;
-                    break;
+                    int userID = Integer.parseInt(obj.getString("OwnerIDKey"));
+                    ArrayList<Pet> pets = buildPetList(userID);
+                    User newUser = new User(userID, obj, pets);
+                    return newUser;
                 }
             }
         }
-        catch(JSONException je) { }
-        // DEREK if they're both present, set isAuthenticated to true and create a Owner object with the ownerID of that row
-        // DEREK if the username/password are wrong, set isAuthenticated to false
+        catch(JSONException je) {
+            Log.w("MA", "Authentication JSON Error");
+        }
 
-        if(isAuthenticated) {
-            user = new Owner(ownerID);
-            return true;
-        }
-        else {
-            return false;
-        }
+        return null;
     }
 
     /**
@@ -150,7 +138,7 @@ public class Model {
      */
     public void editPet(JSONObject newPetInfo) throws JSONException{
         int petID = newPetInfo.getInt("petID");
-        Pet currentPet = user.petMap.get(petID);
+        OldPet currentPet = user.petMap.get(petID);
         currentPet.editPet(newPetInfo);
     }
 
@@ -159,7 +147,7 @@ public class Model {
      * @param petID - the ID of the pet to be deleted
      */
     public void deletePet(int petID) {
-        Pet pet = user.petMap.get(petID);
+        OldPet pet = user.petMap.get(petID);
         pet.deletePet();
         user.petMap.remove(petID);
     }
@@ -167,7 +155,7 @@ public class Model {
 
 
     public class Owner {
-        HashMap<Integer, Pet> petMap;
+        HashMap<Integer, OldPet> petMap;
         int ownerID;
 
         /**
@@ -177,14 +165,14 @@ public class Model {
         public Owner(int ownerID)  {
             try {
                 this.ownerID = ownerID;
-                petMap = new HashMap<Integer, Pet>();
+                petMap = new HashMap<Integer, OldPet>();
                 // DEREK search the Pet database for any matches with the ownerID
                 for (int i = 0; i < allPets.length(); i++) {
                     JSONObject obj = allPets.getJSONObject(i);
                     String petsOwners = obj.getString("OwnerIDKey");
                     if (Integer.parseInt(petsOwners) == ownerID) {
-                        Pet newPet = new Pet(obj, Integer.parseInt(petsOwners));
-                        int petIdKey = obj.getInt("PetIDKey");
+                        OldPet newPet = new OldPet(obj, Integer.parseInt(petsOwners));
+                        int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
                         petMap.put(petIdKey, newPet);
                     }
                 }
@@ -201,7 +189,7 @@ public class Model {
         public String[] getPets() throws JSONException {
             String[] petNames = new String[petMap.size()];
             int i=0;
-            for(Pet pet:petMap.values()) {
+            for(OldPet pet:petMap.values()) {
                 petNames[i] = pet.toString();
                 i++;
             }
@@ -209,13 +197,21 @@ public class Model {
         }
     }
 
-    public HashMap<Integer, Pet> buildPetMap(int userID){
-        return new HashMap<Integer, Pet>();
+    /**
+     *
+     * @param userID ID of the user whose pets we are finding
+     * @return an ArrayList containing every Pet object that contains this userID
+     */
+    public ArrayList<Pet> buildPetList(int userID){
+
+        // Not yet implemented
+
+        return new ArrayList<Pet>();
     }
 
 
 
-    public class Pet {
+    public class OldPet {
 
         public int petID;
         public JSONObject petInfo;
@@ -226,7 +222,7 @@ public class Model {
          * @param petInfo - JSONObject with the information entered by the user on the addPet view
          * @param ownerID - foreign key for the Pet database, attaches this pet to its owner in the Owner Database
          */
-        public Pet(JSONObject petInfo, int ownerID) {
+        public OldPet(JSONObject petInfo, int ownerID) {
             this.petInfo = petInfo;
             //this.petID = addPet(petInfo, ownerID);
         }
@@ -235,7 +231,7 @@ public class Model {
          * This constructor makes a pet object out of an existing row in the Pet database
          * @param petID - the primary key for the row in the Pet database that you are getting
          */
-        public Pet(int petID) {
+        public OldPet(int petID) {
             this.petID = petID;
             // DEREK search the pet database for this existing petID, store the info in petInfo
         }
