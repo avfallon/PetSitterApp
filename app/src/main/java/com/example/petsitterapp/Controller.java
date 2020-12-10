@@ -94,6 +94,7 @@ public class Controller extends AppCompatActivity {
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
         currentUser = model.authenticateUser(username, password);
+        System.out.println(currentUser.accountInfo.toString());
         if(currentUser == null) {
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         }
