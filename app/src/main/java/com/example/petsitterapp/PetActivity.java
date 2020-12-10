@@ -3,31 +3,203 @@ package com.example.petsitterapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class PetActivity extends AppCompatActivity {
-    private JSONObject petInfo;
+    private Pet currentPet;
+    private boolean editing;
 
-    public void onCreate( Bundle savedInstanceState ) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        petInfo = getTransferredPetData();
-    }
-    //Method slowly for taking the petData that was transferred through intent.putExtra,
-    //Takes that data which is received as a String and turns it back into a JSONObject.
-    public JSONObject getTransferredPetData() {
-        Intent intent = this.getIntent();
-        JSONObject transferData = null;
-        try {
-            transferData = new JSONObject(intent.getStringExtra("Json_NewOrEdit"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.w("Testing", "The data collected is: " + transferData);
+         this.currentPet = Controller.currentPet;
+         boolean newFlag = getIntent().getBooleanExtra("newPet", true);
 
-        return transferData;
+        if(newFlag) {
+            editing = false;
+            setContentView(R.layout.activity_petform);
+            populatePetForm(null);
+         }
+        else {
+            Log.w("MA", "editing pet");
+            setContentView(R.layout.activity_petform);
+            populatePetForm(currentPet);
+            //setContentView(R.layout.activity_view_pet);
+            populateViewPet(currentPet);
+        }
     }
+
+    public void populateViewPet(Pet pet) {
+        Log.w("MA", pet.toString());
+    }
+
+    /**
+     * This method fills PetForm with the given pet's information, or clears all info if pet is null
+     * @param pet - the pet who's information you will populate the view with, null if it is a new pet
+     */
+    public void populatePetForm(Pet pet) {
+        Log.w("MA", "PopulatePetForm");
+        if(pet != null) {
+            try {
+                ((EditText) findViewById(R.id.PetNameInput)).setText(pet.petInfo.getString("Name"));
+                ((EditText) findViewById(R.id.PetTemperamentInput)).setText(pet.petInfo.getString("Temperament"));
+                ((EditText) findViewById(R.id.PetBreedInput)).setText(pet.petInfo.getString("Breed"));
+                ((EditText) findViewById(R.id.PetAgeInput)).setText(pet.petInfo.getString("Age"));
+                ((EditText) findViewById(R.id.PetDietInput)).setText(pet.petInfo.getString("Diet"));
+                ((EditText) findViewById(R.id.PetHealthIssuesInput)).setText(pet.petInfo.getString("HealthIssues"));
+                ((EditText) findViewById(R.id.PetExtraInfoInput)).setText(pet.petInfo.getString("ExtraInfo"));
+
+                setSpinnerData();
+                Spinner speciesSpinner = ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner));
+                speciesSpinner.setSelection(getIndex(speciesSpinner, pet.petInfo.getString("Species")));
+
+                Spinner sizeSpinner = ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner));
+
+                sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("Size")));
+                Log.w("MA", "Successfully populated Pet Form");
+            } catch (JSONException je) {
+                Log.w("MA", "JSONException PetActivity.populatePetForm()");
+            }
+        }
+        else {
+            Log.w("MA", "Filling empty pet");
+            ((EditText) findViewById(R.id.PetNameInput)).setText("");
+            ((EditText) findViewById(R.id.PetTemperamentInput)).setText("");
+            ((EditText) findViewById(R.id.PetBreedInput)).setText("");
+            ((EditText) findViewById(R.id.PetAgeInput)).setText("");
+            ((EditText) findViewById(R.id.PetDietInput)).setText("");
+            ((EditText) findViewById(R.id.PetHealthIssuesInput)).setText("");
+            ((EditText) findViewById(R.id.PetExtraInfoInput)).setText("");
+
+            setSpinnerData();
+        }
+    }
+
+    /**
+     * This method creates the spinners in PetForm for species and size
+     */
+    public void setSpinnerData(  ) {
+        //SET PETSPECIES SPINNER
+        Spinner spinner_species = (Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_species = ArrayAdapter.createFromResource(this,
+                R.array.petSpecies_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_species.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_species.setAdapter(adapter_species);
+
+        //SET PETSIZE SPINNER
+        Spinner spinner_size = (Spinner) findViewById(R.id.PetForm_PetSizeSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_size = ArrayAdapter.createFromResource(this,
+                R.array.petSize_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_size.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_size.setAdapter(adapter_size);
+    }
+
+
+    /**
+     * This method returns the index in the spinner of the given string
+     * @param spinner - the spinner you are searchng
+     * @param myString - the string you are looking to match with its index
+     * @return the index in the given spinner of the given string
+     */
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            String splitter = "()";
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * This method is called from activity_view_pet, it opens petForm for editing the selected pet
+     */
+    public void editPet(View v) {
+        editing = true;
+        setContentView(R.layout.activity_petform);
+        populatePetForm(currentPet);
+    }
+
+    /**
+     * This method is called by the save button in PetForm, it saves the information entered by the user
+     * @param v - the save button in activity_PetForm
+     */
+    public void savePetInfo(View v) {
+        setError(View.INVISIBLE, R.id.ErrorTag_PetName);
+        setError(View.INVISIBLE, R.id.ErrorTag_PetSpecies);
+
+        if(((TextView)findViewById(R.id.PetNameInput)).getText().toString() == "") {
+            setError(View.VISIBLE, R.id.ErrorTag_PetName);
+        }
+        else if(((Spinner)findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItemPosition() == 0) {
+            setError(View.VISIBLE, R.id.ErrorTag_PetSpecies);
+        }
+        else {
+            try {
+                JSONObject petInfo = getPetInfo();
+                Pet pet = new Pet(petInfo);
+
+                if (petInfo != null) {
+                    if(editing) {
+                        Controller.model.editPet(petInfo);
+                    }
+                    else {
+                        Controller.model.addPet(petInfo);
+                    }
+                    currentPet = pet;
+                    setContentView(R.layout.activity_view_pet);
+                    populateViewPet(pet);
+                }
+                else {
+                    Log.w("MA", "Error in PetActivity.savePetInfo(), JSON is null");
+                }
+            }
+            catch(JSONException je) {
+                Log.w("MA", "JSONException PetActivity.savePet()");
+            }
+            catch(IOException io) {
+                Log.w("MA", "IOException PetActivity.savePet()");
+            }
+        }
+
+    }
+
+    public JSONObject getPetInfo() throws JSONException{
+        JSONObject petInfo = new JSONObject();
+        petInfo.put("Name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
+
+        petInfo.put("Species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
+        petInfo.put("Size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
+
+        petInfo.put("Temperament", ((EditText) findViewById(R.id.PetTemperamentInput)).getText().toString());
+        petInfo.put("Breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
+        petInfo.put("Age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
+        petInfo.put("Diet", ((EditText) findViewById(R.id.PetDietInput)).getText().toString());
+        petInfo.put("HealthIssues", ((EditText) findViewById(R.id.PetHealthIssuesInput)).getText().toString());
+        petInfo.put("ExtraInfo", ((EditText) findViewById(R.id.PetExtraInfoInput)).getText().toString());
+        return petInfo;
+    }
+
+    public void setError(int visibility, int errorID) {
+        TextView ErrorTag = findViewById( errorID );
+        ErrorTag.setVisibility(visibility);
+    }
+
 }

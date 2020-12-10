@@ -57,6 +57,7 @@
 
                 android:paddingHorizontal="10dp"
                 android:hint="@string/String_petForm_PetNameInput"
+                android:text=""
                 android:maxLength="@string/PetName_CharLimit"
                 android:inputType="text"
                 />
@@ -601,7 +602,7 @@
                 android:layout_marginHorizontal="50dp"
                 android:text="@string/SubmitButton"
 
-                android:onClick = "submitPetFormInfo"
+                android:onClick = "savePetInfo"
                 />
         </RelativeLayout>
 

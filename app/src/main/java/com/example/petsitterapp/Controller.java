@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,18 +16,71 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.io.IOException;
 
 
 public class Controller extends AppCompatActivity {
+    public static final int BOTHFLAG = 0;
+    public static final int OWNERFLAG = 1;
+    public static final int SITTERFLAG = 2;
+
     public static Model model;
+    public static Pet currentPet;
+    public static User currentUser;
+    public SittingJob currentJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = new Model();
+        try {
+            model = new Model();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        makeTestUser();
         setContentView(R.layout.activity_login);
-        Log.w("Testing", "Inside PetFormActivity onCreate.");
+    }
+
+    public void makeTestUser() {
+        try {
+            JSONObject petInfo = new JSONObject();
+            petInfo.put("OwnerIDKey", "3333");
+            petInfo.put("PetIDKey", "4444");
+            petInfo.put("Name", "Devin");
+            petInfo.put("Species", "Dog");
+            petInfo.put("Size", "Small");
+            petInfo.put("Temperament", "Calm");
+            petInfo.put("Breed", "Australian Shepherd");
+            petInfo.put("Age", "4");
+            petInfo.put("Diet", "2 scoops of dry food");
+            petInfo.put("HealthIssues", "Bum hip");
+            petInfo.put("ExtraInfo", "Nada");
+
+            JSONObject accountInfo = new JSONObject();
+            accountInfo.put("UserIDKey", "3333");
+            accountInfo.put("firstName", "Andrew");
+            accountInfo.put("lastName", "Fallon");
+            accountInfo.put("address", "3336 Gilman");
+            accountInfo.put("phoneNumber", "666-666-6666");
+            accountInfo.put("email", "username");
+            accountInfo.put("typeOfAccount", ""+BOTHFLAG);
+            accountInfo.put("password", "password");
+
+            Pet newPet = new Pet(petInfo);
+            ArrayList<Pet> petList = new ArrayList<Pet>();
+            petList.add(newPet);
+            currentUser = new User(petInfo.getString("OwnerIDKey"), accountInfo, petList);
+            Log.w("MA", currentUser.getPets()[0]);
+
+        }
+        catch(JSONException je) {
+            Log.w("MA", "makeTestUser JSONException");
+        }
+
     }
 
     /**
@@ -35,16 +89,18 @@ public class Controller extends AppCompatActivity {
      * @param v
      */
     public void login(View v) {
+        Log.w("MA", "Login");
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-        boolean accountExists = model.authenticateUser(username, password);
-        if(accountExists) {
-            ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
-            allPetsActivity();
+        currentUser = model.authenticateUser(username, password);
+        System.out.println(currentUser.accountInfo.toString());
+        if(currentUser == null) {
+            ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         }
         else {
-            ((TextView)findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
+            allPetsActivity();
         }
     }
 
@@ -98,7 +154,7 @@ public class Controller extends AppCompatActivity {
         String[] pets = {"sdf", "sdfgdfgdf"};
 
 
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, pets);
 
         ListView listView = (ListView) findViewById(R.id.petListNewJobPage);
         listView.setAdapter(adapter);
@@ -124,21 +180,71 @@ public class Controller extends AppCompatActivity {
      */
     public void allPetsActivity() {
         setContentView(R.layout.activity_all_pets);
-//        String[] pets = model.user.getPets();
-        String[] pets = {"Spot  -  Dog (Chihuahua)", "Rover  -  Iguana", "Teddy  -  Cat (Siamese)"};
 
-
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.widget_single_pet, R.id.listText, pets);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
 
         ListView listView = (ListView) findViewById(R.id.petList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pet selectedPet = currentUser.petList.get(position);
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                Log.w("MA", ""+position+"");
+                Log.w("MA", "\nFrom Model: "+selectedPet.toString()+"\nFrom ListView: "+selectedItem);
+                currentPet = selectedPet;
+                goToPetActivity(false);
             }
         });
+    }
+
+    /**
+     * This method switches to the All pets activity and fills the listview on that screen with all pets
+     */
+    public void allJobsActivity(View v) {
+        setContentView(R.layout.activity_sitter_page);
+    }
+
+    public void goToPetActivity(boolean newFlag) {
+        Intent intent = new Intent(this, PetActivity.class);
+        intent.putExtra("newPet", newFlag);
+        startActivity(intent);
+    }
+
+    public void goToSettingsActivity(View v) {
+        setContentView(R.layout.activity_settings_page);
+    }
+
+    public void logOut(View v)
+    {
+        currentUser = null;
+        setContentView(R.layout.activity_login);
+    }
+
+    public void goToDashBoard(View v)
+    {
+        setContentView(R.layout.activity_dashboard);
+
+        JSONObject obj = new JSONObject(currentUser.accountInfo);
+
+        String typeAccount = obj.getString("typeOfAccount");
+
+        if(typeAccount.equals("OWNER"))
+        {
+            Button ownerButton = findViewById(R.id.owner_page_button);
+            ownerButton.setVisibility(View.VISIBLE);
+        }
+        else if(typeAccount.equals("SITTER"))
+        {
+            Button sitterButton = findViewById(R.id.sitter_page_button);
+            sitterButton.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            Button ownerButton = findViewById(R.id.owner_page_button);
+            ownerButton.setVisibility(View.VISIBLE);
+            Button sitterButton = findViewById(R.id.sitter_page_button);
+            sitterButton.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -146,7 +252,7 @@ public class Controller extends AppCompatActivity {
      *
      * @param petInfo
      */
-    public void addPet(JSONObject petInfo) throws JSONException {
+    public void addPet(JSONObject petInfo) throws JSONException, IOException {
         model.addPet(petInfo);
 
         setContentView(R.layout.activity_login);
@@ -169,7 +275,7 @@ public class Controller extends AppCompatActivity {
      * @param petID - the ID of the pet to be deleted
      */
     public void deletePet(int petID) {
-        model.deletePet(petID);
+        //model.deletePet(petID);
     }
 
     /**

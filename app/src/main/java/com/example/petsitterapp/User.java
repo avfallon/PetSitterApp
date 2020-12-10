@@ -1,12 +1,20 @@
 package com.example.petsitterapp;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
     HashMap<Integer, Pet> petMap;
+    ArrayList<Pet> petList;
+
+    ArrayList<SittingJob> openJobsSitter;
+    ArrayList<SittingJob> openJobsOwner;
+
     JSONObject accountInfo;
     int userID;
 
@@ -15,10 +23,12 @@ public class User {
      * @param userID the ID of the user account
      * @param accountInfo the JSON of all account info, some fields may be missing if it's just an owner or sitter
      */
-    public User(int userID, JSONObject accountInfo)  {
+    public User(int userID, JSONObject accountInfo, ArrayList<Pet> pets)  {
+        Log.w("MA", "Inside User");
+
         this.userID = userID;
         this.accountInfo = accountInfo;
-        this.petMap = Controller.model.buildPetMap(userID);
+        this.petList = pets;
     }
 
     /**
@@ -26,9 +36,9 @@ public class User {
      * @return an array of each String in pet info
      */
     public String[] getPets() {
-        String[] pets = new String[petMap.size()];
+        String[] pets = new String[petList.size()];
         int i=0;
-        for(Pet pet:petMap.values()) {
+        for(Pet pet:petList) {
             pets[i] = pet.toString();
             i++;
         }
