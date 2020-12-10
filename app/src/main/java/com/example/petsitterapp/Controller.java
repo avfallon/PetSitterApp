@@ -77,7 +77,6 @@ public class Controller extends AppCompatActivity {
         catch(JSONException je) {
             Log.w("MA", "makeTestUser JSONException");
         }
-
     }
 
     /**
@@ -176,6 +175,10 @@ public class Controller extends AppCompatActivity {
      */
     public void allJobsActivity(View v) {
         setContentView(R.layout.activity_sitter_page);
+    }
+
+    public void newPet(View v) {
+        goToPetActivity(true);
     }
 
     public void goToPetActivity(boolean newFlag) {
