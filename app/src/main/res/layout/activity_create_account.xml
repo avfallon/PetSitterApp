@@ -9,21 +9,32 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/cream"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         tools:context=".MainActivity">
 
+        <Button
+            android:id="@+id/go_back_account_creation"
+            style="@style/GoBackButton"
+            android:text="@string/Go_Back"
+            android:layout_margin="10dp"
+            />
+
+
+
         <TextView
             android:id="@+id/CreateAccountTitle"
             android:text="@string/String_CreateAccountTitle"
+            style="@style/AccountCreationHeader"
+
             android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/go_back_account_creation"
             android:paddingHorizontal="20dp"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+           />
 
 
         <RelativeLayout
@@ -34,8 +45,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/FirstNameTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationLabel"
                 android:text="@string/String_AccountCreation_FirstName_Title"
                 android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
@@ -48,11 +58,9 @@
                 />
             <EditText
                 android:id="@+id/FirstNameInput"
+                style="@style/AccountCreationInput"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/FirstNameTitle"
-                android:background="@color/petFormInput_color"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
                 android:paddingHorizontal="10dp"
                 android:hint="@string/String_AccountCreation_FirstName_Hint"
                 android:maxLength="@string/FirstName_CharLimit"
@@ -87,8 +95,8 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/LastNameTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationLabel"
+
                 android:text="@string/String_AccountCreation_LastName_Title"
                 android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
@@ -103,10 +111,7 @@
                 android:id="@+id/LastNameInput"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/LastNameTitle"
-                android:background="@color/petFormInput_color"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:paddingHorizontal="10dp"
+                style="@style/AccountCreationInput"
                 android:hint="@string/String_AccountCreation_LastName_Hint"
                 android:maxLength="@string/LastName_CharLimit"
                 android:inputType="text"
@@ -140,8 +145,8 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/AddressTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationLabel"
+
                 android:text="@string/String_AccountCreation_Address_Title"
                 android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
@@ -157,8 +162,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/AddressTitle"
                 android:background="@color/petFormInput_color"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationInput"
+
                 android:paddingHorizontal="10dp"
                 android:hint="@string/String_AccountCreation_Address_Hint"
                 android:maxLength="@string/Address_CharLimit"
@@ -193,8 +198,8 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/EmailTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationLabel"
+
                 android:text="@string/String_AccountCreation_Email_Title"
                 android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
@@ -210,8 +215,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/EmailTitle"
                 android:background="@color/petFormInput_color"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationInput"
+
                 android:paddingHorizontal="10dp"
                 android:hint="@string/String_AccountCreation_Email_Hint"
                 android:maxLength="@string/Email_CharLimit"
@@ -246,8 +251,8 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/PasswordTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationLabel"
+
                 android:text="@string/String_AccountCreation_Password_Title"
                 android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
@@ -263,8 +268,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/PasswordTitle"
                 android:background="@color/petFormInput_color"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationInput"
+
                 android:paddingHorizontal="10dp"
                 android:hint="@string/String_AccountCreation_Password_Hint"
                 android:maxLength="@string/Password_CharLimit"
@@ -298,8 +303,8 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/PasswordConfirmTitle"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
+                style="@style/AccountCreationLabel"
+
                 android:text="@string/String_AccountCreation_ConfirmPassword_Title"
                 android:textColor="@color/petFormTitle_color"
                 android:layout_marginLeft="10dp"
@@ -315,8 +320,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/PasswordConfirmTitle"
                 android:background="@color/petFormInput_color"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
+                style="@style/AccountCreationInput"
+
                 android:paddingHorizontal="10dp"
                 android:hint="@string/String_AccountCreation_ConfirmPassword_Hint"
                 android:maxLength="@string/Password_CharLimit"
@@ -344,10 +349,10 @@
 
         <TextView
             android:id="@+id/account_type_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AccountCreationLabel"
+
             android:layout_below="@id/RelativeLayout_AccountCreate_ErrorTag_ConfirmPassword"
-            android:text="Account Type"
+            android:text="Type"
             android:textSize="20dp"
             android:layout_margin="20dp"/>
 
@@ -394,8 +399,7 @@
 
             <Button
                 android:id="@+id/PetForm_SubmitButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                style="@style/AccountCreationSubmit"
                 android:layout_marginHorizontal="50dp"
                 android:text="@string/CreateAccountButton"
 

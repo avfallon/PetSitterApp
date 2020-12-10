@@ -37,4 +37,35 @@
         <item name="android:textColor">@color/grey</item>
     </style>
 
+    <style name="GoBackButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/tan</item>
+    </style>
+
+
+    <style name="AccountCreationHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/burgundy</item>
+    </style>
+
+    <style name="AccountCreationInput">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/petFormInput_color</item>
+    </style>
+
+    <style name="AccountCreationLabel">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@color/teal</item>
+    </style>
+
+    <style name="AccountCreationSubmit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/tan</item>
+    </style>
+
 </resources>
