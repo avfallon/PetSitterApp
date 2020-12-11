@@ -89,8 +89,21 @@ public class Controller extends AppCompatActivity {
         };
         getLocation();
 
-        LatLng myAddy = getLocationFromAddress(this, "777 S Eden Street, Baltimore, Maryland 21210");
+        LatLng myAddy = getLocationFromAddress(this, "1601 Amphitheatre Pkwy, Mountain View, CA 94043");
         System.out.println(myAddy.toString());
+
+        float[] distance = new float[1];
+        Location.distanceBetween(wayLatitude, wayLongitude,
+                myAddy.latitude, myAddy.longitude, distance);
+
+        double radiusInMeters = 48.2803*1000.0; //1 KM = 1000 Meter
+
+        if( distance[0]/1000 > radiusInMeters ){
+            System.out.println("Outside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
+        } else {
+            System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
+        }
+
         //makeTestUser();
         setContentView(R.layout.activity_login);
     }
