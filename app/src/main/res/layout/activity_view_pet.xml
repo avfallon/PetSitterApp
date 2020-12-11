@@ -290,7 +290,7 @@
         android:id="@+id/RelativeLayout_PetView_SubmitButton"
         android:layout_below="@+id/RelativeLayout_PetForm_PetExtraInfo"
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
@@ -298,7 +298,8 @@
             android:id="@+id/PetView_GoBack_Button_ID"
             android:style="@style/PetView_GoBack_Button"
             android:layout_marginHorizontal="50dp"
-            android:text="@string/SubmitButton"
+            android:layout_centerHorizontal="true"
+            android:text="Go Back"
 
             android:onClick = "submitPetFormInfo"
             />
