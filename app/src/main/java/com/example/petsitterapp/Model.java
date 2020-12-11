@@ -29,8 +29,8 @@ public class Model {
     private String ownerQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getOwners.php";
     private String jobsQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getJobs.php";
 
-    private JSONArray allPets;
-    private JSONArray allOwners;
+    public JSONArray allPets;
+    public JSONArray allOwners;
     public static JSONArray allJobs;
 
     public static ArrayList<Pet> usersPets = new ArrayList<>();;
@@ -373,37 +373,6 @@ public class Model {
         }
     }
 
-
-
-//    public class Owner {
-//        HashMap<Integer, OldPet> petMap;
-//        int ownerID;
-//
-//        /**
-//         * This constructor is for an existing Owner, accessed by login page
-//         * @return true if the login and password are correct, false if they are not
-//         */
-//        public Owner(int ownerID)  {
-//            try {
-//                this.ownerID = ownerID;
-//                petMap = new HashMap<Integer, OldPet>();
-//                // DEREK search the Pet database for any matches with the ownerID
-//                for (int i = 0; i < allPets.length(); i++) {
-//                    JSONObject obj = allPets.getJSONObject(i);
-//                    String petsOwners = obj.getString("OwnerIDKey");
-//                    if (Integer.parseInt(petsOwners) == ownerID) {
-//                        OldPet newPet = new OldPet(obj, Integer.parseInt(petsOwners));
-//                        int petIdKey = Integer.parseInt(obj.getString("PetIDKey"));
-//                        petMap.put(petIdKey, newPet);
-//                    }
-//                }
-//            }
-//            catch(JSONException je){ }
-//            System.out.println(petMap.toString());
-//            // DEREK create a Pet object from each match of the ownerID, store them in petMap with their petIDs as keys
-//        }
-
-
     /**
      *
      * @param userID ID of the user whose pets we are finding
@@ -418,7 +387,6 @@ public class Model {
                 usersPets.add(newPet);
             }
         }
-
     }
 
     public static void assignJobs() throws JSONException {
@@ -588,24 +556,6 @@ public class Model {
         }
     }
 
-    // This function returns a column from the owner database
-    private String getOwnerColumn(String columnName) {
-        return "";
-    }
-
-    private JSONObject[] getPets(int ownerID) {
-        // DEREK return an array of all the json objects of database rows that match the owner ID
-        return null;
-    }
-
-    // This function returns a column from the pet database
-    private String getPetColumn(String columnName) {
-        // DEREK Get the JSONObject from the database, store it in petInfo
-//        JSONObject petInfo;
-//        petInfo.getString(columnName);
-        return null;
-    }
-
     private class GetJobsJson extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -669,6 +619,7 @@ public class Model {
         System.out.println("Open Jobs: "+ openJobs.toString());
     }
 
+
     public static LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
@@ -692,6 +643,7 @@ public class Model {
 
         return p1;
     }
+
 
 }
 

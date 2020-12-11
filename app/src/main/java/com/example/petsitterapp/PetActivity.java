@@ -25,7 +25,6 @@ public class PetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          this.currentPet = Controller.currentPet;
-         Log.w("MA", "current pet: "+currentPet.petInfo.toString());
          boolean newFlag = getIntent().getBooleanExtra("newPet", true);
 
         if(newFlag) {
