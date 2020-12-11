@@ -245,17 +245,17 @@ public class Controller extends AppCompatActivity {
 
     public void goToDashBoard(View v) {
         setContentView(R.layout.activity_dashboard);
-        String typeAccount = "";
+        int typeAccount = 0;
         try {
-            typeAccount = currentUser.accountInfo.getString("typeOfAccount");
+            typeAccount = Integer.parseInt(currentUser.accountInfo.getString("typeOfAccount"));
         } catch (JSONException je) {
             Log.w("MA", "Error in GoToDashboard");
         }
 
-        if (typeAccount.equals("OWNER")) {
+        if (typeAccount == OWNER_ACCOUNT) {
             Button ownerButton = findViewById(R.id.owner_page_button);
             ownerButton.setVisibility(View.VISIBLE);
-        } else if (typeAccount.equals("SITTER")) {
+        } else if (typeAccount == SITTER_ACCOUNT) {
             Button sitterButton = findViewById(R.id.sitter_page_button);
             sitterButton.setVisibility(View.VISIBLE);
         } else {
