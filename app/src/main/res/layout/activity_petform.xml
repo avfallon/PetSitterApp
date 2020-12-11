@@ -203,18 +203,18 @@
             android:textSize="13sp"
             android:text="@string/String_petForm_PetTemperamentTitle"/>
 
-        <EditText
-            android:id="@+id/PetTemperamentInput"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/PetTemperamentTitle"
-            android:background="@color/petFormInput_color"
-            android:layout_width="300dp"
+        <Spinner
+            android:id="@+id/PetForm_PetTemperamentSpinner"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
 
-            android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetTemperamentInput"
-            android:maxLength="@string/PetTemperament_CharLimit"
-            android:inputType="text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+
+            android:layout_toRightOf="@+id/PetTemperamentTitle"
+            android:layout_toEndOf="@+id/PetTemperamentTitle"
+
+            android:background="@color/petFormInput_color"
             />
     </RelativeLayout>
 

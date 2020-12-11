@@ -23,4 +23,13 @@
         <item>Large</item>
     </string-array>
 
+    <string-array name="petTemp_array">
+        <item>Click me to select size.</item>
+        <item>Lazy</item>
+        <item>Calm</item>
+        <item>Active</item>
+        <item>Excitable</item>
+
+    </string-array>
+
 </resources>
