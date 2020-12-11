@@ -138,5 +138,11 @@
 
     <string name="Go_Back">GO BACK</string>
 
+    <string name="Cancel">Cancel</string>
+
+    <string name="Edit">Edit Pet</string>
+
+    <string name="Delete">Delete Pet</string>
+
 
 </resources>

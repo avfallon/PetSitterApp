@@ -5,11 +5,21 @@
     android:layout_height="match_parent"
     android:background="@color/cream">
 
+    <Button
+        android:id="@+id/go_back_credit"
+        style="@style/Button"
+        android:text="@string/Go_Back"
+        android:layout_margin="10dp"
+        android:onClick="goBack"
+        />
+
     <TextView
         android:id="@+id/Heading"
         style="@style/Header"
         android:textSize="20sp"
         android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/go_back_credit"
+        android:layout_marginLeft="50dp"
         android:layout_centerHorizontal="true"
         android:text="NEW CARD"/>
 
