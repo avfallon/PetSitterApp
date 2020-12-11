@@ -250,6 +250,21 @@ public class Model {
         return newUser;
     }
 
+    public User editAccount(User newUser) throws JSONException {
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editAccount.php?json="+newUser.accountInfo;
+        CreateAccount getJSON = new CreateAccount(editPetURL);
+        getJSON.execute();
+        User editedUser = new User(newUser.accountInfo.getInt("ownerIDKey"), newUser.accountInfo, usersPets);
+        return editedUser;
+    }
+
+    public void deleteAccount(User currUser){
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editAccount.php?json="+currUser.accountInfo;
+        CreateAccount getJSON = new CreateAccount(editPetURL);
+        getJSON.execute();
+        Controller.currentUser = null;
+    }
+
     private class CreateAccount extends AsyncTask<Void, Void, String> {
         String urlPHP = "";
 
