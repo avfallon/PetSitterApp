@@ -159,6 +159,7 @@
             android:layout_marginLeft="20dp"/>
 
         <RadioGroup
+            android:id="@+id/sleepoverGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -167,11 +168,13 @@
 
             >
             <RadioButton
+                android:id="@+id/sleepoverYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="YES"
                 />
             <RadioButton
+                android:id="@+id/sleepoverNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NO"
