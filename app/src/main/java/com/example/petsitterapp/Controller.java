@@ -89,6 +89,8 @@ public class Controller extends AppCompatActivity {
         };
         getLocation();
 
+        LatLng myAddy = getLocationFromAddress(this, "777 S Eden Street, Baltimore, Maryland 21210");
+        System.out.println(myAddy.toString());
         //makeTestUser();
         setContentView(R.layout.activity_login);
     }
