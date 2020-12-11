@@ -21,7 +21,8 @@
         android:paddingHorizontal="20dp"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        style="@style/PetViewHeader" />
+        style="@style/PetViewHeader"
+        android:background="@color/cream"/>
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetView_PetName"
