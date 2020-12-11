@@ -101,7 +101,7 @@ public class Controller extends AppCompatActivity {
         getLocation();
 
         myAddy = getLocationFromAddress(this, "1601 Amphitheatre Pkwy, Mountain View, CA 94043");
-        System.out.println(myAddy.toString());
+        //System.out.println(myAddy.toString());
 
         float[] distance = new float[1];
         Location.distanceBetween(wayLatitude, wayLongitude,
@@ -169,8 +169,20 @@ public class Controller extends AppCompatActivity {
      * it switches to the general "create account" activity
      * @param v - the login view that the method is called from
      */
-    public void createAccount(View v) {
+    public void createAccount(View v) throws JSONException {
         setContentView(R.layout.activity_create_account);
+        JSONObject petInfo = new JSONObject();
+        //petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
+
+        petInfo.put("firstName", ((EditText) findViewById(R.id.FirstNameInput)).getText().toString());
+        petInfo.put("firstName", ((EditText) findViewById(R.id.LastNameInput)).getText().toString());
+        petInfo.put("firstName", ((EditText) findViewById(R.id.AddressInput)).getText().toString());
+        petInfo.put("firstName", ((EditText) findViewById(R.id.EmailInput)).getText().toString());
+        petInfo.put("firstName", ((EditText) findViewById(R.id.PasswordInput)).getText().toString());
+        petInfo.put("firstName", ((EditText) findViewById(R.id.ConfirmPasswordInput)).getText().toString());
+
+
+
     }
 
     /**
