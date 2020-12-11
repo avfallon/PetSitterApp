@@ -9,7 +9,9 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:id="@+id/parentLayout"
 android:orientation="vertical"
-tools:context=".Controller">
+tools:context=".Controller"
+android:background="@color/cream"
+    >
 
 
     <LinearLayout
