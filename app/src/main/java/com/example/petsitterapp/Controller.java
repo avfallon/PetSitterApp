@@ -39,6 +39,9 @@ import java.util.List;
 
 
 public class Controller extends AppCompatActivity {
+    public static final int BOTH_ACCOUNT = 0;
+    public static final int OWNER_ACCOUNT= 1;
+    public static final int SITTER_ACCOUNT= 2;
 
     public static Model model;
     public static Pet currentPet;
@@ -106,43 +109,6 @@ public class Controller extends AppCompatActivity {
 
         //makeTestUser();
         setContentView(R.layout.activity_login);
-    }
-
-    public void makeTestUser() {
-        try {
-            JSONObject petInfo = new JSONObject();
-            petInfo.put("OwnerIDKey", "3333");
-            petInfo.put("PetIDKey", "4444");
-            petInfo.put("Name", "Devin");
-            petInfo.put("Species", "Dog");
-            petInfo.put("Size", "Small");
-            petInfo.put("Temperament", "Calm");
-            petInfo.put("Breed", "Australian Shepherd");
-            petInfo.put("Age", "4");
-            petInfo.put("Diet", "2 scoops of dry food");
-            petInfo.put("HealthIssues", "Bum hip");
-            petInfo.put("ExtraInfo", "Nada");
-
-            JSONObject accountInfo = new JSONObject();
-            accountInfo.put("UserIDKey", "3333");
-            accountInfo.put("firstName", "Andrew");
-            accountInfo.put("lastName", "Fallon");
-            accountInfo.put("address", "3336 Gilman");
-            accountInfo.put("phoneNumber", "666-666-6666");
-            accountInfo.put("email", "username");
-            accountInfo.put("typeOfAccount", "" + 0);
-            accountInfo.put("password", "password");
-
-            Pet newPet = new Pet(petInfo);
-            ArrayList<Pet> petList = new ArrayList<Pet>();
-            petList.add(newPet);
-            // currentUser = new User(petInfo.getInt("OwnerIDKey"), accountInfo, petList);
-            //Log.w("MA", currentUser.getPets()[0]);
-
-        } catch (JSONException je) {
-            Log.w("MA", "makeTestUser JSONException");
-            setContentView(R.layout.activity_login);
-        }
     }
 
     @Override
@@ -237,10 +203,6 @@ public class Controller extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Pet selectedPet = currentUser.petList.get(position);
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                Log.w("MA", "\nFrom Model: " + selectedPet.toString() + "\nFrom ListView: " + selectedItem);
-                currentPet = selectedPet;
                 currentPet = model.usersPets.get(position);
                 goToPetActivity(false);
             }

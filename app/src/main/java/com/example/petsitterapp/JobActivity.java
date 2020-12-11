@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class JobActivity extends AppCompatActivity {
     private ArrayList<SittingJob> jobList;
+    private SittingJob currentJob;
     private boolean ownerJobs;
 
     @Override
@@ -33,22 +34,29 @@ public class JobActivity extends AppCompatActivity {
     public void allJobsList() {
         setContentView(R.layout.activity_sitter_page);
 
-        String[] ha = {"asdf"};
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, getJobArr());
 
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, ha);
-
-        ListView listView = (ListView) findViewById(R.id.petList);
+        ListView listView = (ListView) findViewById(R.id.acceptedJobsList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Pet selectedPet = currentUser.petList.get(position);
-//                String selectedItem = (String) parent.getItemAtPosition(position);
-//                Log.w("MA", "\nFrom Model: " + selectedPet.toString() + "\nFrom ListView: " + selectedItem);
-//                currentPet = selectedPet;
-//                currentPet = model.usersPets.get(position);
-//                goToPetActivity(false);
+
             }
         });
+    }
+
+    /**
+     * This returns an array of Strings of each Job object, for the Job ListView in sitter_page
+     * @return an array of the strings created from each of the specified jobs
+     */
+    public String[] getJobArr() {
+        String[] jobArr;
+        jobArr = new String[jobList.size()];
+
+        for(int i=0;i<jobList.size();i++) {
+            jobArr[i] = jobList.get(i).toString();
+        }
+        return jobArr;
     }
 }

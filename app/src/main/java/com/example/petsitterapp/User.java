@@ -44,11 +44,6 @@ public class User {
         return pets;
     }
 
-    public String[] getJobs() {
-        String[] ha = {"sdfs"};
-        return ha;
-    }
-
     public void updatePetList(ArrayList<Pet> newList) {
         petList = (ArrayList<Pet>) newList.clone();
     }

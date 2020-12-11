@@ -5,9 +5,15 @@ import org.json.JSONObject;
 public class SittingJob {
     public JSONObject jobInfo;
 
-    public SittingJob() {
-
+    public SittingJob(JSONObject info) {
+        this.jobInfo = info;
     }
+
+    public String toString() {
+        return jobInfo.toString();
+    }
+
+
 
 
 }
