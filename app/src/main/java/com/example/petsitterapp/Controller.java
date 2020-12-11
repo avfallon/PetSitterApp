@@ -50,6 +50,7 @@ public class Controller extends AppCompatActivity {
     public static final int PET_INTENT_REQUEST_CODE = 1;
     public static final int JOB_INTENT_REQUEST_CODE= 2;
 
+    // This is a flag for onResume, so it triggers when activities finish and not when the app starts up
     private boolean justCreated = true;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -138,6 +139,7 @@ public class Controller extends AppCompatActivity {
         } catch (JSONException je) {
             Log.w("MA", "Error Logging in");
         }
+
         System.out.println(currentUser.accountInfo.toString());
         if (currentUser == null) {
             ((TextView) findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
@@ -177,7 +179,6 @@ public class Controller extends AppCompatActivity {
 
     /**
      * Switches to the activity of that "add pet" screen (PetFormActivity)
-     *
      * @param v - the view that this method is triggered from (activity_all_pets)
      */
     public void newSittingJob(View v) {
@@ -193,6 +194,7 @@ public class Controller extends AppCompatActivity {
 
     /**
      * This method switches to the All pets activity and fills the listview on that screen with all pets
+     * @param v - the owner view button in activity_dashboard
      */
     public void allPetsActivity(View v) {
         setContentView(R.layout.activity_all_pets);
@@ -229,10 +231,23 @@ public class Controller extends AppCompatActivity {
     }
 
     /**
-     * This method switches to the All pets activity and fills the listview on that screen with all pets
+     * This method creates a JobActivity for the list of jobs that a sitter has accepted
+     * @param v - the sitter page button in activity_dashboard
      */
-    public void allJobsActivity(View v) {
-        setContentView(R.layout.activity_sitter_page);
+    public void sitterJobsActivity(View v) {
+        Intent intent = new Intent(this, JobActivity.class);
+        intent.putExtra("ownerJobs", false);
+        startActivity(intent);
+    }
+
+    /**
+     * This method creates a JobActivity for a list of sitting jobs created by the user
+     * @param v - the view jobs button in activity_all_pets
+     */
+    public void ownerJobsActivity(View v) {
+        Intent intent = new Intent();
+        intent.putExtra("ownerJobs", true);
+        startActivity(intent);
     }
 
     public void goToSettingsActivity(View v) {
