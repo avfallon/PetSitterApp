@@ -10,11 +10,13 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,12 +48,14 @@ public class Controller extends AppCompatActivity {
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
+    public ArrayList<Pet> petsInNewJob;
 
     public static final int PET_INTENT_REQUEST_CODE = 1;
     public static final int JOB_INTENT_REQUEST_CODE= 2;
 
     // This is a flag for onResume, so it triggers when activities finish and not when the app starts up
     private boolean justCreated = true;
+    private boolean returningPetActivity = true;
 
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -111,19 +115,27 @@ public class Controller extends AppCompatActivity {
             System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
         }
 
-        //makeTestUser();
         setContentView(R.layout.activity_login);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        // Runs when onCreate runs
         if(justCreated) {
             justCreated = false;
         }
         else {
-            currentUser.updatePetList(model.usersPets);
-            allPetsActivity(new View(this));
+            // runs when returning from PetActivity
+            if(returningPetActivity) {
+                currentUser.updatePetList(model.usersPets);
+                allPetsActivity(new View(this));
+            }
+            // Runs when returning from JobActivity
+            else {
+                currentUser.updateOwnerJobs(model.ownersJobs);
+                currentUser.updateSitterJobs(model.sittersJobs);
+            }
         }
     }
 
@@ -180,18 +192,75 @@ public class Controller extends AppCompatActivity {
     }
 
     /**
-     * Switches to the activity of that "add pet" screen (PetFormActivity)
+     * Switches the new job screen, fills the pet options listview
      * @param v - the view that this method is triggered from (activity_all_pets)
      */
     public void newSittingJob(View v) {
         setContentView(R.layout.activity_new_job);
-        String[] pets = {"sdf", "sdfgdfgdf"};
+        petsInNewJob = new ArrayList<Pet>();
 
+        for(String pet:currentUser.getPets()) {
+            Log.w("MA", "currentUserPets: "+pet);
+        }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, pets);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
 
         ListView listView = (ListView) findViewById(R.id.petListNewJobPage);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pet selectedPet = model.usersPets.get(position);
+                Log.w("MA", "Selected Pet: "+selectedPet.toString());
+                // add in stuff to grey out boxes when selected, or remove from ArrayList if already selected
+                petsInNewJob.add(selectedPet);
+            }
+        });
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int listTextHeight = 100;
+        Log.w("MA", ""+currentUser.getPets().length);
+        params.height = listTextHeight * currentUser.getPets().length;
+        listView.setLayoutParams(params);
+    }
+    /*
+    jobID ownerIDKey petIDKet startDate endDate sleepover jobDetails sitterIDKey
+     */
+    public void saveSittingJob(View v) {
+        Log.w("MA", "Saving Sitting Job");
+        try {
+            JSONObject jobInfo = new JSONObject();
+
+            jobInfo.put("ownerIDKey", currentUser.userID);
+//            jobInfo.put("startDate", ((EditText) findViewById(R.id.)))
+
+            String startDate = ((TextView) findViewById(R.id.year_value)).getText().toString() + "-" +
+                    ((TextView) findViewById(R.id.month_value)).getText().toString() + "-" +
+                    ((TextView) findViewById(R.id.day_value)).getText().toString();
+            String endDate = ((TextView) findViewById(R.id.end_year_value)).getText().toString() + "-" +
+                    ((TextView) findViewById(R.id.end_month_value)).getText().toString() + "-" +
+                    ((TextView) findViewById(R.id.end_day_value)).getText().toString();
+
+            String petIDs = "";
+            for(int i=0;i<petsInNewJob.size();i++) {
+                Log.w("MA", "forID: "+ petsInNewJob.get(i).toString());
+                petIDs += petsInNewJob.get(i).petID + ",";
+            }
+
+            if(petIDs.length() > 1) {
+                jobInfo.put("petIDKey", petIDs.substring(0, petIDs.length()-1));
+                Log.w("MA", "Pet IDs: " + petIDs.substring(0, petIDs.length()-1));
+            }
+            else {
+                jobInfo.put("petIDKey", petIDs);
+                Log.w("MA", "short: " + petIDs);
+            }
+
+        }
+        catch(JSONException je) {
+            Log.w("MA", "JSONException Controller.saveSittingJob()");
+        }
+        allPetsActivity(v);
     }
 
     /**
@@ -227,6 +296,7 @@ public class Controller extends AppCompatActivity {
      * @param newFlag - true if it is a new pet, or false if you're editing a pet
      */
     public void goToPetActivity(boolean newFlag) {
+        returningPetActivity = true;
         Intent intent = new Intent(this, PetActivity.class);
         intent.putExtra("newPet", newFlag);
         startActivity(intent);
@@ -237,6 +307,7 @@ public class Controller extends AppCompatActivity {
      * @param v - the sitter page button in activity_dashboard
      */
     public void sitterJobsActivity(View v) {
+        returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
         intent.putExtra("ownerJobs", false);
         startActivity(intent);
@@ -247,6 +318,7 @@ public class Controller extends AppCompatActivity {
      * @param v - the view jobs button in activity_all_pets
      */
     public void ownerJobsActivity(View v) {
+        returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
         intent.putExtra("ownerJobs", true);
         startActivity(intent);

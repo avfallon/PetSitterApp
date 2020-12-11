@@ -3,6 +3,7 @@ package com.example.petsitterapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -41,9 +42,9 @@ public class JobActivity extends AppCompatActivity {
 
     public void allJobsList() {
 
-        String[] arr = getJobArr();
-        if(arr != null && arr.length != 0) {
-            ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, arr);
+        String[] jobArr = getJobArr();
+        if(jobArr != null && jobArr.length != 0) {
+            ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, jobArr);
 
             ListView listView = (ListView) findViewById(R.id.acceptedJobsList);
             listView.setAdapter(adapter);
@@ -79,7 +80,8 @@ public class JobActivity extends AppCompatActivity {
 
     public void populateViewJob() {
         try {
-            ((TextView) findViewById(R.id.startDate)).setText(currentJob.jobInfo.getString("startDate"));
+
+
             Log.w("MA", currentJob.jobInfo.getString("startDate"));
         }
         catch(JSONException je) {
@@ -87,7 +89,12 @@ public class JobActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    jobID ownerIDKey petIDKet startDate endDate sleepover jobDetails sitterIDKey
-     */
+    public void goBackAllJobs(View v) {
+        finish();
+    }
+
+    public void goBackViewJob(View v) {
+        setContentView(R.layout.activity_sitter_page);
+        allJobsList();
+    }
 }

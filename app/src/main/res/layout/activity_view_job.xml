@@ -13,8 +13,8 @@
         <Button
             style="@style/Button"
             android:layout_margin="10dp"
-            android:text="@string/Cancel"
-            android:onClick="cancelJob"
+            android:text="@string/goBackViewJob"
+            android:onClick="goBackViewJob"
             />
 
 
@@ -36,7 +36,7 @@
             />
 
         <TextView
-            android:id="@+id/startDate"
+            android:id="@+id/day_value"
             style="@style/newANDview_job_Dates"
             android:hint="Day"
             android:layout_below="@+id/sitting_job_header"
@@ -56,7 +56,7 @@
             />
 
         <TextView
-            android:id="@+id/month_input"
+            android:id="@+id/month_value"
             style="@style/newANDview_job_Dates"
             android:hint="Month"
             android:layout_below="@+id/sitting_job_header"
@@ -75,7 +75,7 @@
             />
 
         <TextView
-            android:id="@+id/year_input"
+            android:id="@+id/year_value"
             style="@style/newANDview_job_Dates"
             android:hint="Year"
             android:layout_marginTop="30dp"
@@ -93,7 +93,7 @@
             />
 
         <TextView
-            android:id="@+id/end_day_input"
+            android:id="@+id/end_day_value"
             style="@style/newANDview_job_Dates"
             android:hint="Day"
             android:layout_below="@+id/date_label"
@@ -110,7 +110,7 @@
             />
 
         <TextView
-            android:id="@+id/end_month_input"
+            android:id="@+id/end_month_value"
             style="@style/newANDview_job_Dates"
             android:hint="Month"
             android:layout_below="@+id/date_label"
@@ -127,7 +127,7 @@
             />
 
         <TextView
-            android:id="@+id/end_year_input"
+            android:id="@+id/end_year_value"
             style="@style/newANDview_job_Dates"
             android:hint="Year"
             android:layout_below="@+id/date_label"

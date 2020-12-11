@@ -137,7 +137,9 @@
 
     <string name="Go_Back">GO BACK</string>
 
-    <string name="Cancel">Cancel</string>
+    <string name="goBackViewJob">Go Back</string>
+
+    <string name="cancelJob">Cancel</string>
 
     <string name="Edit">Edit Pet</string>
 

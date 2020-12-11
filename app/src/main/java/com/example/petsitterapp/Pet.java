@@ -18,7 +18,7 @@ public class Pet {
     public Pet(JSONObject petInfo) {
         this.petInfo = petInfo;
         try {
-            this.petID = petInfo.getString("PetIDKey");
+            this.petID = petInfo.getString("petIDKey");
         }
         catch(JSONException je) {
             this.petID = "-1";
