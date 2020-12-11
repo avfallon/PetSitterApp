@@ -43,7 +43,6 @@ public class Controller extends AppCompatActivity {
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
-    public static SittingJob currentJob;
 
     public static final int PET_INTENT_REQUEST_CODE = 1;
     public static final int JOB_INTENT_REQUEST_CODE= 2;
