@@ -27,7 +27,6 @@ public class JobActivity extends AppCompatActivity {
             this.jobList = Controller.currentUser.openJobsSitter;
         }
 
-
         allJobsList();
     }
 
