@@ -25,7 +25,12 @@ public class Controller extends AppCompatActivity {
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
-    public SittingJob currentJob;
+    public static SittingJob currentJob;
+
+    public static final int PET_INTENT_REQUEST_CODE = 1;
+    public static final int JOB_INTENT_REQUEST_CODE= 2;
+
+    private boolean justCreated = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,44 +43,18 @@ public class Controller extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //makeTestUser();
         setContentView(R.layout.activity_login);
     }
 
-    public void makeTestUser() {
-        try {
-            JSONObject petInfo = new JSONObject();
-            petInfo.put("OwnerIDKey", "3333");
-            petInfo.put("PetIDKey", "4444");
-            petInfo.put("Name", "Devin");
-            petInfo.put("Species", "Dog");
-            petInfo.put("Size", "Small");
-            petInfo.put("Temperament", "Calm");
-            petInfo.put("Breed", "Australian Shepherd");
-            petInfo.put("Age", "4");
-            petInfo.put("Diet", "2 scoops of dry food");
-            petInfo.put("HealthIssues", "Bum hip");
-            petInfo.put("ExtraInfo", "Nada");
-
-            JSONObject accountInfo = new JSONObject();
-            accountInfo.put("UserIDKey", "3333");
-            accountInfo.put("firstName", "Andrew");
-            accountInfo.put("lastName", "Fallon");
-            accountInfo.put("address", "3336 Gilman");
-            accountInfo.put("phoneNumber", "666-666-6666");
-            accountInfo.put("email", "username");
-            accountInfo.put("typeOfAccount", ""+0);
-            accountInfo.put("password", "password");
-
-            Pet newPet = new Pet(petInfo);
-            ArrayList<Pet> petList = new ArrayList<Pet>();
-            petList.add(newPet);
-            // currentUser = new User(petInfo.getInt("OwnerIDKey"), accountInfo, petList);
-            //Log.w("MA", currentUser.getPets()[0]);
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(justCreated) {
+            justCreated = false;
         }
-        catch(JSONException je) {
-            Log.w("MA", "makeTestUser JSONException");
+        else {
+            currentUser.updatePetList(model.usersPets);
+            allPetsActivity(new View(this));
         }
     }
 
@@ -151,7 +130,7 @@ public class Controller extends AppCompatActivity {
     /**
      * This method switches to the All pets activity and fills the listview on that screen with all pets
      */
-    public void allPetsActivity() {
+    public void allPetsActivity(View v) {
         setContentView(R.layout.activity_all_pets);
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
@@ -161,13 +140,28 @@ public class Controller extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Pet selectedPet = currentUser.petList.get(position);
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                Log.w("MA", "\nFrom Model: "+selectedPet.toString()+"\nFrom ListView: "+selectedItem);
-                currentPet = selectedPet;
+                currentPet = model.usersPets.get(position);
                 goToPetActivity(false);
             }
         });
+    }
+
+    /**
+     * This method is called by the Add Pet button in activity_all_pets, it opens up a blank pet form
+     * @param v - the add pet button on all_pets_view
+     */
+    public void newPet(View v) {
+        goToPetActivity(true);
+    }
+
+    /**
+     * This method starts PetActivity, and passes a flag for whether its a new pet or editing a pet
+     * @param newFlag - true if it is a new pet, or false if you're editing a pet
+     */
+    public void goToPetActivity(boolean newFlag) {
+        Intent intent = new Intent(this, PetActivity.class);
+        intent.putExtra("newPet", newFlag);
+        startActivity(intent);
     }
 
     /**
@@ -175,16 +169,6 @@ public class Controller extends AppCompatActivity {
      */
     public void allJobsActivity(View v) {
         setContentView(R.layout.activity_sitter_page);
-    }
-
-    public void newPet(View v) {
-        goToPetActivity(true);
-    }
-
-    public void goToPetActivity(boolean newFlag) {
-        Intent intent = new Intent(this, PetActivity.class);
-        intent.putExtra("newPet", newFlag);
-        startActivity(intent);
     }
 
     public void goToSettingsActivity(View v) {
@@ -226,76 +210,4 @@ public class Controller extends AppCompatActivity {
             sitterButton.setVisibility(View.VISIBLE);
         }
     }
-
-
-
-
-
-
-
-
-
-
-    // I moved everything below to Model, im just not deleting it in case I broke something while moving it
-
-
-    /*
-    private void getJSON(final String urlWebService) {
-
-        class GetJSON extends AsyncTask<Void, Void, String> {
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                try {
-                    loadIntoListView(s);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(urlWebService);
-
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    StringBuilder sb = new StringBuilder();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    String json;
-                    while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
-                    }
-                    System.out.println(sb.toString().trim());
-                    return sb.toString().trim();
-                } catch (Exception e) {
-                    return null;
-                }
-
-            }
-        }
-        GetJSON getJSON = new GetJSON();
-        getJSON.execute();
-    }
-
-    private void loadIntoListView(String json) throws JSONException {
-        JSONArray jsonArray = new JSONArray(json);
-        System.out.println(jsonArray.toString());
-        String[] pets = new String[jsonArray.length()];
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject obj = jsonArray.getJSONObject(i);
-            pets[i] = obj.getString("name");
-            System.out.println("name");
-        }
-
-    }
-
-
- */
 }

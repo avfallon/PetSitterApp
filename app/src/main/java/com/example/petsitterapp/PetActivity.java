@@ -1,5 +1,6 @@
 package com.example.petsitterapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class PetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          this.currentPet = Controller.currentPet;
+         Log.w("MA", "current pet: "+currentPet.petInfo.toString());
          boolean newFlag = getIntent().getBooleanExtra("newPet", true);
 
         if(newFlag) {
@@ -32,6 +34,7 @@ public class PetActivity extends AppCompatActivity {
             populatePetForm(null);
          }
         else {
+            editing = true;
             Log.w("MA", "editing pet");
             setContentView(R.layout.activity_petform);
             populatePetForm(currentPet);
@@ -56,21 +59,21 @@ public class PetActivity extends AppCompatActivity {
         Log.w("MA", "PopulatePetForm");
         if(pet != null) {
             try {
-                ((EditText) findViewById(R.id.PetNameInput)).setText(pet.petInfo.getString("Name"));
-                ((EditText) findViewById(R.id.PetTemperamentInput)).setText(pet.petInfo.getString("Temperament"));
-                ((EditText) findViewById(R.id.PetBreedInput)).setText(pet.petInfo.getString("Breed"));
-                ((EditText) findViewById(R.id.PetAgeInput)).setText(pet.petInfo.getString("Age"));
-                ((EditText) findViewById(R.id.PetDietInput)).setText(pet.petInfo.getString("Diet"));
-                ((EditText) findViewById(R.id.PetHealthIssuesInput)).setText(pet.petInfo.getString("HealthIssues"));
-                ((EditText) findViewById(R.id.PetExtraInfoInput)).setText(pet.petInfo.getString("ExtraInfo"));
+                ((EditText) findViewById(R.id.PetNameInput)).setText(pet.petInfo.getString("name"));
+                ((EditText) findViewById(R.id.PetTemperamentInput)).setText(pet.petInfo.getString("temperament"));
+                ((EditText) findViewById(R.id.PetBreedInput)).setText(pet.petInfo.getString("breed"));
+                ((EditText) findViewById(R.id.PetAgeInput)).setText(pet.petInfo.getString("age"));
+                ((EditText) findViewById(R.id.PetDietInput)).setText(pet.petInfo.getString("diet"));
+                ((EditText) findViewById(R.id.PetHealthIssuesInput)).setText(pet.petInfo.getString("healthIssues"));
+                ((EditText) findViewById(R.id.PetExtraInfoInput)).setText(pet.petInfo.getString("extraInfo"));
 
                 setSpinnerData();
                 Spinner speciesSpinner = ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner));
-                speciesSpinner.setSelection(getIndex(speciesSpinner, pet.petInfo.getString("Species")));
+                speciesSpinner.setSelection(getIndex(speciesSpinner, pet.petInfo.getString("species")));
 
                 Spinner sizeSpinner = ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner));
+                sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("size")));
 
-                sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("Size")));
                 Log.w("MA", "Successfully populated Pet Form");
             } catch (JSONException je) {
                 Log.w("MA", "JSONException PetActivity.populatePetForm()");
@@ -163,14 +166,17 @@ public class PetActivity extends AppCompatActivity {
 
                 if (petInfo != null) {
                     if(editing) {
+                        Log.w("MA", "editPet");
                         Controller.model.editPet(petInfo);
                     }
                     else {
+                        Log.w("MA", "addPet");
                         Controller.model.addPet(petInfo);
                     }
                     currentPet = pet;
-                    populateViewPet(pet);
-                    setContentView(R.layout.activity_view_pet);
+//                    populateViewPet(pet);
+                    //setContentView(R.layout.activity_view_pet);
+
                     finish();
                 }
                 else {
