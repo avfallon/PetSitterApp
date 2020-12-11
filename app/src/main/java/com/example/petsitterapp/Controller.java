@@ -16,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -236,7 +238,7 @@ public class Controller extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
     /*
-    jobID ownerIDKey petIDKet startDate endDate sleepover jobDetails sitterIDKey
+    jobID ownerIDKey petIDKey startDate endDate sleepover jobDetails sitterIDKey
      */
     public void saveSittingJob(View v) {
         Log.w("MA", "Saving Sitting Job");
@@ -244,14 +246,25 @@ public class Controller extends AppCompatActivity {
             JSONObject jobInfo = new JSONObject();
 
             jobInfo.put("ownerIDKey", currentUser.userID);
-//            jobInfo.put("startDate", ((EditText) findViewById(R.id.)))
 
-            String startDate = ((TextView) findViewById(R.id.year_value)).getText().toString() + "-" +
-                    ((TextView) findViewById(R.id.month_value)).getText().toString() + "-" +
-                    ((TextView) findViewById(R.id.day_value)).getText().toString();
-            String endDate = ((TextView) findViewById(R.id.end_year_value)).getText().toString() + "-" +
-                    ((TextView) findViewById(R.id.end_month_value)).getText().toString() + "-" +
-                    ((TextView) findViewById(R.id.end_day_value)).getText().toString();
+            String startDate = ((EditText) findViewById(R.id.year_input)).getText().toString() + "-" +
+                    ((EditText) findViewById(R.id.month_input)).getText().toString() + "-" +
+                    ((EditText) findViewById(R.id.day_input)).getText().toString();
+            Log.w("MA", "startDate: "+startDate);
+
+            String endDate = ((EditText) findViewById(R.id.end_year_input)).getText().toString() + "-" +
+                    ((EditText) findViewById(R.id.end_month_input)).getText().toString() + "-" +
+                    ((EditText) findViewById(R.id.end_day_input)).getText().toString();
+            Log.w("MA", "endDate: "+endDate);
+            jobInfo.put("startDate", startDate);
+            jobInfo.put("endDate", endDate);
+
+            jobInfo.put("jobDetails", ((EditText) findViewById(R.id.job_details_field)).getText().toString());
+
+            int groupID = ((RadioGroup) findViewById(R.id.sleepoverGroup)).getCheckedRadioButtonId();
+            Log.w("MA", "sleepover button: "+((RadioButton)findViewById(groupID)).getText().toString());
+            jobInfo.put("sleepover", ((RadioButton)findViewById(groupID)).getText().toString());
+
 
             String petIDs = "";
             for(int i=0;i<petsInNewJob.size();i++) {
@@ -268,6 +281,8 @@ public class Controller extends AppCompatActivity {
                 Log.w("MA", "short: " + petIDs);
             }
 
+            SittingJob job = new SittingJob(jobInfo);
+            model.createJob(job);
         }
         catch(JSONException je) {
             Log.w("MA", "JSONException Controller.saveSittingJob()");
