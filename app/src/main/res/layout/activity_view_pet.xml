@@ -15,41 +15,29 @@
     tools:context=".PetFormActivity">
 
     <TextView
-        android:id="@+id/PetFormTitle"
+        android:id="@+id/PetViewTitle"
         android:text="@string/String_petFormTitle"
         android:layout_marginTop="30dp"
         android:paddingHorizontal="20dp"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
-
-        android:textColor="@color/petFormTitle_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        style="@style/PetViewHeader" />
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetView_PetName"
-        android:layout_below="@+id/PetFormTitle"
+        android:layout_below="@+id/PetViewTitle"
         android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/PetNameTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
             android:text="@string/String_petForm_PetNameTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
+            android:style="@style/PetView_TextView"
             />
 
         <TextView
-            android:id="@+id/PetNameInput"
+            android:id="@+id/PetViewInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetNameTitle"
             android:background="@color/petFormInput_color"
@@ -71,28 +59,19 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/PetSpeciesTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:id="@+id/PetView_PetSpeciesTitle"
             android:text="@string/String_petForm_PetSpeciesTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
+            android:style="@style/PetView_TextView"
             />
 
         <TextView
-            android:id="@+id/PetForm_PetSpeciesSpinner"
+            android:id="@+id/PetView_PetSpeciesSpinner"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@+id/PetSpeciesTitle"
-            android:layout_toEndOf="@+id/PetSpeciesTitle"
+            android:layout_toRightOf="@+id/PetView_PetSpeciesTitle"
+            android:layout_toEndOf="@+id/PetView_PetSpeciesTitle"
             android:background="@color/petFormInput_color"
             />
     </RelativeLayout>
@@ -106,28 +85,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/PetSizeTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetSizeTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:id="@+id/PetView_PetSizeTitle"
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetSizeTitle" />
 
         <TextView
-            android:id="@+id/PetForm_PetSizeSpinner"
+            android:id="@+id/PetView_PetSizeSpinner"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@+id/PetSizeTitle"
-            android:layout_toEndOf="@+id/PetSizeTitle"
+            android:layout_toRightOf="@+id/PetView_PetSizeTitle"
+            android:layout_toEndOf="@+id/PetView_PetSizeTitle"
             android:background="@color/petFormInput_color"
             />
     </RelativeLayout>
@@ -142,29 +111,19 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/PetTemperamentTitle"
-            android:layout_width="105dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetTemperamentTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:id="@+id/PetView_PetTemperamentTitle"
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetTemperamentTitle"/>
 
         <TextView
             android:id="@+id/PetTemperamentInput"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/PetTemperamentTitle"
+            android:layout_toRightOf="@+id/PetView_PetTemperamentTitle"
+            android:layout_toEndOf="@+id/PetView_PetTemperamentTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-            android:paddingHorizontal="10dp"
-            />
+            android:paddingHorizontal="10dp"/>
     </RelativeLayout>
 
 
@@ -190,18 +149,8 @@
 
         <TextView
             android:id="@+id/PetBreedTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetBreedTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetBreedTitle"/>
 
         <TextView
             android:id="@+id/PetBreedInput"
@@ -230,18 +179,8 @@
 
         <TextView
             android:id="@+id/PetAgeTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetAgeTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetAgeTitle"/>
 
         <TextView
             android:id="@+id/PetAgeInput"
@@ -270,18 +209,8 @@
 
         <TextView
             android:id="@+id/PetDietTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetDietTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetDietTitle"/>
 
         <TextView
             android:id="@+id/PetDietInput"
@@ -311,18 +240,8 @@
 
         <TextView
             android:id="@+id/PetHealthIssuesTitle"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="@string/String_petForm_PetHealthIssuesTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetHealthIssuesTitle"/>
 
         <TextView
             android:id="@+id/PetHealthIssuesInput"
@@ -352,18 +271,8 @@
 
         <TextView
             android:id="@+id/PetExtraInfoTitle"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="@string/String_petForm_PetExtraInfoTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            android:style="@style/PetView_TextView"
+            android:text="@string/String_petForm_PetExtraInfoTitle"/>
 
         <TextView
             android:id="@+id/PetExtraInfoInput"
@@ -378,7 +287,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_SubmitButton"
+        android:id="@+id/RelativeLayout_PetView_SubmitButton"
         android:layout_below="@+id/RelativeLayout_PetForm_PetExtraInfo"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
@@ -386,9 +295,8 @@
         >
 
         <Button
-            android:id="@+id/PetForm_SubmitButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:id="@+id/PetView_GoBack_Button_ID"
+            android:style="@style/PetView_GoBack_Button"
             android:layout_marginHorizontal="50dp"
             android:text="@string/SubmitButton"
 
