@@ -297,8 +297,7 @@
             <TextView
                 android:id="@+id/PasswordConfirmTitle"
                 style="@style/AccountCreationLabel"
-
-                android:text="@string/String_AccountCreation_ConfirmPassword_Title"
+            android:text="@string/String_AccountCreation_ConfirmPassword_Title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:paddingHorizontal="5dp"

@@ -124,7 +124,7 @@
     <string name="newJobBtn">New Sitting Job</string>
 
     <!-- All View_Pets Strings -->
-    <String name="PetView_GoBack_Button">Go Back</String>
+    <string name="PetView_GoBack_Button">Go Back</string>
 
     <!-- Login Strings   -->
     <string name="loginError">Incorrect Username or Password</string>
