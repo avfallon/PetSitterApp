@@ -44,5 +44,9 @@ public class User {
         }
         return pets;
     }
+
+    public void updatePetList(ArrayList<Pet> newList) {
+        petList = newList;
+    }
 }
 

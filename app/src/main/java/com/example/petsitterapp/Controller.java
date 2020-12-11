@@ -38,7 +38,12 @@ public class Controller extends AppCompatActivity {
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
-    public SittingJob currentJob;
+    public static SittingJob currentJob;
+
+    public static final int PET_INTENT_REQUEST_CODE = 1;
+    public static final int JOB_INTENT_REQUEST_CODE= 2;
+
+    private boolean justCreated = true;
 
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -117,6 +122,19 @@ public class Controller extends AppCompatActivity {
 
         } catch (JSONException je) {
             Log.w("MA", "makeTestUser JSONException");
+            setContentView(R.layout.activity_login);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(justCreated) {
+            justCreated = false;
+        }
+        else {
+            currentUser.updatePetList(model.usersPets);
+            allPetsActivity(new View(this));
         }
     }
 
@@ -190,7 +208,7 @@ public class Controller extends AppCompatActivity {
     /**
      * This method switches to the All pets activity and fills the listview on that screen with all pets
      */
-    public void allPetsActivity() {
+    public void allPetsActivity(View v) {
         setContentView(R.layout.activity_all_pets);
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
@@ -204,9 +222,28 @@ public class Controller extends AppCompatActivity {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 Log.w("MA", "\nFrom Model: " + selectedPet.toString() + "\nFrom ListView: " + selectedItem);
                 currentPet = selectedPet;
+                currentPet = model.usersPets.get(position);
                 goToPetActivity(false);
             }
         });
+    }
+
+    /**
+     * This method is called by the Add Pet button in activity_all_pets, it opens up a blank pet form
+     * @param v - the add pet button on all_pets_view
+     */
+    public void newPet(View v) {
+        goToPetActivity(true);
+    }
+
+    /**
+     * This method starts PetActivity, and passes a flag for whether its a new pet or editing a pet
+     * @param newFlag - true if it is a new pet, or false if you're editing a pet
+     */
+    public void goToPetActivity(boolean newFlag) {
+        Intent intent = new Intent(this, PetActivity.class);
+        intent.putExtra("newPet", newFlag);
+        startActivity(intent);
     }
 
     /**
@@ -214,16 +251,6 @@ public class Controller extends AppCompatActivity {
      */
     public void allJobsActivity(View v) {
         setContentView(R.layout.activity_sitter_page);
-    }
-
-    public void newPet(View v) {
-        goToPetActivity(true);
-    }
-
-    public void goToPetActivity(boolean newFlag) {
-        Intent intent = new Intent(this, PetActivity.class);
-        intent.putExtra("newPet", newFlag);
-        startActivity(intent);
     }
 
     public void goToSettingsActivity(View v) {
@@ -388,4 +415,5 @@ public class Controller extends AppCompatActivity {
 
 
  */
+
 }
