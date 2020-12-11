@@ -626,9 +626,9 @@ public class Model {
             if(obj.getInt("sitterIDKey") == 0){
                 SittingJob openJob = new SittingJob(obj);
                 openJobs.add(openJob);
-                System.out.println("Open Jobs: "+ openJobs.toString());
             }
         }
+        System.out.println("Open Jobs: "+ openJobs.toString());
     }
 
 }
