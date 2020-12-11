@@ -36,7 +36,7 @@
             />
 
         <TextView
-            android:id="@+id/day_input"
+            android:id="@+id/startDate"
             style="@style/newANDview_job_Dates"
             android:hint="Day"
             android:layout_below="@+id/sitting_job_header"
