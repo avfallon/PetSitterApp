@@ -27,16 +27,16 @@ android:background="@color/cream"
             android:id="@+id/go_back_pet_home"
             style="@style/AllPetsButtons"
             android:layout_marginLeft="10dp"
-            android:onClick="newSittingJob"
+            android:onClick="goBackAllPets"
             android:text="@string/Go_Back"
             />
 
         <Button
-            android:id="@+id/view_posts_btn"
+            android:id="@+id/all_jobs_owner"
             style="@style/AllPetsButtons"
             android:layout_marginTop="0dp"
-            android:onClick="newSittingJob"
-            android:text="@string/ViewPosts"
+            android:onClick="ownerJobsActivity"
+            android:text="@string/allJobsOwnerBtn"
             android:layout_toRightOf="@id/go_back_pet_home"/>
 
         <Button
@@ -45,7 +45,7 @@ android:background="@color/cream"
             android:layout_marginTop="0dp"
             android:onClick="newSittingJob"
             android:text="@string/newJobBtn"
-            android:layout_toRightOf="@id/view_posts_btn"/>
+            android:layout_toRightOf="@id/all_jobs_owner"/>
 
         <TextView
             android:id="@+id/allPetsTitle"

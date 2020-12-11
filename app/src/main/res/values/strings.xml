@@ -115,14 +115,12 @@
     <string name ="allAcceptedJobsTitle">Accepted Jobs</string>
     <string name ="jobPrefBtn">Account Job Preferences</string>
 
-
-    <string name="ViewPosts">Your Posts</string>
-
-
     <!-- All Pets Strings -->
     <string name="allPetsTitle">Your Pets</string>
     <string name="newPetBtn">Add Pet</string>
-    <string name="newJobBtn">New Sitting Job</string>
+    <string name="newJobBtn">Create New Sitting Job</string>
+    <string name="allJobsOwnerBtn">Your Open Sitting Jobs</string>
+
 
     <!-- All View_Pets Strings -->
     <string name="PetView_GoBack_Button">Go Back</string>

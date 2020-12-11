@@ -23,21 +23,23 @@ public class JobActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sitter_page);
         ownerJobs = getIntent().getBooleanExtra("ownerJobs", true);
         if(ownerJobs) {
-            this.jobList = Controller.currentUser.openJobsOwner;
             Log.w("MA", "OwnerJob");
+            this.jobList = Controller.currentUser.openJobsOwner;
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");
         }
         else {
             Log.w("MA", "SitterJob");
             this.jobList = Controller.model.sittersJobs;
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Accepted Jobs");
         }
 
         allJobsList();
     }
 
     public void allJobsList() {
-        setContentView(R.layout.activity_sitter_page);
 
         String[] arr = getJobArr();
         if(arr != null && arr.length != 0) {

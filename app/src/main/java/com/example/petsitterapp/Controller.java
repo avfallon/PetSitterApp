@@ -248,7 +248,7 @@ public class Controller extends AppCompatActivity {
      * @param v - the view jobs button in activity_all_pets
      */
     public void ownerJobsActivity(View v) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, JobActivity.class);
         intent.putExtra("ownerJobs", true);
         startActivity(intent);
     }
@@ -370,5 +370,9 @@ public class Controller extends AppCompatActivity {
 
     public void setContext(){
         Model.context = this;
+    }
+
+    public void goBackAllPets(View v) {
+        goToDashBoard(v);
     }
 }
