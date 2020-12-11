@@ -17,15 +17,12 @@
 
     <TextView
         android:id="@+id/header"
+        style="@style/Header"
         android:text="Pet Preferences"
         android:layout_marginTop="30dp"
         android:paddingHorizontal="20dp"
         android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-
-        android:textColor="@color/petFormTitle_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_centerHorizontal="true"/>
 
 
     <RelativeLayout
@@ -37,18 +34,8 @@
 
         <TextView
             android:id="@+id/PetSpeciesTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetSpeciesTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            style="@style/SitterPref_TextViews"
+            android:text="@string/String_petForm_PetSpeciesTitle"/>
 
         <Spinner
             android:id="@+id/PetSpeciesSpinner"
@@ -94,18 +81,8 @@
 
         <TextView
             android:id="@+id/PetSizeTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetSizeTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            style="@style/SitterPref_TextViews"
+            android:text="@string/String_petForm_PetSizeTitle"/>
 
         <Spinner
             android:id="@+id/PetSizeSpinner"
@@ -152,18 +129,8 @@
 
         <TextView
             android:id="@+id/PetTemperamentTitle"
-            android:layout_width="105dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetTemperamentTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            style="@style/SitterPref_TextViews"
+            android:text="@string/String_petForm_PetTemperamentTitle"/>
 
         <EditText
             android:id="@+id/PetTemperamentInput"
@@ -210,18 +177,8 @@
 
         <TextView
             android:id="@+id/PetBreedTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetBreedTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            style="@style/SitterPref_TextViews"
+            android:text="@string/String_petForm_PetBreedTitle"/>
 
         <EditText
             android:id="@+id/PetBreedInput"
@@ -268,18 +225,8 @@
 
         <TextView
             android:id="@+id/PetAgeTitle"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="@string/String_petForm_PetAgeTitle"
-            android:textColor="@color/petFormTitle_color"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingHorizontal="5dp"
-            android:textSize="15sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="start"
-            />
+            style="@style/SitterPref_TextViews"
+            android:text="@string/String_petForm_PetAgeTitle"/>
 
         <EditText
             android:id="@+id/PetAgeInput"
@@ -320,7 +267,7 @@
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_SubmitButton"
-        android:layout_below="@+id/RelativeLayout_PetAge"
+        android:layout_below="@+id/RelativeLayout_ErrorTag_PetAge"
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -328,6 +275,7 @@
 
         <Button
             android:id="@+id/SubmitButton"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="50dp"
