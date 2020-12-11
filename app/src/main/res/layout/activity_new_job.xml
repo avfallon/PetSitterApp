@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/date_label"
             style="@style/newANDview_job_Dates"
-            android:text="Date"
+            android:text="Start"
             android:layout_below="@+id/sitting_job_header"
             android:layout_margin="30dp"
             />
@@ -39,6 +39,7 @@
             android:id="@+id/day_input"
             style="@style/newANDview_job_Dates"
             android:hint="Day"
+            android:layout_marginTop="30dp"
             android:layout_below="@+id/sitting_job_header"
             android:layout_toRightOf="@+id/date_label"
             />
@@ -57,13 +58,86 @@
             android:id="@+id/month_input"
             style="@style/newANDview_job_Dates"
             android:hint="Month"
+            android:layout_marginTop="30dp"
+
             android:layout_below="@+id/sitting_job_header"
             android:layout_toRightOf="@+id/slash_for_date"
             />
+        <TextView
+            android:id="@+id/slash_for_month_date"
+            style="@style/newANDview_job_Dates"
+            android:hint="/"
+            android:textSize = "24dp"
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/month_input"
+            android:layout_marginTop="28dp"
+            />
+
+        <EditText
+            android:id="@+id/year_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Year"
+            android:layout_marginTop="30dp"
+
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/slash_for_month_date"
+            />
+        <TextView
+            android:id="@+id/end_date_label"
+            style="@style/newANDview_job_Dates"
+            android:text="End"
+            android:layout_alignLeft="@id/date_label"
+            android:layout_below="@+id/date_label"
+            />
+
+        <EditText
+            android:id="@+id/end_day_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Day"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/date_label"
+            />
+
+        <TextView
+            android:id="@+id/slash_for_end_date"
+            style="@style/newANDview_job_Dates"
+            android:hint="/"
+            android:textSize = "24dp"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/day_input"
+            />
+
+        <EditText
+            android:id="@+id/end_month_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Month"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/slash_for_date"
+            />
+
+        <TextView
+            android:id="@+id/slash_for_end_month_date"
+            style="@style/newANDview_job_Dates"
+            android:hint="/"
+            android:textSize = "24dp"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/end_month_input"
+            />
+
+        <EditText
+            android:id="@+id/end_year_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Year"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/slash_for_end_month_date"
+            />
+
+
 
 
         <ListView
-            android:layout_below="@+id/date_label"
+            android:layout_below="@+id/end_date_label"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/petListNewJobPage"
