@@ -111,11 +111,12 @@
 
 
     <!-- Sitter Page Strings -->
-    <string name ="findNewJobBtn">Search Job Listings</string>
+    <string name ="findNewJobBtn">New Jobs</string>
     <string name ="allAcceptedJobsTitle">Accepted Jobs</string>
     <string name ="jobPrefBtn">Account Job Preferences</string>
 
 
+    <string name="ViewPosts">Your Posts</string>
 
 
     <!-- All Pets Strings -->

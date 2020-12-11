@@ -35,7 +35,7 @@
             android:layout_margin="30dp"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/day_input"
             style="@style/newANDview_job_Dates"
             android:hint="Day"
@@ -55,7 +55,7 @@
             android:layout_marginTop="28dp"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/month_input"
             style="@style/newANDview_job_Dates"
             android:hint="Month"
@@ -63,10 +63,81 @@
             android:layout_toRightOf="@+id/slash_for_date"
             android:layout_marginTop="30dp"
             />
+        <TextView
+            android:id="@+id/slash_for_month_date"
+            style="@style/newANDview_job_Dates"
+            android:hint="/"
+            android:textSize = "24dp"
+            android:layout_marginTop="30dp"
+
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/end_month_input"
+            />
+
+        <TextView
+            android:id="@+id/year_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Year"
+            android:layout_marginTop="30dp"
+
+            android:layout_below="@+id/sitting_job_header"
+            android:layout_toRightOf="@+id/slash_for_end_month_date"
+            />
+
+        <TextView
+            android:id="@+id/end_date_label"
+            style="@style/newANDview_job_Dates"
+            android:text="End"
+            android:layout_alignLeft="@id/date_label"
+            android:layout_below="@+id/date_label"
+            />
+
+        <TextView
+            android:id="@+id/end_day_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Day"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/date_label"
+            />
+
+        <TextView
+            android:id="@+id/slash_for_end_date"
+            style="@style/newANDview_job_Dates"
+            android:hint="/"
+            android:textSize = "24dp"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/day_input"
+            />
+
+        <TextView
+            android:id="@+id/end_month_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Month"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/slash_for_date"
+            />
+
+        <TextView
+            android:id="@+id/slash_for_end_month_date"
+            style="@style/newANDview_job_Dates"
+            android:hint="/"
+            android:textSize = "24dp"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/end_month_input"
+            />
+
+        <TextView
+            android:id="@+id/end_year_input"
+            style="@style/newANDview_job_Dates"
+            android:hint="Year"
+            android:layout_below="@+id/date_label"
+            android:layout_toRightOf="@+id/slash_for_end_month_date"
+            />
 
 
         <ListView
-            android:layout_below="@+id/date_label"
+            android:layout_below="@+id/end_date_label"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/petListNewJobPage"
@@ -93,19 +164,7 @@
             android:layout_alignBottom="@id/sleepover_label"
             android:text="Yes or No"/>
 
-        <TextView
-            android:id="@+id/token_label"
-            style="@style/TextViews"
-            android:layout_below="@+id/sleepover_label"
-            android:text="TOKENS"
-            android:layout_margin="20dp"
-            />
 
-        <TextView
-            style="@style/newANDview_job_TextView"
-            android:layout_toRightOf="@+id/token_label"
-            android:layout_alignBottom="@id/token_label"
-            android:text="3"/>
 
 
 
@@ -122,6 +181,43 @@
             android:layout_toRightOf="@+id/address_label"
             android:layout_alignBottom="@id/address_label"
             android:text="420 Hutchins Ave, Baltimore MD 21212"/>
+
+        <TextView
+            android:id="@+id/token_label"
+            style="@style/TextViews"
+            android:layout_below="@+id/sleepover_label"
+            android:text="TOKENS"
+            android:layout_margin="20dp"
+            android:visibility="invisible"
+
+            />
+
+        <TextView
+            android:id="@+id/token_count"
+            style="@style/newANDview_job_TextView"
+            android:layout_toRightOf="@+id/token_label"
+            android:layout_alignBottom="@id/token_label"
+            android:text="####"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:id="@+id/sitter_label"
+            style="@style/TextViews"
+            android:layout_below="@+id/sleepover_label"
+            android:text="TOKENS"
+            android:layout_margin="20dp"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            style="@style/newANDview_job_TextView"
+            android:id="@+id/sitter_name"
+            android:layout_toRightOf="@+id/token_label"
+            android:layout_alignBottom="@id/token_label"
+            android:text="Cristel"
+            android:visibility="invisible"
+            />
 
 
         <Button
