@@ -59,7 +59,6 @@ public class PetActivity extends AppCompatActivity {
         if(pet != null) {
             try {
                 ((EditText) findViewById(R.id.PetNameInput)).setText(pet.petInfo.getString("name"));
-                ((EditText) findViewById(R.id.PetTemperamentInput)).setText(pet.petInfo.getString("temperament"));
                 ((EditText) findViewById(R.id.PetBreedInput)).setText(pet.petInfo.getString("breed"));
                 ((EditText) findViewById(R.id.PetAgeInput)).setText(pet.petInfo.getString("age"));
                 ((EditText) findViewById(R.id.PetDietInput)).setText(pet.petInfo.getString("diet"));
@@ -72,9 +71,10 @@ public class PetActivity extends AppCompatActivity {
 
                 Spinner sizeSpinner = ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner));
                 sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("size")));
+                Log.w("MA", "size: "+pet.petInfo.getString("size"));
 
-                Spinner temperamentSpinner = ((Spinner) findViewById(R.id.PetTemperamentInput));
-                sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("temperament")));
+                Spinner temperamentSpinner = ((Spinner) findViewById(R.id.PetForm_PetTemperamentSpinner));
+                temperamentSpinner.setSelection(getIndex(temperamentSpinner, pet.petInfo.getString("temperament")));
 
                 Log.w("MA", "Successfully populated Pet Form");
             } catch (JSONException je) {
@@ -122,11 +122,11 @@ public class PetActivity extends AppCompatActivity {
         Spinner spinner_temp = (Spinner) findViewById(R.id.PetForm_PetTemperamentSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter_temp = ArrayAdapter.createFromResource(this,
-                R.array.petSize_array, android.R.layout.simple_spinner_item);
+                R.array.petTemp_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter_temp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner_temp.setAdapter(adapter_size);
+        spinner_temp.setAdapter(adapter_temp);
     }
 
 
@@ -215,7 +215,7 @@ public class PetActivity extends AppCompatActivity {
 
         petInfo.put("species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
         petInfo.put("size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
-        petInfo.put("temperament", ((Spinner) findViewById(R.id.PetTemperamentInput)).getSelectedItem().toString());
+        petInfo.put("temperament", ((Spinner) findViewById(R.id.PetForm_PetTemperamentSpinner)).getSelectedItem().toString());
 
         petInfo.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
         petInfo.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());

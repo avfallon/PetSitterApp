@@ -24,7 +24,7 @@
     </string-array>
 
     <string-array name="petTemp_array">
-        <item>Click me to select size.</item>
+        <item>Click me to select temperament.</item>
         <item>Lazy</item>
         <item>Calm</item>
         <item>Active</item>
