@@ -29,15 +29,13 @@ public class Model {
     public static ArrayList<Pet> usersPets = new ArrayList<>();;
     public static ArrayList<SittingJob> ownersJobs = new ArrayList<>();
     public static ArrayList<SittingJob> sittersJobs = new ArrayList<>();
+    public static ArrayList<SittingJob> openJobs = new ArrayList<>();
 
     public Model() throws JSONException, IOException {
 
         getJSON();
         getOwnerJSON();
         getJobs();
-
-        System.out.println(ownersJobs.toString());
-        System.out.println(sittersJobs.toString());
 
         //buildPetList(currentUser.userID);
 
@@ -275,6 +273,27 @@ public class Model {
         Controller.currentUser = null;
     }
 
+    public void createJob(SittingJob newJob){
+        String createPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createJob.php?json="+newJob.jobInfo;
+        CreateAccount getJSON = new CreateAccount(createPetURL);
+        getJSON.execute();
+        ownersJobs.add(newJob);
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+    }
+
+    public void deleteJob(SittingJob job) throws JSONException {
+        String deletePetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteJob.php?json="+job.jobInfo;
+        CreateAccount getJSON = new CreateAccount(deletePetURL);
+        getJSON.execute();
+        for (int i = 0; i < ownersJobs.size(); i++) {
+            JSONObject obj = ownersJobs.get(i).jobInfo;
+            if (obj.getInt("jobID") == job.jobInfo.getInt("jobID")) {
+                ownersJobs.remove(ownersJobs.get(i));
+            }
+        }
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+    }
+
     private class CreateAccount extends AsyncTask<Void, Void, String> {
         String urlPHP = "";
 
@@ -365,8 +384,8 @@ public class Model {
     }
 
     public static void assignJobs() throws JSONException {
-        for (int i = 0; i < allJobs.length(); i++) {
-            JSONObject obj = allJobs.getJSONObject(i);
+        for (int j = 0; j < allJobs.length(); j++) {
+            JSONObject jobObj = allJobs.getJSONObject(j);
             int typeAccount = 0;
             try {
                 typeAccount = Integer.parseInt(Controller.currentUser.accountInfo.getString("typeOfAccount"));
@@ -375,31 +394,32 @@ public class Model {
             }
 
             if (typeAccount == Controller.OWNER_ACCOUNT) {
-                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
+                if (jobObj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
                     ownersJobs.add(ownerJob);
                 }
             } else if (typeAccount == Controller.SITTER_ACCOUNT) {
-                if (obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
+                if (jobObj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
                     sittersJobs.add(ownerJob);
                 }
             } else {
-                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
+                if (jobObj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
                     ownersJobs.add(ownerJob);
                 }
-                if(obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
+                if(jobObj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
                     sittersJobs.add(ownerJob);
                 }
             }
         }
         Controller.currentUser.updateOwnerJobs(ownersJobs);
         Controller.currentUser.updateSitterJobs(sittersJobs);
+
+        System.out.println(ownersJobs.toString());
+        System.out.println(sittersJobs.toString());
     }
-
-
 
     // JSON stuff
     //________________________________________________________________________________________________
@@ -601,6 +621,14 @@ public class Model {
         JSONArray jsonArray = new JSONArray(json);
         System.out.println(jsonArray.toString());
         allJobs = jsonArray;
+        for(int i = 0; i < jsonArray.length(); i++){
+            JSONObject obj = jsonArray.getJSONObject(i);
+            if(obj.getInt("sitterIDKey") == 0){
+                SittingJob openJob = new SittingJob(obj);
+                openJobs.add(openJob);
+                System.out.println("Open Jobs: "+ openJobs.toString());
+            }
+        }
     }
 
 }
