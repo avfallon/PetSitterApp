@@ -128,7 +128,7 @@ public class Controller extends AppCompatActivity {
      * It checks if their login credentials are correct,
      * @param v
      */
-    public void login(View v) {
+    public void login(View v) throws JSONException {
         Log.w("MA", "Login");
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
@@ -143,6 +143,7 @@ public class Controller extends AppCompatActivity {
             ((TextView) findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         } else {
             ((TextView) findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
+            Model.assignJobs();
             goToDashBoard(v);
         }
     }

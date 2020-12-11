@@ -24,7 +24,7 @@ public class Model {
 
     private JSONArray allPets;
     private JSONArray allOwners;
-    private JSONArray allJobs;
+    public static JSONArray allJobs;
 
     public static ArrayList<Pet> usersPets = new ArrayList<>();;
     public static ArrayList<SittingJob> ownersJobs = new ArrayList<>();
@@ -35,6 +35,9 @@ public class Model {
         getJSON();
         getOwnerJSON();
         getJobs();
+
+        System.out.println(ownersJobs.toString());
+        System.out.println(sittersJobs.toString());
 
         //buildPetList(currentUser.userID);
 
@@ -361,6 +364,41 @@ public class Model {
 
     }
 
+    public static void assignJobs() throws JSONException {
+        for (int i = 0; i < allJobs.length(); i++) {
+            JSONObject obj = allJobs.getJSONObject(i);
+            int typeAccount = 0;
+            try {
+                typeAccount = Integer.parseInt(Controller.currentUser.accountInfo.getString("typeOfAccount"));
+            } catch (JSONException je) {
+                Log.w("MA", "Error in GoToDashboard");
+            }
+
+            if (typeAccount == Controller.OWNER_ACCOUNT) {
+                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    ownersJobs.add(ownerJob);
+                }
+            } else if (typeAccount == Controller.SITTER_ACCOUNT) {
+                if (obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    sittersJobs.add(ownerJob);
+                }
+            } else {
+                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    ownersJobs.add(ownerJob);
+                }
+                if(obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    sittersJobs.add(ownerJob);
+                }
+            }
+        }
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+        Controller.currentUser.updateSitterJobs(sittersJobs);
+    }
+
 
 
     // JSON stuff
@@ -563,38 +601,6 @@ public class Model {
         JSONArray jsonArray = new JSONArray(json);
         System.out.println(jsonArray.toString());
         allJobs = jsonArray;
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject obj = jsonArray.getJSONObject(i);
-            int typeAccount = 0;
-            try {
-                typeAccount = Integer.parseInt(Controller.currentUser.accountInfo.getString("typeOfAccount"));
-            } catch (JSONException je) {
-                Log.w("MA", "Error in GoToDashboard");
-            }
-
-            if (typeAccount == Controller.OWNER_ACCOUNT) {
-                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
-                    ownersJobs.add(ownerJob);
-                }
-            } else if (typeAccount == Controller.SITTER_ACCOUNT) {
-                if (obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
-                    sittersJobs.add(ownerJob);
-                }
-            } else {
-                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
-                    ownersJobs.add(ownerJob);
-                }
-                if(obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
-                    SittingJob ownerJob = new SittingJob(obj);
-                    sittersJobs.add(ownerJob);
-                }
-            }
-        }
-        Controller.currentUser.updateOwnerJobs(ownersJobs);
-        Controller.currentUser.updateSitterJobs(sittersJobs);
     }
 
 }
