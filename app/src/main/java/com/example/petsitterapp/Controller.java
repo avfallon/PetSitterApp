@@ -101,7 +101,7 @@ public class Controller extends AppCompatActivity {
         }
         else {
             ((TextView)findViewById(R.id.loginError)).setVisibility(View.INVISIBLE);
-            allPetsActivity();
+            goToDashBoard(v);
         }
     }
 
@@ -125,7 +125,7 @@ public class Controller extends AppCompatActivity {
     }
 
     public void saveCreditCard(View v) {
-        allPetsActivity();
+        goToDashBoard(v);
     }
 
     public void savePreferences(View v) {
