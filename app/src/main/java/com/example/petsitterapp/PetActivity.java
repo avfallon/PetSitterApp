@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,15 +30,11 @@ public class PetActivity extends AppCompatActivity {
 
         if(newFlag) {
             editing = false;
-            setContentView(R.layout.activity_petform);
             populatePetForm(null);
          }
         else {
             editing = true;
             Log.w("MA", "editing pet");
-            setContentView(R.layout.activity_petform);
-            populatePetForm(currentPet);
-            //setContentView(R.layout.activity_view_pet);
             populateViewPet(currentPet);
         }
     }
@@ -47,7 +44,23 @@ public class PetActivity extends AppCompatActivity {
      * @param pet - the pet who's information you will populate the view with
      */
     public void populateViewPet(Pet pet) {
-        Log.w("MA", pet.toString());
+        setContentView(R.layout.activity_view_pet);
+        Log.w("MA", "PopulateViewPet: "+pet.petInfo.toString());
+        try {
+            ((TextView) findViewById(R.id.PetNameValue)).setText(pet.petInfo.getString("name"));
+            ((TextView) findViewById(R.id.PetSpeciesValue)).setText(pet.petInfo.getString("species"));
+            ((TextView) findViewById(R.id.PetSizeValue)).setText(pet.petInfo.getString("size"));
+            ((TextView) findViewById(R.id.PetTemperamentValue)).setText(pet.petInfo.getString("temperament"));
+            ((TextView) findViewById(R.id.PetBreedValue)).setText(pet.petInfo.getString("breed"));
+            ((TextView) findViewById(R.id.PetAgeValue)).setText(pet.petInfo.getString("age"));
+            ((TextView) findViewById(R.id.PetDietValue)).setText(pet.petInfo.getString("diet"));
+            ((TextView) findViewById(R.id.PetHealthIssuesValue)).setText(pet.petInfo.getString("healthIssues"));
+            ((TextView) findViewById(R.id.PetExtraInfoValue)).setText(pet.petInfo.getString("extraInfo"));
+
+            Log.w("MA", "Successfully populated View Pet");
+        } catch (JSONException je) {
+            Log.w("MA", "JSONException PetActivity.populatePetForm()");
+        }
     }
 
     /**
@@ -55,6 +68,7 @@ public class PetActivity extends AppCompatActivity {
      * @param pet - the pet who's information you will populate the view with, null if it is a new pet
      */
     public void populatePetForm(Pet pet) {
+        setContentView(R.layout.activity_petform);
         Log.w("MA", "PopulatePetForm");
         if(pet != null) {
             try {
@@ -76,6 +90,8 @@ public class PetActivity extends AppCompatActivity {
                 Spinner temperamentSpinner = ((Spinner) findViewById(R.id.PetForm_PetTemperamentSpinner));
                 temperamentSpinner.setSelection(getIndex(temperamentSpinner, pet.petInfo.getString("temperament")));
 
+                findViewById(R.id.deletePet).setVisibility(View.VISIBLE);
+
                 Log.w("MA", "Successfully populated Pet Form");
             } catch (JSONException je) {
                 Log.w("MA", "JSONException PetActivity.populatePetForm()");
@@ -91,6 +107,8 @@ public class PetActivity extends AppCompatActivity {
             ((EditText) findViewById(R.id.PetExtraInfoInput)).setText("");
 
             setSpinnerData();
+
+            findViewById(R.id.deletePet).setVisibility(View.INVISIBLE);
         }
     }
 
@@ -151,7 +169,6 @@ public class PetActivity extends AppCompatActivity {
      */
     public void editPet(View v) {
         editing = true;
-        setContentView(R.layout.activity_petform);
         populatePetForm(currentPet);
     }
 
@@ -185,10 +202,8 @@ public class PetActivity extends AppCompatActivity {
                         Controller.model.addPet(petInfo);
                     }
                     currentPet = pet;
-//                    populateViewPet(pet);
-                    //setContentView(R.layout.activity_view_pet);
-
-                    finish();
+                    populateViewPet(pet);
+                    Log.w("MA", "Finished saving");
                 }
                 else {
                     Log.w("MA", "Error in PetActivity.savePetInfo(), JSON is null");
@@ -197,9 +212,6 @@ public class PetActivity extends AppCompatActivity {
             catch(JSONException | IOException je) {
                 Log.w("MA", "JSONException PetActivity.savePet()");
             }
-//            catch(IOException io) {
-//                Log.w("MA", "IOException PetActivity.savePet()");
-//            }
         }
 
     }
@@ -241,5 +253,15 @@ public class PetActivity extends AppCompatActivity {
 
     public void goBackViewPet(View v) {
         finish();
+    }
+
+    public void deletePet(View v) {
+        try {
+            Controller.model.deletePet(currentPet.petInfo);
+            finish();
+        }
+        catch(JSONException je) {
+            Log.w("MA", "JSONException PetActivity.deletePet()");
+        }
     }
 }
