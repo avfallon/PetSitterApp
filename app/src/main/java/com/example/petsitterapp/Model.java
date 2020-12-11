@@ -18,16 +18,21 @@ import java.net.URL;
 public class Model {
     private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
     private String ownerQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getOwners.php";
+    private String jobsQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getJobs.php";
 
     private JSONArray allPets;
     private JSONArray allOwners;
+    private JSONArray allJobs;
 
     public static ArrayList<Pet> usersPets = new ArrayList<>();;
+    public static ArrayList<SittingJob> ownersJobs = new ArrayList<>();
+    public static ArrayList<SittingJob> sittersJobs = new ArrayList<>();
 
     public Model() throws JSONException, IOException {
 
         getJSON();
         getOwnerJSON();
+        getJobs();
 
         //buildPetList(currentUser.userID);
 
@@ -501,6 +506,61 @@ public class Model {
 //        JSONObject petInfo;
 //        petInfo.getString(columnName);
         return null;
+    }
+
+    private class GetJobsJson extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            try {
+                loadUsersJobs(s);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(jobsQuery);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
+    }
+
+    /**
+     * Method to call the getJSON object
+     */
+    private void getJobs() {
+        GetJobsJson getJSON = new GetJobsJson();
+        getJSON.execute();
+    }
+
+    private void loadUsersJobs(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        System.out.println(jsonArray.toString());
+        allJobs = jsonArray;
     }
 
 }
