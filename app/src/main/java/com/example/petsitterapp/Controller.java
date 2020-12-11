@@ -143,7 +143,6 @@ public class Controller extends AppCompatActivity {
             Log.w("MA", "Error Logging in");
         }
 
-        System.out.println(currentUser.accountInfo.toString());
         if (currentUser == null) {
             ((TextView) findViewById(R.id.loginError)).setVisibility(View.VISIBLE);
         } else {

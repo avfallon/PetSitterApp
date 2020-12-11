@@ -11,12 +11,12 @@
     <color name="light_green">#79C864</color>
     <color name="cream">#f0ead6</color>
     <color name="burgundy">#4A050D</color>
-    <color name="tan">#FFBF8E</color>
+    <color name="tan">#5EA3AC</color>
     <color name="teal">#1ECC7E</color>
     <color name="grey">#2B2929</color>
     <color name="light_grey">#dadce6</color>
     <color name="light_blue">#657CEF</color>
 
-
+<!--    #FFBF8E-->
 
 </resources>
