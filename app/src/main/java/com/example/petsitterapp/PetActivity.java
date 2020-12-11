@@ -73,6 +73,9 @@ public class PetActivity extends AppCompatActivity {
                 Spinner sizeSpinner = ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner));
                 sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("size")));
 
+                Spinner temperamentSpinner = ((Spinner) findViewById(R.id.PetTemperamentInput));
+                sizeSpinner.setSelection(getIndex(sizeSpinner, pet.petInfo.getString("temperament")));
+
                 Log.w("MA", "Successfully populated Pet Form");
             } catch (JSONException je) {
                 Log.w("MA", "JSONException PetActivity.populatePetForm()");
@@ -81,7 +84,6 @@ public class PetActivity extends AppCompatActivity {
         else {
             Log.w("MA", "Filling empty pet");
             ((EditText) findViewById(R.id.PetNameInput)).setText("");
-            ((EditText) findViewById(R.id.PetTemperamentInput)).setText("");
             ((EditText) findViewById(R.id.PetBreedInput)).setText("");
             ((EditText) findViewById(R.id.PetAgeInput)).setText("");
             ((EditText) findViewById(R.id.PetDietInput)).setText("");
@@ -203,8 +205,8 @@ public class PetActivity extends AppCompatActivity {
 
         petInfo.put("species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
         petInfo.put("size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
+        petInfo.put("temperament", ((Spinner) findViewById(R.id.PetTemperamentInput)).getSelectedItem().toString());
 
-        petInfo.put("temperament", ((EditText) findViewById(R.id.PetTemperamentInput)).getText().toString());
         petInfo.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
         petInfo.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
         petInfo.put("diet", ((EditText) findViewById(R.id.PetDietInput)).getText().toString());
