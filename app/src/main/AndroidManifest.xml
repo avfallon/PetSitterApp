@@ -24,7 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".PetActivity"> </activity>
-        <activity android:name=".PetFormActivity"> </activity>
     </application>
 
 </manifest>
