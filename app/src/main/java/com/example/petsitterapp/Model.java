@@ -259,7 +259,7 @@ public class Model {
     }
 
     public void deleteAccount(User currUser){
-        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editAccount.php?json="+currUser.accountInfo;
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteAccount.php?json="+currUser.accountInfo;
         CreateAccount getJSON = new CreateAccount(editPetURL);
         getJSON.execute();
         Controller.currentUser = null;
