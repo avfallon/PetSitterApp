@@ -144,7 +144,7 @@
     </style>
 
     <!-- activity_settings styles -->
-    <style name="SitterPref_TextViews">
+    <style name="settings_TextViews">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:background">@color/teal</item>
@@ -152,7 +152,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentStart">true</item>
-        <item name="android:paddingHorizontal">5dp</item>
+
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
