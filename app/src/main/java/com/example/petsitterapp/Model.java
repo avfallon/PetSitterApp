@@ -1,9 +1,15 @@
 package com.example.petsitterapp;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +22,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 
 public class Model {
     private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
@@ -30,6 +37,8 @@ public class Model {
     public static ArrayList<SittingJob> ownersJobs = new ArrayList<>();
     public static ArrayList<SittingJob> sittersJobs = new ArrayList<>();
     public static ArrayList<SittingJob> openJobs = new ArrayList<>();
+
+    public static Context context;
 
     public Model() throws JSONException, IOException {
 
@@ -89,9 +98,28 @@ public class Model {
         for(int i = 0; i < allOwners.length(); i++){
             JSONObject obj = allOwners.getJSONObject(i);
             if(Integer.parseInt(obj.getString("typeOfAccount")) == Controller.SITTER_ACCOUNT){
-                String emailURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/sendEmail.php?email="+obj.getString("email");
-                AddPet sendEmail = new AddPet(emailURL);
-                sendEmail.execute();
+                LatLng myAddy = getLocationFromAddress(context, obj.getString("address"));
+                if(myAddy == null){
+                    break;
+                }
+                else{
+                    System.out.println(myAddy.toString());
+                }
+
+                float[] distance = new float[1];
+                Location.distanceBetween(Controller.wayLatitude, Controller.wayLongitude,
+                        myAddy.latitude, myAddy.longitude, distance);
+
+                double radiusInMeters = 48.2803*1000.0; //1 KM = 1000 Meter
+
+                if( distance[0]/1000 > radiusInMeters ){
+                    System.out.println("Outside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
+                } else {
+                    System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
+                    String emailURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/sendEmail.php?email="+obj.getString("email");
+                    AddPet sendEmail = new AddPet(emailURL);
+                    sendEmail.execute();
+                }
             }
 
         }
@@ -639,6 +667,30 @@ public class Model {
             }
         }
         System.out.println("Open Jobs: "+ openJobs.toString());
+    }
+
+    public static LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 
 }

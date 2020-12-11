@@ -56,9 +56,11 @@ public class Controller extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
 
     private int locationRequestCode = 1000;
-    private double wayLatitude = 0.0, wayLongitude = 0.0;
+    public static double wayLatitude = 0.0, wayLongitude = 0.0;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+
+    public static LatLng myAddy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class Controller extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setContext();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -93,7 +96,7 @@ public class Controller extends AppCompatActivity {
         };
         getLocation();
 
-        LatLng myAddy = getLocationFromAddress(this, "1601 Amphitheatre Pkwy, Mountain View, CA 94043");
+        myAddy = getLocationFromAddress(this, "1601 Amphitheatre Pkwy, Mountain View, CA 94043");
         System.out.println(myAddy.toString());
 
         float[] distance = new float[1];
@@ -341,7 +344,7 @@ public class Controller extends AppCompatActivity {
         }
     }
 
-    public LatLng getLocationFromAddress(Context context, String strAddress) {
+    public static LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -363,6 +366,10 @@ public class Controller extends AppCompatActivity {
         }
 
         return p1;
+    }
+
+    public void setContext(){
+        Model.context = this;
     }
 
 
