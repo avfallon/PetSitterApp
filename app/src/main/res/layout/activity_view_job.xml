@@ -13,8 +13,8 @@
         <Button
             style="@style/Button"
             android:layout_margin="10dp"
-            android:text="CANCEL"
-            android:onClick="saveNewAccount"
+            android:text="@string/Cancel"
+            android:onClick="cancelJob"
             />
 
 

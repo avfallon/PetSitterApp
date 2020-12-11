@@ -82,6 +82,12 @@
         <item name="android:background">@color/tan</item>
     </style>
 
+    <style name="DeletePet">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/errorRed</item>
+    </style>
+
 
     <style name="PetViewHeader">
         <item name="android:layout_width">wrap_content</item>

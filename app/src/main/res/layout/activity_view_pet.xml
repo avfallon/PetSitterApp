@@ -14,6 +14,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     tools:context=".PetFormActivity">
+        <Button
+            android:id="@+id/go_back_credit"
+            style="@style/Button"
+            android:text="@string/Go_Back"
+            android:layout_margin="10dp"
+            android:onClick="goBack"
+            />
 
     <TextView
         android:id="@+id/PetViewTitle"
@@ -303,10 +310,11 @@
             style="@style/PetView_GoBack_Button"
             android:layout_marginHorizontal="50dp"
             android:layout_centerHorizontal="true"
-            android:text="Go Back"
+            android:text="@string/Edit"
 
-            android:onClick = "submitPetFormInfo"
+            android:onClick = "EditPet"
             />
+
     </RelativeLayout>
 
     -</RelativeLayout>

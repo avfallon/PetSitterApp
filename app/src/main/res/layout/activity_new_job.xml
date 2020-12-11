@@ -13,7 +13,7 @@
         <Button
             style="@style/Button"
             android:layout_margin="10dp"
-            android:text="GO BACK"
+            android:text="@string/Cancel"
             android:onClick="saveNewAccount"
             />
 

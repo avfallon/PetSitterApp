@@ -22,7 +22,8 @@
             <Button
                 style="@style/Button"
                 android:layout_margin="20dp"
-                android:text="@string/Go_Back" />
+                android:text="@string/Go_Back"
+                android:onClick="goBack"/>
 
             <TextView
                 android:id="@+id/Settings_Title"
@@ -37,7 +38,7 @@
             <RelativeLayout
                 android:id="@+id/RelativeLayout_FirstName_Title"
                 android:layout_below="@+id/Settings_Title"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView

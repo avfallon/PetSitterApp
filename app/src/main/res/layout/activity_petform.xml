@@ -13,6 +13,24 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     tools:context=".PetFormActivity">
+        <Button
+        android:id="@+id/go_back_pet_profile"
+        style="@style/Button"
+        android:text="@string/Go_Back"
+        android:layout_margin="10dp"
+        android:onClick="goBack"
+        />
+
+
+    <Button
+        android:id="@+id/deletePet"
+        style="@style/DeletePet"
+        android:layout_alignParentRight="true"
+        android:text="@string/Delete"
+        android:layout_margin="10dp"
+        android:onClick="deletePet"
+        android:visibility="invisible"
+        />
 
         <TextView
             android:id="@+id/PetFormTitle"
@@ -35,6 +53,7 @@
                 android:id="@+id/PetNameTitle"
                 style="@style/PetForm_TextViews"
                 android:text="@string/String_petForm_PetNameTitle"
+
                 />
 
             <EditText

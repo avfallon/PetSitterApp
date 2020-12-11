@@ -15,11 +15,22 @@
     tools:context=".PetFormActivity"
     android:background="@color/cream">
 
+    <Button
+        android:id="@+id/go_back_preferences"
+        style="@style/Button"
+        android:text="@string/Go_Back"
+        android:layout_margin="10dp"
+        android:onClick="goBack"
+
+        />
+
     <TextView
         android:id="@+id/header"
         style="@style/Header"
         android:text="Pet Preferences"
         android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/go_back_preferences"
+        android:layout_marginLeft="20dp"
         android:paddingHorizontal="20dp"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"/>
