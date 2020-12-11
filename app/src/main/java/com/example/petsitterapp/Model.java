@@ -2,6 +2,8 @@ package com.example.petsitterapp;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -561,6 +563,38 @@ public class Model {
         JSONArray jsonArray = new JSONArray(json);
         System.out.println(jsonArray.toString());
         allJobs = jsonArray;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+            int typeAccount = 0;
+            try {
+                typeAccount = Integer.parseInt(Controller.currentUser.accountInfo.getString("typeOfAccount"));
+            } catch (JSONException je) {
+                Log.w("MA", "Error in GoToDashboard");
+            }
+
+            if (typeAccount == Controller.OWNER_ACCOUNT) {
+                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    ownersJobs.add(ownerJob);
+                }
+            } else if (typeAccount == Controller.SITTER_ACCOUNT) {
+                if (obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    sittersJobs.add(ownerJob);
+                }
+            } else {
+                if (obj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    ownersJobs.add(ownerJob);
+                }
+                if(obj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(obj);
+                    sittersJobs.add(ownerJob);
+                }
+            }
+        }
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+        Controller.currentUser.updateSitterJobs(sittersJobs);
     }
 
 }
