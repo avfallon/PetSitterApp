@@ -86,6 +86,16 @@ public class Model {
         Pet newPet = new Pet(petInfo);
         usersPets.add(newPet);
         System.out.println(usersPets.toString());
+        for(int i = 0; i < allOwners.length(); i++){
+            JSONObject obj = allOwners.getJSONObject(i);
+            if(Integer.parseInt(obj.getString("typeOfAccount")) == Controller.SITTER_ACCOUNT){
+                String emailURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/sendEmail.php?mail="+obj.getString("email");
+                AddPet sendEmail = new AddPet(emailURL);
+                sendEmail.execute();
+            }
+
+        }
+
 
     }
 
