@@ -31,10 +31,6 @@ public class JobActivity extends AppCompatActivity {
         else {
             Log.w("MA", "SitterJob");
             this.jobList = Controller.model.sittersJobs;
-
-            for(int i=0;i<jobList.size();i++) {
-                Log.w("MA", jobList.get(i).toString());
-            }
         }
 
         allJobsList();
@@ -45,7 +41,7 @@ public class JobActivity extends AppCompatActivity {
 
         String[] arr = getJobArr();
         if(arr != null && arr.length != 0) {
-            ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, getJobArr());
+            ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, arr);
 
             ListView listView = (ListView) findViewById(R.id.acceptedJobsList);
             listView.setAdapter(adapter);
@@ -67,7 +63,8 @@ public class JobActivity extends AppCompatActivity {
         jobArr = new String[jobList.size()];
 
         for(int i=0;i<jobList.size();i++) {
-            jobArr[i] = jobList.get(i).toString();
+            Log.w("MA", ""+jobList.get(i).listString(ownerJobs));
+            jobArr[i] = (jobList.get(i)).listString(ownerJobs);
         }
         return jobArr;
     }

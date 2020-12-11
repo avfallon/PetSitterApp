@@ -12,19 +12,19 @@ public class SittingJob {
         this.jobInfo = info;
     }
 
-    public String toString(boolean ownerJob) {
+    public String listString(boolean ownerJob) {
         String returnStr = "";
         try {
-//            returnStr += jobInfo.get("startDate").toString() + " -> " + jobInfo.get("endDate").toString();
-            Log.w("MA", jobInfo.get("startDate").toString());
+            returnStr += formatDate(jobInfo.get("startDate").toString()) + " -> " + formatDate(jobInfo.get("endDate").toString());
 
             int userID = 0;
             if(ownerJob) {
-                userID = (Integer) jobInfo.get("sitterIDKey");
+                userID = jobInfo.getInt("sitterIDKey");
             }
             else {
-                userID = (Integer) jobInfo.get("ownerIDKey");
+                userID = jobInfo.getInt("ownerIDKey");
             }
+
             for (int i = 0; i < Controller.model.allOwners.length(); i++) {
                 JSONObject obj = Controller.model.allOwners.getJSONObject(i);
                 if(userID == obj.getInt("ownerIDKey")) {
@@ -39,7 +39,8 @@ public class SittingJob {
         return returnStr;
     }
 
-
-
-
+    public String formatDate(String date) {
+        String[] splitList = date.split("-");
+        return splitList[1]+"/"+splitList[2];
+    }
 }
