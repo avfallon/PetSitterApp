@@ -229,4 +229,17 @@ public class PetActivity extends AppCompatActivity {
         TextView ErrorTag = findViewById( errorID );
         ErrorTag.setVisibility(visibility);
     }
+
+    public void goBackPetForm(View v) {
+        if(editing) {
+            setContentView(R.layout.activity_view_pet);
+        }
+        else {
+            finish();
+        }
+    }
+
+    public void goBackViewPet(View v) {
+        finish();
+    }
 }
