@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
-    HashMap<Integer, Pet> petMap;
     ArrayList<Pet> petList;
 
     ArrayList<SittingJob> openJobsSitter;
@@ -45,8 +44,22 @@ public class User {
         return pets;
     }
 
+    public String[] getJobs() {
+        String[] ha = {"sdfs"};
+        return ha;
+    }
+
     public void updatePetList(ArrayList<Pet> newList) {
-        petList = newList;
+        petList = (ArrayList<Pet>) newList.clone();
+    }
+
+    public void updateOwnerJobs(ArrayList<SittingJob> ownerJobs) {
+        this.openJobsOwner = (ArrayList<SittingJob>) ownerJobs.clone();
+    }
+
+    public void updateSitterJobs(ArrayList<SittingJob> sitterJobs) {
+        this.openJobsOwner = (ArrayList<SittingJob>) sitterJobs.clone();
+
     }
 }
 

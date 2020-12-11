@@ -43,7 +43,6 @@ public class Controller extends AppCompatActivity {
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
-    public static SittingJob currentJob;
 
     public static final int PET_INTENT_REQUEST_CODE = 1;
     public static final int JOB_INTENT_REQUEST_CODE= 2;
@@ -90,6 +89,8 @@ public class Controller extends AppCompatActivity {
         };
         getLocation();
 
+        LatLng myAddy = getLocationFromAddress(this, "777 S Eden Street, Baltimore, Maryland 21210");
+        System.out.println(myAddy.toString());
         //makeTestUser();
         setContentView(R.layout.activity_login);
     }
