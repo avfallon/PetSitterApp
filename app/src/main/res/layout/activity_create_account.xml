@@ -18,7 +18,7 @@
 
         <Button
             android:id="@+id/go_back_account_creation"
-            style="@style/GoBackButton"
+            style="@style/Button"
             android:text="@string/Go_Back"
             android:layout_margin="10dp"
             />

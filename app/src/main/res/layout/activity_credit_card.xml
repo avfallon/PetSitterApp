@@ -7,20 +7,18 @@
 
     <TextView
         android:id="@+id/Heading"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        style="@style/Header"
+        android:textSize="20sp"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:text="NEW CARD"/>
 
     <TextView
         android:id="@+id/FirstNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextViews"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="20dp"
         android:minWidth="140dp"
-        android:background="@color/petFormTitle_color"
         android:text="First Name"
         android:textSize = "20sp"
         android:padding = "10dp" />
@@ -39,11 +37,9 @@
 
     <TextView
         android:id="@+id/LastNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextViews"
         android:minWidth="140dp"
 
-        android:background="@color/petFormTitle_color"
         android:text="Last Name"
         android:textSize = "20sp"
         android:padding = "10dp"
@@ -68,11 +64,9 @@
 
     <TextView
         android:id="@+id/card_number_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextViews"
         android:minWidth="140dp"
 
-        android:background="@color/petFormTitle_color"
         android:text="Card Number"
         android:textSize = "20sp"
         android:padding = "10dp"
@@ -97,11 +91,9 @@
 
     <TextView
         android:id="@+id/expiration_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextViews"
         android:minWidth="120dp"
 
-        android:background="@color/petFormTitle_color"
         android:text="Exp Date"
         android:textSize = "20sp"
         android:padding = "10dp"
@@ -136,11 +128,9 @@
 
     <TextView
         android:id="@+id/security_card_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextViews"
         android:minWidth="180dp"
 
-        android:background="@color/petFormTitle_color"
         android:text="Security Code"
         android:textSize = "20sp"
         android:padding = "10dp"
@@ -163,8 +153,7 @@
         android:hint="CVC"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button"
 
         android:layout_below="@id/security_card_input"
         android:layout_alignRight="@id/security_card_input"
