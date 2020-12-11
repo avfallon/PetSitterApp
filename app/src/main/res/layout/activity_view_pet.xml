@@ -4,18 +4,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:fillViewport="true">
 
     <RelativeLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context=".PetFormActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".PetFormActivity">
 
     <TextView
-        android:id="@+id/ViewPetFormTitle"
-        android:text="@string/String_ViewPetFormTitle"
+        android:id="@+id/PetFormTitle"
+        android:text="@string/String_petFormTitle"
         android:layout_marginTop="30dp"
         android:paddingHorizontal="20dp"
         android:textSize="20sp"
@@ -26,17 +27,17 @@
         android:layout_height="wrap_content"/>
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout_ViewPetForm_PetName"
-        android:layout_below="@+id/ViewPetFormTitle"
+        android:id="@+id/RelativeLayout_PetView_PetName"
+        android:layout_below="@+id/PetFormTitle"
         android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/ViewPetNameTitle"
+            android:id="@+id/PetNameTitle"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:text="@string/String_ViewPetForm_PetNameTitle"
+            android:text="@string/String_petForm_PetNameTitle"
             android:textColor="@color/petFormTitle_color"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
@@ -47,47 +48,25 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetNameInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetNameTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetNameInput"
-            android:maxLength="@string/PetName_CharLimit"
-            android:inputType="text"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetName"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetName"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetName"
-            android:textColor="@color/Color_ErrorTag"
             />
     </RelativeLayout>
 
 
 
+
+
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_Species"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetName"
-        android:layout_marginTop="10dp"
+        android:id="@+id/RelativeLayout_PetView_Species"
+        android:layout_below="@+id/RelativeLayout_PetView_PetName"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -106,45 +85,23 @@
             android:gravity="start"
             />
 
-        <Spinner
+        <TextView
             android:id="@+id/PetForm_PetSpeciesSpinner"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-
             android:layout_toRightOf="@+id/PetSpeciesTitle"
             android:layout_toEndOf="@+id/PetSpeciesTitle"
-
             android:background="@color/petFormInput_color"
             />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetSpecies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_Species"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetSpecies"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetSpecies"
-            android:textColor="@color/Color_ErrorTag"
-            />
-    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_Size"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetSpecies"
-        android:layout_marginTop="10dp"
+        android:id="@+id/RelativeLayout_PetView_Size"
+        android:layout_below="@+id/RelativeLayout_PetView_Species"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -163,46 +120,24 @@
             android:gravity="start"
             />
 
-        <Spinner
+        <TextView
             android:id="@+id/PetForm_PetSizeSpinner"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-
             android:layout_toRightOf="@+id/PetSizeTitle"
             android:layout_toEndOf="@+id/PetSizeTitle"
-
             android:background="@color/petFormInput_color"
             />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_Size"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetSize"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetSize"
-            android:textColor="@color/Color_ErrorTag"
-            />
-    </RelativeLayout>
 
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_PetTemperament"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetSize"
-        android:layout_marginTop="15dp"
+        android:id="@+id/RelativeLayout_PetView_PetTemperament"
+        android:layout_below="@+id/RelativeLayout_PetView_Size"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -221,18 +156,14 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetTemperamentInput"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/PetTemperamentTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetTemperamentInput"
-            android:maxLength="@string/PetTemperament_CharLimit"
-            android:inputType="text"
             />
     </RelativeLayout>
 
@@ -243,26 +174,6 @@
 
 
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetTemperament"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetTemperament"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetTemperament"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetTemperament"
-            android:textColor="@color/Color_ErrorTag"
-            />
-    </RelativeLayout>
-
 
 
 
@@ -271,9 +182,9 @@
 
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_PetBreed"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetTemperament"
-        android:layout_marginTop="15dp"
+        android:id="@+id/RelativeLayout_PetView_PetBreed"
+        android:layout_below="@+id/RelativeLayout_PetView_PetTemperament"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -292,38 +203,14 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetBreedInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetBreedTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetBreedInput"
-            android:maxLength="@string/PetBreed_CharLimit"
-            android:inputType="text"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetBreed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetBreed"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetBreed"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetBreed"
-            android:textColor="@color/Color_ErrorTag"
             />
     </RelativeLayout>
 
@@ -332,10 +219,12 @@
 
 
 
+
+
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_PetAge"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetBreed"
-        android:layout_marginTop="15dp"
+        android:id="@+id/RelativeLayout_PetView_PetAge"
+        android:layout_below="@+id/RelativeLayout_PetView_PetBreed"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -354,39 +243,14 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetAgeInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetAgeTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetAgeInput"
-            android:maxLength="@string/PetAge_CharLimit"
-            android:inputType="number"
-            />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetAge"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetAge"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetAge"
-            android:textColor="@color/Color_ErrorTag"
             />
     </RelativeLayout>
 
@@ -394,10 +258,13 @@
 
 
 
+
+
+
     <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_PetDiet"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetAge"
-        android:layout_marginTop="15dp"
+        android:id="@+id/RelativeLayout_PetView_PetDiet"
+        android:layout_below="@+id/RelativeLayout_PetView_PetAge"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -416,41 +283,17 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetDietInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetDietTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetDietInput"
-            android:maxLength="@string/PetDiet_CharLimit"
-            android:inputType="text"
             />
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetDiet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetDiet"
-        >
-
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetDiet"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetDiet"
-            android:textColor="@color/Color_ErrorTag"
-            />
-    </RelativeLayout>
 
 
 
@@ -461,8 +304,8 @@
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetForm_PetHealthIssues"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetDiet"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/RelativeLayout_PetForm_PetDiet"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -481,41 +324,19 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetHealthIssuesInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetHealthIssuesTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetHealthIssuesInput"
-            android:maxLength="@string/PetHealthIssues_CharLimit"
-            android:inputType="text"
             />
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetHealthIssues"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetHealthIssues"
-        >
 
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetHealthIssues"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetHealthIssues"
-            android:textColor="@color/Color_ErrorTag"
-            />
-    </RelativeLayout>
 
 
 
@@ -524,8 +345,8 @@
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetForm_PetExtraInfo"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetHealthIssues"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/RelativeLayout_PetForm_PetHealthIssues"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -544,41 +365,19 @@
             android:gravity="start"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/PetExtraInfoInput"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/PetExtraInfoTitle"
             android:background="@color/petFormInput_color"
             android:layout_width="300dp"
             android:layout_height="30dp"
-
             android:paddingHorizontal="10dp"
-            android:hint="@string/String_petForm_PetExtraInfoInput"
-            android:maxLength="@string/PetExtraInfo_CharLimit"
-            android:inputType="text"
             />
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout_PetForm_ErrorTag_PetExtraInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_PetForm_PetExtraInfo"
-        >
 
-        <!--Error Tag FOR Pet Name-->
-        <TextView
-            android:id="@+id/ErrorTag_PetExtraInfo"
-            android:visibility = "invisible"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:text="@string/String_ErrorTag_PetExtraInfo"
-            android:textColor="@color/Color_ErrorTag"
-            />
-    </RelativeLayout>
 
 
 
@@ -588,8 +387,8 @@
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetForm_SubmitButton"
-        android:layout_below="@+id/RelativeLayout_PetForm_ErrorTag_PetExtraInfo"
-        android:layout_margin="10dp"
+        android:layout_below="@+id/RelativeLayout_PetForm_PetExtraInfo"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
@@ -601,7 +400,7 @@
             android:layout_marginHorizontal="50dp"
             android:text="@string/SubmitButton"
 
-            android:onClick = "editPet"
+            android:onClick = "submitPetFormInfo"
             />
     </RelativeLayout>
 
