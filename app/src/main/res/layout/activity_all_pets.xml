@@ -14,48 +14,69 @@ android:background="@color/cream"
     >
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
+        android:background="@color/light_grey"
         >
 
         <Button
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="@string/newJobBtn"
+            android:id="@+id/go_back_pet_home"
+            style="@style/AllPetsButtons"
+            android:layout_marginLeft="10dp"
             android:onClick="newSittingJob"
+            android:text="@string/Go_Back"
             />
+
+        <Button
+            android:id="@+id/view_posts_btn"
+            style="@style/AllPetsButtons"
+            android:layout_marginTop="0dp"
+            android:onClick="newSittingJob"
+            android:text="@string/ViewPosts"
+            android:layout_toRightOf="@id/go_back_pet_home"/>
+
+        <Button
+            android:id="@+id/create_post_btn"
+            style="@style/AllPetsButtons"
+            android:layout_marginTop="0dp"
+            android:onClick="newSittingJob"
+            android:text="@string/newJobBtn"
+            android:layout_toRightOf="@id/view_posts_btn"/>
 
         <TextView
             android:id="@+id/allPetsTitle"
+            style="@style/AccountCreationHeader"
             android:text="@string/allPetsTitle"
+            android:layout_margin="20dp"
             android:textSize="30dp"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/border_button"
+            android:layout_below="@+id/create_post_btn"
             android:layout_weight="2"
             android:gravity="center"
-            android:layout_marginTop="20dp"
 
-            android:textColor="@color/petFormTitle_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
 
         <Button
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/add-pet"
+            style="@style/AllPetsButtons"
             android:text="@string/newPetBtn"
             android:onClick="newPet"
+            android:layout_toRightOf="@id/create_post_btn"
+            android:layout_marginRight="10dp"
             />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView
+        android:id="@+id/petList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/petList"
-        android:dividerHeight="5dp"
-        />
+        android:dividerHeight="5dp" />
 
 </LinearLayout>

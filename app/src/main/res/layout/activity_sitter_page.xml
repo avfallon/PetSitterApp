@@ -13,7 +13,7 @@
     android:background="@color/cream">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/act_sitter_xml_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -22,30 +22,38 @@
         >
 
         <Button
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+            android:id="@+id/new_job_btn"
+            style="@style/Button"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
             android:text="@string/findNewJobBtn"
             />
+        <Button
+            android:id="@+id/go_back_btn"
+
+            style="@style/Button"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:text="@string/Go_Back"
+            android:layout_margin="10dp"
+            />
+
 
         <TextView
             android:id="@+id/allAcceptedJobsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Header"
             android:layout_centerHorizontal="true"
             android:layout_weight="2"
             android:gravity="center"
+            android:layout_marginTop="10dp"
 
             android:text="@string/allAcceptedJobsTitle"
-            android:textColor="@color/petFormTitle_color"
+            android:background="@drawable/border_button"
             android:textSize="30dp" />
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="80dp"
-            android:text="@string/jobPrefBtn"
-            android:onClick="addJobPref"
-            />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"

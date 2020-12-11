@@ -2,6 +2,8 @@ package com.example.petsitterapp;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,16 +20,22 @@ import java.net.URL;
 public class Model {
     private String petQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/query.php";
     private String ownerQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getOwners.php";
+    private String jobsQuery = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/getJobs.php";
 
     private JSONArray allPets;
     private JSONArray allOwners;
+    public static JSONArray allJobs;
 
     public static ArrayList<Pet> usersPets = new ArrayList<>();;
+    public static ArrayList<SittingJob> ownersJobs = new ArrayList<>();
+    public static ArrayList<SittingJob> sittersJobs = new ArrayList<>();
+    public static ArrayList<SittingJob> openJobs = new ArrayList<>();
 
     public Model() throws JSONException, IOException {
 
         getJSON();
         getOwnerJSON();
+        getJobs();
 
         //buildPetList(currentUser.userID);
 
@@ -259,10 +267,31 @@ public class Model {
     }
 
     public void deleteAccount(User currUser){
-        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editAccount.php?json="+currUser.accountInfo;
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteAccount.php?json="+currUser.accountInfo;
         CreateAccount getJSON = new CreateAccount(editPetURL);
         getJSON.execute();
         Controller.currentUser = null;
+    }
+
+    public void createJob(SittingJob newJob){
+        String createPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createJob.php?json="+newJob.jobInfo;
+        CreateAccount getJSON = new CreateAccount(createPetURL);
+        getJSON.execute();
+        ownersJobs.add(newJob);
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+    }
+
+    public void deleteJob(SittingJob job) throws JSONException {
+        String deletePetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteJob.php?json="+job.jobInfo;
+        CreateAccount getJSON = new CreateAccount(deletePetURL);
+        getJSON.execute();
+        for (int i = 0; i < ownersJobs.size(); i++) {
+            JSONObject obj = ownersJobs.get(i).jobInfo;
+            if (obj.getInt("jobID") == job.jobInfo.getInt("jobID")) {
+                ownersJobs.remove(ownersJobs.get(i));
+            }
+        }
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
     }
 
     private class CreateAccount extends AsyncTask<Void, Void, String> {
@@ -354,7 +383,43 @@ public class Model {
 
     }
 
+    public static void assignJobs() throws JSONException {
+        for (int j = 0; j < allJobs.length(); j++) {
+            JSONObject jobObj = allJobs.getJSONObject(j);
+            int typeAccount = 0;
+            try {
+                typeAccount = Integer.parseInt(Controller.currentUser.accountInfo.getString("typeOfAccount"));
+            } catch (JSONException je) {
+                Log.w("MA", "Error in GoToDashboard");
+            }
 
+            if (typeAccount == Controller.OWNER_ACCOUNT) {
+                if (jobObj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
+                    ownersJobs.add(ownerJob);
+                }
+            } else if (typeAccount == Controller.SITTER_ACCOUNT) {
+                if (jobObj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
+                    sittersJobs.add(ownerJob);
+                }
+            } else {
+                if (jobObj.getInt("ownerIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
+                    ownersJobs.add(ownerJob);
+                }
+                if(jobObj.getInt("sitterIDKey") == Controller.currentUser.accountInfo.getInt("ownerIDKey")){
+                    SittingJob ownerJob = new SittingJob(jobObj);
+                    sittersJobs.add(ownerJob);
+                }
+            }
+        }
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+        Controller.currentUser.updateSitterJobs(sittersJobs);
+
+        System.out.println(ownersJobs.toString());
+        System.out.println(sittersJobs.toString());
+    }
 
     // JSON stuff
     //________________________________________________________________________________________________
@@ -501,6 +566,69 @@ public class Model {
 //        JSONObject petInfo;
 //        petInfo.getString(columnName);
         return null;
+    }
+
+    private class GetJobsJson extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            try {
+                loadUsersJobs(s);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(jobsQuery);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
+    }
+
+    /**
+     * Method to call the getJSON object
+     */
+    private void getJobs() {
+        GetJobsJson getJSON = new GetJobsJson();
+        getJSON.execute();
+    }
+
+    private void loadUsersJobs(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        System.out.println(jsonArray.toString());
+        allJobs = jsonArray;
+        for(int i = 0; i < jsonArray.length(); i++){
+            JSONObject obj = jsonArray.getJSONObject(i);
+            if(obj.getInt("sitterIDKey") == 0){
+                SittingJob openJob = new SittingJob(obj);
+                openJobs.add(openJob);
+                System.out.println("Open Jobs: "+ openJobs.toString());
+            }
+        }
     }
 
 }
