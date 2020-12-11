@@ -44,20 +44,18 @@ public class JobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sitter_page);
 
         String[] arr = getJobArr();
-        Log.w("MA", "adapter");
-        for(String item:arr) {
-            Log.w("MA", item);
-        }
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, getJobArr());
+        if(arr != null && arr.length != 0) {
+            ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, getJobArr());
 
-        ListView listView = (ListView) findViewById(R.id.acceptedJobsList);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                goToViewJob(jobList.get(position));
-            }
-        });
+            ListView listView = (ListView) findViewById(R.id.acceptedJobsList);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    goToViewJob(jobList.get(position));
+                }
+            });
+        }
     }
 
     /**
