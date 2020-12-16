@@ -1,9 +1,10 @@
 package com.example.petsitterapp;
-
+//        android:layout_centerHorizontal="true"
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -78,10 +79,24 @@ public class Controller extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        /**
+         * Sets the context variable of model
+         */
         setContext();
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        /**
+         * Gets the location data and sets the variables associated with it
+         */
+        generateLocationData();
 
+        setContentView(R.layout.activity_login);
+    }
+
+    /**
+     *  Gets the location data and sets the variables associated with it
+     */
+    public void generateLocationData() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(20 * 1000);
@@ -116,8 +131,6 @@ public class Controller extends AppCompatActivity {
         } else {
             System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
         }
-
-        setContentView(R.layout.activity_login);
     }
 
     @Override
@@ -180,17 +193,24 @@ public class Controller extends AppCompatActivity {
      * @param v - the Create Account view that the method is called from
      */
     public void saveNewAccount(View v) {
-        // Do some stuff in the model to save the account info
+        // FIXME Save the info into a new jsonObject, then save that in newAccount
         // if sitter, send to sitter preferences first
         setContentView(R.layout.activity_sitter_preferences_form);
+        setPrefSpinners();
     }
 
     public void saveCreditCard(View v) {
+        // FIXME Get all of the info in the fields, then save that in newAccount
+        //  and save newAccount as a new account in the model, then
         goToDashBoard(v);
     }
 
     public void savePreferences(View v) {
+        // FIXME Get all of the info in the fields, add it to newAccount
+        // If newAccount is not an owner, then use it to save a new account in the model and go to dashboard
+        // otherwise, go to activity_credit_card
         setContentView(R.layout.activity_credit_card);
+
     }
 
     /**
@@ -214,8 +234,15 @@ public class Controller extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pet selectedPet = model.usersPets.get(position);
                 Log.w("MA", "Selected Pet: "+selectedPet.toString());
-                // add in stuff to grey out boxes when selected, or remove from ArrayList if already selected
-                petsInNewJob.add(selectedPet);
+
+                if(petsInNewJob.contains(selectedPet)) {
+                    petsInNewJob.remove(selectedPet);
+                    //((TextView) view).setTextColor(Color.BLACK);
+                }
+                else {
+                    petsInNewJob.add(selectedPet);
+                    Log.w("MA", ""+view.toString());
+                }
             }
         });
 
@@ -284,6 +311,7 @@ public class Controller extends AppCompatActivity {
      */
     public void allPetsActivity(View v) {
         setContentView(R.layout.activity_all_pets);
+        currentUser.updatePetList(model.usersPets);
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
 
@@ -333,6 +361,7 @@ public class Controller extends AppCompatActivity {
      * @param v - the view jobs button in activity_all_pets
      */
     public void ownerJobsActivity(View v) {
+        Log.w("MA", "ownerJobsActivity");
         returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
         intent.putExtra("ownerJobs", true);
@@ -460,5 +489,41 @@ public class Controller extends AppCompatActivity {
 
     public void goBackAllPets(View v) {
         goToDashBoard(v);
+    }
+
+    public void setPrefSpinners() {
+        //SET PETSPECIES SPINNER
+        Spinner spinner_species = (Spinner) findViewById(R.id.PetSpeciesSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_species = ArrayAdapter.createFromResource(this,
+                R.array.petSpecies_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_species.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_species.setAdapter(adapter_species);
+
+        //SET PETSIZE SPINNER
+        Spinner spinner_size = (Spinner) findViewById(R.id.PetSizeSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_size = ArrayAdapter.createFromResource(this,
+                R.array.petSize_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_size.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_size.setAdapter(adapter_size);
+
+        //SET PETSIZE SPINNER
+        Spinner spinner_temp = (Spinner) findViewById(R.id.PetTemperamentSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_temp = ArrayAdapter.createFromResource(this,
+                R.array.petTemp_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_temp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_temp.setAdapter(adapter_temp);
+    }
+
+    public void settingsGoBack(View v) {
+        setContentView(R.layout.activity_dashboard);
     }
 }

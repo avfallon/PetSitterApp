@@ -35,6 +35,7 @@ public class User {
      * @return an array of each String in pet info
      */
     public String[] getPets() {
+
         String[] pets = new String[petList.size()];
         int i=0;
         for(Pet pet:petList) {
