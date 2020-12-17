@@ -176,6 +176,7 @@ public class Controller extends AppCompatActivity {
 
         try {
             currentUser = model.authenticateUser(username, password);
+
         } catch (JSONException je) {
             Log.w("MA", "Error Logging in");
         }

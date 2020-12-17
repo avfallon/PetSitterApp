@@ -224,7 +224,6 @@ public class PetActivity extends AppCompatActivity {
         }
         petInfo.put("name", ((EditText) findViewById(R.id.PetNameInput)).getText().toString());
 
-
         petInfo.put("species", ((Spinner) findViewById(R.id.PetForm_PetSpeciesSpinner)).getSelectedItem().toString());
         petInfo.put("size", ((Spinner) findViewById(R.id.PetForm_PetSizeSpinner)).getSelectedItem().toString());
         petInfo.put("temperament", ((Spinner) findViewById(R.id.PetForm_PetTemperamentSpinner)).getSelectedItem().toString());
