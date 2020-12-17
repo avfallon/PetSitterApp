@@ -171,6 +171,7 @@
 
         <TextView
             style="@style/newANDview_job_TextView"
+            android:id="@+id/sleepover_value"
             android:layout_toRightOf="@+id/sleepover_label"
             android:layout_alignBottom="@id/sleepover_label"
             android:text="Yes or No"/>
@@ -189,6 +190,7 @@
 
         <TextView
             style="@style/newANDview_job_TextView"
+            android:id="@+id/address_value"
             android:layout_toRightOf="@+id/address_label"
             android:layout_alignBottom="@id/address_label"
             android:text="420 Hutchins Ave, Baltimore MD 21212"/>
@@ -208,8 +210,7 @@
             style="@style/newANDview_job_TextView"
             android:layout_toRightOf="@+id/token_label"
             android:layout_alignBottom="@id/token_label"
-            android:text="####"
-            android:visibility="invisible"
+            android:text="3"
             />
 
         <TextView
@@ -218,7 +219,6 @@
             android:layout_below="@+id/sleepover_label"
             android:text="TOKENS"
             android:layout_margin="20dp"
-            android:visibility="invisible"
             />
 
         <TextView
@@ -232,12 +232,23 @@
 
 
         <Button
-            android:id="@+id/submit_job"
+            android:id="@+id/accept_job"
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_margin="20dp"
             android:text="ACCEPT JOB"
             android:layout_below="@id/address_label"
+            android:visibility="invisible"
+            />
+
+        <Button
+            android:id="@+id/complete_job"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:text="MARK JOB AS COMPLETED"
+            android:layout_below="@id/address_label"
+            android:visibility="invisible"
             />
 
 

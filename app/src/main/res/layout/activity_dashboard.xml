@@ -17,7 +17,7 @@
         />
 
     <Button
-        android:id="@+id/sitter_page_button"
+        android:id="@+id/open_jobs_button"
         style="@style/Button"
 
         android:layout_centerHorizontal="true"
@@ -25,7 +25,20 @@
         android:layout_marginTop="50dp"
         android:visibility="invisible"
 
-        android:text="Sitter Page"
+        android:text="Available Jobs"
+        android:onClick="openJobsActivity"
+        />
+
+    <Button
+        android:id="@+id/sitter_page_button"
+        style="@style/Button"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/open_jobs_button"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible"
+
+        android:text="Accepted Sitting Jobs"
         android:onClick="sitterJobsActivity"
         />
 

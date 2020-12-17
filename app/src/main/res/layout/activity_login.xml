@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:background="@drawable/logo_danj"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         />
     <TextView
         android:id="@+id/LoginHeader"
@@ -67,34 +67,34 @@
         android:id="@+id/password"
         />
 
-    <Button
-        android:id="@+id/loginBtn"
-        style="@style/LoginButtonStyle"
-        android:layout_centerHorizontal="true"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@id/password"
-        android:layout_marginTop="20dp"
-        android:text="Login"
+        android:layout_centerHorizontal="true">
 
-        android:onClick = "login"
-        />
+        <Button
+            android:id="@+id/loginBtn"
+            style="@style/LoginButtonStyle"
+            android:layout_margin="20dp"
 
-    <TextView
-        style="@style/LoginLabel"
-        android:layout_below="@id/loginBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/createAccountQuestion"
-        android:id="@+id/createAccountQuestion"
-        />
+            android:layout_marginLeft="20dp"
+            android:text="Login"
 
-    <Button
-        style="@style/LoginButtonStyle"
-        android:layout_below="@id/createAccountQuestion"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/createAccountBtn"
-        android:id="@+id/createAccountBtn"
-        android:onClick="createAccount"
-        />
+            android:onClick = "login"
+            />
+
+        <Button
+            style="@style/LoginButtonStyle"
+            android:layout_marginRight="20dp"
+            android:layout_margin="20dp"
+
+            android:layout_toRightOf="@id/loginBtn"
+            android:text="@string/createAccountBtn"
+            android:id="@+id/createAccountBtn"
+            android:onClick="createAccount"
+            />
+    </LinearLayout>
 
 </RelativeLayout>

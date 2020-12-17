@@ -1,9 +1,10 @@
 package com.example.petsitterapp;
-
+//        android:layout_centerHorizontal="true"
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -47,6 +48,9 @@ public class Controller extends AppCompatActivity {
     public static final int OWNER_ACCOUNT= 1;
     public static final int SITTER_ACCOUNT= 2;
 
+    public static final int SLEEPOVER_NO = 0;
+    public static final int SLEEPOVER_YES = 1;
+
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
@@ -78,10 +82,24 @@ public class Controller extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        /**
+         * Sets the context variable of model
+         */
         setContext();
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        /**
+         * Gets the location data and sets the variables associated with it
+         */
+        generateLocationData();
 
+        setContentView(R.layout.activity_login);
+    }
+
+    /**
+     *  Gets the location data and sets the variables associated with it
+     */
+    public void generateLocationData() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(20 * 1000);
@@ -116,8 +134,6 @@ public class Controller extends AppCompatActivity {
         } else {
             System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
         }
-
-        setContentView(R.layout.activity_login);
     }
 
     @Override
@@ -187,22 +203,33 @@ public class Controller extends AppCompatActivity {
 
     }
 
+    public void cancelAccount(View v){
+        setContentView(R.layout.activity_login);
+    }
+
     /**
      * This method is called when the user clicks the "Save" button on the account creation page
      * @param v - the Create Account view that the method is called from
      */
     public void saveNewAccount(View v) {
-        // Do some stuff in the model to save the account info
+        // FIXME Save the info into a new jsonObject, then save that in newAccount
         // if sitter, send to sitter preferences first
         setContentView(R.layout.activity_sitter_preferences_form);
+        setPrefSpinners();
     }
 
     public void saveCreditCard(View v) {
+        // FIXME Get all of the info in the fields, then save that in newAccount
+        //  and save newAccount as a new account in the model, then
         goToDashBoard(v);
     }
 
     public void savePreferences(View v) {
+        // FIXME Get all of the info in the fields, add it to newAccount
+        // If newAccount is not an owner, then use it to save a new account in the model and go to dashboard
+        // otherwise, go to activity_credit_card
         setContentView(R.layout.activity_credit_card);
+
     }
 
     /**
@@ -226,8 +253,15 @@ public class Controller extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pet selectedPet = model.usersPets.get(position);
                 Log.w("MA", "Selected Pet: "+selectedPet.toString());
-                // add in stuff to grey out boxes when selected, or remove from ArrayList if already selected
-                petsInNewJob.add(selectedPet);
+
+                if(petsInNewJob.contains(selectedPet)) {
+                    petsInNewJob.remove(selectedPet);
+                    //((TextView) view).setTextColor(Color.BLACK);
+                }
+                else {
+                    petsInNewJob.add(selectedPet);
+                    Log.w("MA", ""+view.toString());
+                }
             }
         });
 
@@ -263,7 +297,17 @@ public class Controller extends AppCompatActivity {
 
             int groupID = ((RadioGroup) findViewById(R.id.sleepoverGroup)).getCheckedRadioButtonId();
             Log.w("MA", "sleepover button: "+((RadioButton)findViewById(groupID)).getText().toString());
-            jobInfo.put("sleepover", ((RadioButton)findViewById(groupID)).getText().toString());
+
+            String sleepover_result = ((RadioButton)findViewById(groupID)).getText().toString();
+            if(sleepover_result.equals("YES")) {
+                jobInfo.put("sleepover", ""+SLEEPOVER_YES);
+                Log.w("MA", "sleepover selection: "+SLEEPOVER_YES);
+            }
+            else {
+                jobInfo.put("sleepover", ""+SLEEPOVER_NO);
+                Log.w("MA", "sleepover selection: "+SLEEPOVER_YES);
+
+            }
 
 
             String petIDs = "";
@@ -296,6 +340,7 @@ public class Controller extends AppCompatActivity {
      */
     public void allPetsActivity(View v) {
         setContentView(R.layout.activity_all_pets);
+        currentUser.updatePetList(model.usersPets);
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, currentUser.getPets());
 
@@ -336,7 +381,18 @@ public class Controller extends AppCompatActivity {
     public void sitterJobsActivity(View v) {
         returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
-        intent.putExtra("ownerJobs", false);
+        intent.putExtra("jobType", "sitter");
+        startActivity(intent);
+    }
+
+    /**
+     * This method creates a new JobActivity to show available jobs that the sitter is within range of
+     * @param v - the "Available Jobs" button on the dashboard
+     */
+    public void openJobsActivity(View v) {
+        returningPetActivity = false;
+        Intent intent = new Intent(this, JobActivity.class);
+        intent.putExtra("jobType", "open");
         startActivity(intent);
     }
 
@@ -345,18 +401,36 @@ public class Controller extends AppCompatActivity {
      * @param v - the view jobs button in activity_all_pets
      */
     public void ownerJobsActivity(View v) {
+        Log.w("MA", "ownerJobsActivity");
         returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
-        intent.putExtra("ownerJobs", true);
+        intent.putExtra("jobType", "owner");
         startActivity(intent);
     }
 
     public void goToSettingsActivity(View v) {
         setContentView(R.layout.activity_settings_page);
+        EditText et = (EditText) findViewById(R.id.FirstNameInput);
+
+//        et1.setText(object.toString()));
+
+        EditText et1 = (EditText) findViewById(R.id.LastNameInput);
+        //        et2.setText(object.toString()));
+
+        EditText et2 = (EditText) findViewById(R.id.AddressInput);
+//        et3.setText(object.toString()));
+
+        EditText et3 = (EditText) findViewById(R.id.EmailInput);
+//        et3.setText(object.toString()));
+
+        EditText et4 = (EditText) findViewById(R.id.PasswordInput);
+//        et4.setText(object.toString()));
     }
 
     public void logOut(View v) {
         currentUser = null;
+        //resets the pet list etc.
+        model.logout();
         setContentView(R.layout.activity_login);
     }
 
@@ -472,5 +546,67 @@ public class Controller extends AppCompatActivity {
 
     public void goBackAllPets(View v) {
         goToDashBoard(v);
+    }
+
+    public void setPrefSpinners() {
+        //SET PETSPECIES SPINNER
+        Spinner spinner_species = (Spinner) findViewById(R.id.PetSpeciesSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_species = ArrayAdapter.createFromResource(this,
+                R.array.petSpecies_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_species.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_species.setAdapter(adapter_species);
+
+        //SET PETSIZE SPINNER
+        Spinner spinner_size = (Spinner) findViewById(R.id.PetSizeSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_size = ArrayAdapter.createFromResource(this,
+                R.array.petSize_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_size.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_size.setAdapter(adapter_size);
+
+        //SET PETSIZE SPINNER
+        Spinner spinner_temp = (Spinner) findViewById(R.id.PetTemperamentSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter_temp = ArrayAdapter.createFromResource(this,
+                R.array.petTemp_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter_temp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_temp.setAdapter(adapter_temp);
+    }
+
+    public void settingsGoBack(View v) {
+        setContentView(R.layout.activity_dashboard);
+    }
+
+
+
+    public void saveAccountSettings(View v)
+    {
+        EditText et = (EditText) findViewById(R.id.FirstNameInput);
+
+
+        EditText et1 = (EditText) findViewById(R.id.LastNameInput);
+
+        EditText et2 = (EditText) findViewById(R.id.AddressInput);
+
+        EditText et3 = (EditText) findViewById(R.id.EmailInput);
+
+        EditText et4 = (EditText) findViewById(R.id.PasswordInput);
+
+
+
+
+
+
+
+
+
+
     }
 }

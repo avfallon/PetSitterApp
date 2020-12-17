@@ -44,6 +44,7 @@
             android:id="@+id/PetView_GoBack_Button_ID"
             style="@style/Button"
             android:text="@string/Edit"
+            android:layout_margin="10dp"
 
             android:onClick = "editPet"
             />
