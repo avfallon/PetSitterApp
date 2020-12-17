@@ -232,11 +232,21 @@
 
 
         <Button
-            android:id="@+id/submit_job"
+            android:id="@+id/accept_job"
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_margin="20dp"
             android:text="ACCEPT JOB"
+            android:layout_below="@id/address_label"
+            android:visibility="invisible"
+            />
+
+        <Button
+            android:id="@+id/complete_job"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:text="MARK JOB AS COMPLETED"
             android:layout_below="@id/address_label"
             android:visibility="invisible"
             />

@@ -28,7 +28,7 @@ public class JobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sitter_page);
-        jobType = getIntent().getStringExtra("ownerJobs");
+        jobType = getIntent().getStringExtra("jobType");
         switch(jobType) {
             case "owner":
                 Log.w("MA", "OwnerJob");
@@ -121,11 +121,13 @@ public class JobActivity extends AppCompatActivity {
 
             ((TextView) findViewById(R.id.address_value)).setText(Controller.currentUser.accountInfo.get("address").toString());
 
-            if(jobType == "owner") {
-                findViewById(R.id.submit_job).setVisibility(View.INVISIBLE);
+            if(jobType.equals("open")) {
+                findViewById(R.id.accept_job).setVisibility(View.VISIBLE);
+                findViewById(R.id.complete_job).setVisibility(View.INVISIBLE);
             }
             else {
-                findViewById(R.id.submit_job).setVisibility(View.VISIBLE);
+                findViewById(R.id.submit_job).setVisibility(View.INVISIBLE);
+                findViewById(R.id.complete_job).setVisibility(View.VISIBLE);
             }
 
             Log.w("MA", "DONE");

@@ -48,6 +48,9 @@ public class Controller extends AppCompatActivity {
     public static final int OWNER_ACCOUNT= 1;
     public static final int SITTER_ACCOUNT= 2;
 
+    public static final int SLEEPOVER_NO = 0;
+    public static final int SLEEPOVER_YES = 1;
+
     public static Model model;
     public static Pet currentPet;
     public static User currentUser;
@@ -278,7 +281,17 @@ public class Controller extends AppCompatActivity {
 
             int groupID = ((RadioGroup) findViewById(R.id.sleepoverGroup)).getCheckedRadioButtonId();
             Log.w("MA", "sleepover button: "+((RadioButton)findViewById(groupID)).getText().toString());
-            jobInfo.put("sleepover", ((RadioButton)findViewById(groupID)).getText().toString());
+
+            String sleepover_result = ((RadioButton)findViewById(groupID)).getText().toString();
+            if(sleepover_result.equals("YES")) {
+                jobInfo.put("sleepover", ""+SLEEPOVER_YES);
+                Log.w("MA", "sleepover selection: "+SLEEPOVER_YES);
+            }
+            else {
+                jobInfo.put("sleepover", ""+SLEEPOVER_NO);
+                Log.w("MA", "sleepover selection: "+SLEEPOVER_YES);
+
+            }
 
 
             String petIDs = "";
