@@ -228,12 +228,12 @@ public class Controller extends AppCompatActivity {
         JSONObject newAccount = new JSONObject();
 
 
-        newAccount.put("firstName", findViewById(R.id.FirstNameInput));
-        newAccount.put("lastName", findViewById(R.id.LastNameInput));
-        newAccount.put("address", findViewById(R.id.AddressInput));
-        newAccount.put("phoneNumber", findViewById(R.id.PhoneNumberInput));
-        newAccount.put("email", findViewById(R.id.EmailInput));
-        newAccount.put("password", findViewById(R.id.PasswordInput));
+        newAccount.put("firstName", ((EditText)findViewById(R.id.FirstNameInput)).getText().toString());
+        newAccount.put("lastName", ((EditText) findViewById(R.id.LastNameInput)).getText().toString());
+        newAccount.put("address", ((EditText) findViewById(R.id.AddressInput)).getText().toString());
+        newAccount.put("phoneNumber", ((EditText) findViewById(R.id.PhoneNumberInput)).getText().toString());
+        newAccount.put("email", ((EditText) findViewById(R.id.EmailInput)).getText().toString());
+        newAccount.put("password", ((EditText) findViewById(R.id.PasswordInput)).getText().toString());
 
 
 
