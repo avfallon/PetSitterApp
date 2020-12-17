@@ -33,7 +33,7 @@ public class Model {
     public JSONArray allOwners;
     public static JSONArray allJobs;
 
-    public static ArrayList<Pet> usersPets = new ArrayList<>();;
+    public static ArrayList<Pet> usersPets = new ArrayList<>();
     public static ArrayList<SittingJob> ownersJobs = new ArrayList<>();
     public static ArrayList<SittingJob> sittersJobs = new ArrayList<>();
     public static ArrayList<SittingJob> openJobs = new ArrayList<>();
@@ -124,6 +124,17 @@ public class Model {
 
         }
 
+
+    }
+
+    /**
+     * Clears the global variables carrying the specific user information: called when logging outjj
+     */
+    public void logout() {
+        usersPets = new ArrayList<>();
+        ownersJobs = new ArrayList<>();
+        sittersJobs = new ArrayList<>();
+        openJobs = new ArrayList<>();
 
     }
 

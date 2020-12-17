@@ -12,13 +12,13 @@ public class SittingJob {
         this.jobInfo = info;
     }
 
-    public String listString(boolean ownerJob) {
+    public String listString(String jobType) {
         String returnStr = "";
         try {
             returnStr += formatDate(jobInfo.get("startDate").toString()) + " -> " + formatDate(jobInfo.get("endDate").toString());
 
             int userID = 0;
-            if(ownerJob) {
+            if(jobType == "owner") {
                 userID = jobInfo.getInt("sitterIDKey");
             }
             else {

@@ -352,7 +352,18 @@ public class Controller extends AppCompatActivity {
     public void sitterJobsActivity(View v) {
         returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
-        intent.putExtra("ownerJobs", false);
+        intent.putExtra("jobType", "sitter");
+        startActivity(intent);
+    }
+
+    /**
+     * This method creates a new JobActivity to show available jobs that the sitter is within range of
+     * @param v - the "Available Jobs" button on the dashboard
+     */
+    public void openJobsActivity(View v) {
+        returningPetActivity = false;
+        Intent intent = new Intent(this, JobActivity.class);
+        intent.putExtra("jobType", "open");
         startActivity(intent);
     }
 
@@ -364,7 +375,7 @@ public class Controller extends AppCompatActivity {
         Log.w("MA", "ownerJobsActivity");
         returningPetActivity = false;
         Intent intent = new Intent(this, JobActivity.class);
-        intent.putExtra("ownerJobs", true);
+        intent.putExtra("jobType", "owner");
         startActivity(intent);
     }
 
@@ -389,6 +400,8 @@ public class Controller extends AppCompatActivity {
 
     public void logOut(View v) {
         currentUser = null;
+        //resets the pet list etc.
+        model.logout();
         setContentView(R.layout.activity_login);
     }
 

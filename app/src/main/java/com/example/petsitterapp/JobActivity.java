@@ -22,23 +22,32 @@ public class JobActivity extends AppCompatActivity {
 
     private ArrayList<SittingJob> jobList;
     public SittingJob currentJob;
-    private boolean ownerJobs;
-    private boolean newJobs = false;
+    private String jobType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sitter_page);
-        ownerJobs = getIntent().getBooleanExtra("ownerJobs", true);
-        if(ownerJobs) {
-            Log.w("MA", "OwnerJob");
-            this.jobList = Controller.model.ownersJobs;
-            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");
-        }
-        else {
-            Log.w("MA", "SitterJob");
-            this.jobList = Controller.model.sittersJobs;
-            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Accepted Jobs");
+        jobType = getIntent().getStringExtra("ownerJobs");
+        switch(jobType) {
+            case "owner":
+                Log.w("MA", "OwnerJob");
+                this.jobList = Controller.model.ownersJobs;
+                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");                break;
+            case "sitter":
+                Log.w("MA", "SitterJob");
+                this.jobList = Controller.model.sittersJobs;
+                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Accepted Jobs");
+                break;
+            case "open":
+                Log.w("MA", "OpenJob");
+                this.jobList = Controller.model.openJobs;
+                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Available Jobs");
+                break;
+            default:
+                Log.w("MA", "Intent error creating JobActivity");
+                finish();
+                break;
         }
 
         allJobsList();
@@ -46,12 +55,6 @@ public class JobActivity extends AppCompatActivity {
 
     public void allJobsList() {
         Log.w("MA", "allJobsList");
-        if(ownerJobs){
-            findViewById(R.id.new_job_btn).setVisibility(View.INVISIBLE);
-        }
-        else {
-            findViewById(R.id.new_job_btn).setVisibility(View.VISIBLE);
-        }
         String[] jobArr = getJobArr();
 
         if(jobArr != null && jobArr.length != 0) {
@@ -78,8 +81,8 @@ public class JobActivity extends AppCompatActivity {
         jobArr = new String[jobList.size()];
 
         for(int i=0;i<jobList.size();i++) {
-            Log.w("MA", ""+jobList.get(i).listString(ownerJobs));
-            jobArr[i] = (jobList.get(i)).listString(ownerJobs);
+            Log.w("MA", ""+jobList.get(i).listString(jobType));
+            jobArr[i] = (jobList.get(i)).listString(jobType);
         }
         return jobArr;
     }
@@ -118,7 +121,7 @@ public class JobActivity extends AppCompatActivity {
 
             ((TextView) findViewById(R.id.address_value)).setText(Controller.currentUser.accountInfo.get("address").toString());
 
-            if(ownerJobs) {
+            if(jobType == "owner") {
                 findViewById(R.id.submit_job).setVisibility(View.INVISIBLE);
             }
             else {
@@ -142,9 +145,4 @@ public class JobActivity extends AppCompatActivity {
         allJobsList();
     }
 
-    public void newJobsList(View v) {
-        newJobs = true;
-        jobList = new ArrayList<SittingJob>();
-        allJobsList();
-    }
 }
