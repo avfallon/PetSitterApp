@@ -199,12 +199,12 @@ public class Controller extends AppCompatActivity {
         JSONObject petInfo = new JSONObject();
         //petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
 
-        petInfo.put("firstName", ((EditText) findViewById(R.id.FirstNameInput)).getText().toString());
-        petInfo.put("firstName", ((EditText) findViewById(R.id.LastNameInput)).getText().toString());
-        petInfo.put("firstName", ((EditText) findViewById(R.id.AddressInput)).getText().toString());
-        petInfo.put("firstName", ((EditText) findViewById(R.id.EmailInput)).getText().toString());
-        petInfo.put("firstName", ((EditText) findViewById(R.id.PasswordInput)).getText().toString());
-        petInfo.put("firstName", ((EditText) findViewById(R.id.ConfirmPasswordInput)).getText().toString());
+//        petInfo.put("firstName", ((EditText) findViewById(R.id.FirstNameInput)).getText().toString());
+//        petInfo.put("firstName", ((EditText) findViewById(R.id.LastNameInput)).getText().toString());
+//        petInfo.put("firstName", ((EditText) findViewById(R.id.AddressInput)).getText().toString());
+//        petInfo.put("firstName", ((EditText) findViewById(R.id.EmailInput)).getText().toString());
+//        petInfo.put("firstName", ((EditText) findViewById(R.id.PasswordInput)).getText().toString());
+//        petInfo.put("firstName", ((EditText) findViewById(R.id.ConfirmPasswordInput)).getText().toString());
 
 
 
