@@ -191,6 +191,10 @@ public class Controller extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
     }
 
+    public void cancelAccount(View v){
+        setContentView(R.layout.activity_login);
+    }
+
     /**
      * This method is called when the user clicks the "Save" button on the account creation page
      * @param v - the Create Account view that the method is called from
@@ -574,19 +578,14 @@ public class Controller extends AppCompatActivity {
     {
         EditText et = (EditText) findViewById(R.id.FirstNameInput);
 
-//        et1.setText(object.toString()));
 
         EditText et1 = (EditText) findViewById(R.id.LastNameInput);
-        //        et2.setText(object.toString()));
 
         EditText et2 = (EditText) findViewById(R.id.AddressInput);
-//        et3.setText(object.toString()));
 
         EditText et3 = (EditText) findViewById(R.id.EmailInput);
-//        et3.setText(object.toString()));
 
         EditText et4 = (EditText) findViewById(R.id.PasswordInput);
-//        et4.setText(object.toString()));
 
 
 

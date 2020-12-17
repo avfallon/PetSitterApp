@@ -14,7 +14,7 @@
             style="@style/Button"
             android:layout_margin="10dp"
             android:text="@string/cancelJob"
-            android:onClick="saveNewAccount"
+            android:onClick="allPetsActivity"
             />
 
 
