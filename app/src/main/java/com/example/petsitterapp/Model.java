@@ -71,8 +71,14 @@ public class Model {
             // String petsOwners = obj.getString("OwnerIDKey");
             if (username.equals(usernameAuth) && password.equals(passwordAuth)) {
                 int userID = obj.getInt("ownerIDKey");
-                buildPetList(userID);
-                User newUser = new User(userID, obj, usersPets);
+                User newUser = null;
+                try {
+                    buildPetList(userID);
+                    newUser = new User(userID, obj, usersPets);
+                }
+                catch(Exception e) {
+                    Log.w("MA", "Exception in AuthenticateUser: " + e);
+                }
                 Log.w("MA", "Login Successful");
                 return newUser;
             }
