@@ -243,7 +243,7 @@
 
         <RelativeLayout
             android:id="@+id/RelativeLayout_AccountCreate_Password_Title"
-            android:layout_below="@+id/RelativeLayout_AccountCreate_Email_Title"
+            android:layout_below="@+id/RelativeLayout_Phone_Number"
             android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -339,6 +339,42 @@
                 android:textColor="@color/Color_ErrorTag"
                 />
         </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_Phone_Number"
+            android:layout_below="@+id/RelativeLayout_AccountCreate_ErrorTag_Email"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/PhoneNumberTitle"
+                style="@style/AccountCreationLabel"
+                android:text="Phone Number"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="5dp"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                />
+            <EditText
+                android:id="@+id/PhoneNumberInput"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/PhoneNumberTitle"
+                style="@style/AccountCreationInput"
+
+
+                android:paddingHorizontal="10dp"
+                android:hint="Enter Phone Number"
+                android:maxLength="@string/Password_CharLimit"
+                android:inputType="phone"
+                />
+        </RelativeLayout>
+
+
 
         <TextView
             android:id="@+id/account_type_label"

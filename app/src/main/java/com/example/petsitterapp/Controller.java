@@ -72,6 +72,10 @@ public class Controller extends AppCompatActivity {
 
     public static LatLng myAddy;
 
+    /**
+     * Create starting layout and needed components
+     * @param savedInstanceState The last instance of the app
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +140,9 @@ public class Controller extends AppCompatActivity {
         }
     }
 
+    /**
+     * Check the condition being returned from either PetActivity or Job Activity
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -211,19 +218,62 @@ public class Controller extends AppCompatActivity {
      * This method is called when the user clicks the "Save" button on the account creation page
      * @param v - the Create Account view that the method is called from
      */
-    public void saveNewAccount(View v) {
+    public void saveNewAccount(View v) throws JSONException {
         // FIXME Save the info into a new jsonObject, then save that in newAccount
         // if sitter, send to sitter preferences first
-        setContentView(R.layout.activity_sitter_preferences_form);
-        setPrefSpinners();
+
+        int accountType = 0;
+
+        JSONObject newAccount = new JSONObject();
+
+
+        newAccount.put("firstName", findViewById(R.id.FirstNameInput));
+        newAccount.put("lastName", findViewById(R.id.LastNameInput));
+        newAccount.put("address", findViewById(R.id.AddressInput));
+        newAccount.put("phoneNumber", findViewById(R.id.PhoneNumberInput));
+        newAccount.put("email", findViewById(R.id.EmailInput));
+        newAccount.put("password", findViewById(R.id.PasswordInput));
+
+
+
+
+        switch(v.getId()) {
+            case R.id.account_type_both_input:
+                newAccount.put("accountType", BOTH_ACCOUNT);
+                break;
+            case R.id.account_type_owner_input:
+                newAccount.put("accountType", OWNER_ACCOUNT);
+                accountType = OWNER_ACCOUNT;
+                break;
+            case R.id.account_type_sitter_input:
+                newAccount.put("accountType", SITTER_ACCOUNT);
+                accountType = SITTER_ACCOUNT;
+                break;
+        }
+
+        if(accountType == OWNER_ACCOUNT)
+            setContentView(R.layout.activity_dashboard);
+        else {
+            setContentView(R.layout.activity_sitter_preferences_form);
+            setPrefSpinners();
+        }
+
     }
 
+    /**
+     * Save the credit card information of the users into the DB
+     * @param v The credit card view that the method is called from
+     */
     public void saveCreditCard(View v) {
         // FIXME Get all of the info in the fields, then save that in newAccount
         //  and save newAccount as a new account in the model, then
         goToDashBoard(v);
     }
 
+    /**
+     * Get all of the info in the fields and add it to newAccount
+     * @param v The preferences form view where save is being called
+     */
     public void savePreferences(View v) {
         // FIXME Get all of the info in the fields, add it to newAccount
         // If newAccount is not an owner, then use it to save a new account in the model and go to dashboard
