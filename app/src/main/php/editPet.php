@@ -2,23 +2,16 @@
   include( "constants.php");
   $username = Constants::USERNAME;
 
+  // credentials to sign into the sqli databse
   $mysqli = new mysqli( Constants::HOST, $username, Constants::PASSWORD, Constants::DATABASE);
 
   $json = $_GET['json'];
-  //$json = '{"ownerIDKey":"4","petIDKey":"5","name":"Derek","species":"Werewolf","size":"Small","temperament":"Lazy","breed":"german shep","age":"21","diet":"Mcdonalds Butter","healthIssues":"Needs Glasses","extraInfo":"Extras"}';
 
   $obj = json_decode($json);
   // Access values from the returned object
 
-  // $onwerIDKey = $obj->ownerIDKey
-  // $firstName = $obj->firstName
-  // $lastName = $obj->lastName
-  // $address = $obj->address
-  // $phoneNumber = $obj->phoneNumber
-  // $email = $obj->email
-  // $typeOfAccout = $obj->typeOfAccount
-  // $password = $obj->password
 
+  // make the pet object from the given json
   $ownerIDKey = $obj->ownerIDKey;
   echo $ownerIDKey;
   $petIDKey = $obj->petIDKey;
@@ -42,6 +35,7 @@
   $extraInfo = $obj->extraInfo;
   echo $extraInfo;
 
+  // update the pet based on the information given by the user
   $query = "UPDATE Pets SET ownerIDKey = '$ownerIDKey', name = '$name', species = '$species', size='$size', temperament='$temperament', breed='$breed', age='$age', diet='$diet', healthIssues='$healthIssues', extraInfo='$extraInfo' WHERE petIDKey = $petIDKey";
   $result = $mysqli->query($query);
   echo "Pet Edited Sucessfully";

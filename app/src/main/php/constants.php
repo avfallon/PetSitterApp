@@ -1,5 +1,6 @@
 <?php
 
+// The constants which will be used as credentials for every query
 class Constants
 {
         const USERNAME = "damorales";

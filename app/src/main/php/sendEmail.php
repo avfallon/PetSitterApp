@@ -1,5 +1,6 @@
 <?php
 
+//import necessary files to send the email
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -9,13 +10,17 @@ require './PHPMailer/src/Exception.php';
 require './PHPMailer/src/PHPMailer.php';
 require './PHPMailer/src/SMTP.php';
 
+// get the email from the app
 $emailAddress = $_GET['email'];
 
+// set subject and message
 $subject = "New Pet Sitting Job!";
 $message = "There is a new Pet Sitting Job available in your area! Grab it now before it's too late!";
 
+//create phpmailer object
 $mail = new PHPMailer(true);
 
+//send the email
 try
 {
     # server settings
