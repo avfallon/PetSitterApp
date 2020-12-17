@@ -83,8 +83,6 @@ public class Model {
                 return newUser;
             }
         }
-
-
         return null;
     }
 
@@ -129,8 +127,6 @@ public class Model {
             }
 
         }
-
-
     }
 
     /**
