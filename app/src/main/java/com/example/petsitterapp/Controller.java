@@ -370,6 +370,21 @@ public class Controller extends AppCompatActivity {
 
     public void goToSettingsActivity(View v) {
         setContentView(R.layout.activity_settings_page);
+        EditText et = (EditText) findViewById(R.id.FirstNameInput);
+
+//        et1.setText(object.toString()));
+
+        EditText et1 = (EditText) findViewById(R.id.LastNameInput);
+        //        et2.setText(object.toString()));
+
+        EditText et2 = (EditText) findViewById(R.id.AddressInput);
+//        et3.setText(object.toString()));
+
+        EditText et3 = (EditText) findViewById(R.id.EmailInput);
+//        et3.setText(object.toString()));
+
+        EditText et4 = (EditText) findViewById(R.id.PasswordInput);
+//        et4.setText(object.toString()));
     }
 
     public void logOut(View v) {
@@ -525,5 +540,36 @@ public class Controller extends AppCompatActivity {
 
     public void settingsGoBack(View v) {
         setContentView(R.layout.activity_dashboard);
+    }
+
+
+
+    public void saveAccountSettings(View v)
+    {
+        EditText et = (EditText) findViewById(R.id.FirstNameInput);
+
+//        et1.setText(object.toString()));
+
+        EditText et1 = (EditText) findViewById(R.id.LastNameInput);
+        //        et2.setText(object.toString()));
+
+        EditText et2 = (EditText) findViewById(R.id.AddressInput);
+//        et3.setText(object.toString()));
+
+        EditText et3 = (EditText) findViewById(R.id.EmailInput);
+//        et3.setText(object.toString()));
+
+        EditText et4 = (EditText) findViewById(R.id.PasswordInput);
+//        et4.setText(object.toString()));
+
+
+
+
+
+
+
+
+
+
     }
 }
