@@ -38,7 +38,8 @@ public class JobActivity extends AppCompatActivity {
             case "owner":
                 Log.w("MA", "OwnerJob");
                 this.jobList = Controller.model.ownersJobs;
-                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");                break;
+                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");
+                break;
             case "sitter":
                 Log.w("MA", "SitterJob");
                 this.jobList = Controller.model.sittersJobs;
@@ -58,6 +59,9 @@ public class JobActivity extends AppCompatActivity {
         allJobsList();
     }
 
+    /**
+     * This method flls the listview on the all jobs page with all jobs objects associated with this activity
+     */
     public void allJobsList() {
         Log.w("MA", "allJobsList");
         String[] jobArr = getJobArr();
@@ -92,6 +96,10 @@ public class JobActivity extends AppCompatActivity {
         return jobArr;
     }
 
+    /**
+     * This method switches the context to the view job screen and populates it with the given info
+     * @param job - the job whose info will be shown on the view job page
+     */
     public void goToViewJob(SittingJob job) {
         setContentView(R.layout.activity_view_job);
         currentJob = job;
@@ -99,6 +107,9 @@ public class JobActivity extends AppCompatActivity {
         populateViewJob();
     }
 
+    /**
+     * This method fills all the fields in the view job page when the user selects a job from the listview
+     */
     public void populateViewJob() {
         try {
             String[] startDate = currentJob.jobInfo.getString("startDate").split("-");
@@ -143,13 +154,41 @@ public class JobActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method ends the activity
+     * @param v - the go back button in the all jobs page
+     */
     public void goBackAllJobs(View v) {
         finish();
     }
 
+    /**
+     * This method goes back from viewing a job, to the all jobs page
+     * @param v - the go back button in the view job page
+     */
     public void goBackViewJob(View v) {
         setContentView(R.layout.activity_sitter_page);
+        if(jobType.equals("open")) {
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Available Jobs");
+        }
         allJobsList();
+    }
+
+    /**
+     * This method accepts the job currently being viewed, adding it to the user account
+     * @param v - the accept job button available in the open jobs view
+     */
+    public void acceptJob(View v) {
+        setContentView(R.layout.activity_sitter_page);
+        SittingJob job = currentJob;
+        try {
+            Controller.model.deleteJob(currentJob);
+            job.jobInfo.put("sitterIDKey", ""+Controller.currentUser.accountInfo.get("ownerIDKey"));
+            Log.w("MA", "Success accepting job");
+        }
+        catch(JSONException je) {
+            Log.w("MA", "JSONException accepting a job");
+        }
     }
 
     /**
