@@ -365,12 +365,12 @@ public class Model {
      * @return the new account that was created
      * @throws JSONException
      */
-    public User createAccount(JSONObject user) throws JSONException {
+    public void createAccount(JSONObject user) throws JSONException {
         String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
         CreateAccount getJSON = new CreateAccount(editPetURL);
         getJSON.execute();
-        User newUser = new User(user.getInt("ownerIDKey"), user, usersPets);
-        return newUser;
+//        User newUser = new User(user, user, usersPets);
+//        return newUser;
     }
 
     /**
