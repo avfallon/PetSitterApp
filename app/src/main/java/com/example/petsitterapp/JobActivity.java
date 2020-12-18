@@ -34,6 +34,12 @@ public class JobActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sitter_page);
         jobType = getIntent().getStringExtra("jobType");
+        setjobList();
+
+        allJobsList();
+    }
+
+    public void setjobList() {
         switch(jobType) {
             case "owner":
                 Log.w("MA", "OwnerJob");
@@ -55,10 +61,7 @@ public class JobActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-
-        allJobsList();
     }
-    
 
     /**
      * This method flls the listview on the all jobs page with all jobs objects associated with this activity
@@ -191,6 +194,7 @@ public class JobActivity extends AppCompatActivity {
             Log.w("MA", "JSONException accepting a job");
         }
         setContentView(R.layout.activity_sitter_page);
+        setjobList();
         allJobsList();
     }
 
