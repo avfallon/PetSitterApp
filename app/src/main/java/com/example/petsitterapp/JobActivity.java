@@ -41,6 +41,12 @@ public class JobActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sitter_page);
         jobType = getIntent().getStringExtra("jobType");
+        setjobList();
+
+        allJobsList();
+    }
+
+    public void setjobList() {
         switch(jobType) {
             case "owner":
                 Log.w("MA", "OwnerJob");
@@ -62,8 +68,6 @@ public class JobActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-
-        allJobsList();
     }
 
     /**
@@ -204,6 +208,12 @@ public class JobActivity extends AppCompatActivity {
         if(jobType.equals("open")) {
             ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Available Jobs");
         }
+        else if(jobType.equals("owner")) {
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");
+        }
+        else {
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Accepted Jobs");
+        }
         allJobsList();
     }
 
@@ -212,16 +222,20 @@ public class JobActivity extends AppCompatActivity {
      * @param v - the accept job button available in the open jobs view
      */
     public void acceptJob(View v) {
-        setContentView(R.layout.activity_sitter_page);
         SittingJob job = currentJob;
         try {
             Controller.model.deleteJob(currentJob);
+            Controller.model.openJobs.remove(currentJob);
             job.jobInfo.put("sitterIDKey", ""+Controller.currentUser.accountInfo.get("ownerIDKey"));
+            Controller.model.createJob(job, false);
             Log.w("MA", "Success accepting job");
         }
         catch(JSONException je) {
             Log.w("MA", "JSONException accepting a job");
         }
+        setContentView(R.layout.activity_sitter_page);
+        setjobList();
+        allJobsList();
     }
 
     /**

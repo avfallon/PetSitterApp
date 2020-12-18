@@ -247,19 +247,19 @@ public class Controller extends AppCompatActivity {
 
          if(rb.getText().equals("Both"))
          {
-            newAccount.put("typeOfAccount", "" + BOTH_ACCOUNT);
+            newAccount.put("accountType", "" + BOTH_ACCOUNT);
             accountType = BOTH_ACCOUNT;
 
          }
         else if(rb.getText().equals("Owner"))
         {
-            newAccount.put("typeOfAccount", "" + OWNER_ACCOUNT);
+            newAccount.put("accountType", "" + OWNER_ACCOUNT);
             accountType = OWNER_ACCOUNT;
 
         }
         else
         {
-            newAccount.put("typeOfAccount", "" + SITTER_ACCOUNT);
+            newAccount.put("accountType", "" + SITTER_ACCOUNT);
             accountType = SITTER_ACCOUNT;
 
         }
@@ -300,7 +300,7 @@ public class Controller extends AppCompatActivity {
         newAccount.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
         newAccount.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
 
-        int accountType = Integer.parseInt(newAccount.getString("typeOfAccount"));
+        int accountType = Integer.parseInt(newAccount.getString("accountType"));
         if(accountType == BOTH_ACCOUNT)
             setContentView(R.layout.activity_credit_card);
         else
