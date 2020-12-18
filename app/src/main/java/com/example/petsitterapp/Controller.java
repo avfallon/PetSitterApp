@@ -201,7 +201,7 @@ public class Controller extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
         JSONObject petInfo = new JSONObject();
         //petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
-
+        
     }
 
     public void cancelAccount(View v){
