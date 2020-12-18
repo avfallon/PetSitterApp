@@ -246,7 +246,7 @@ public class Controller extends AppCompatActivity {
         }
 
         if(accountType == OWNER_ACCOUNT)
-            setContentView(R.layout.activity_dashboard);
+            setContentView(R.layout.activity_credit_card);
         else {
             setContentView(R.layout.activity_sitter_preferences_form);
             setPrefSpinners();
@@ -268,12 +268,25 @@ public class Controller extends AppCompatActivity {
      * Get all of the info in the fields and add it to newAccount
      * @param v The preferences form view where save is being called
      */
-    public void savePreferences(View v) {
+    public void savePreferences(View v) throws JSONException{
         // FIXME Get all of the info in the fields, add it to newAccount
         // If newAccount is not an owner, then use it to save a new account in the model and go to dashboard
         // otherwise, go to activity_credit_card
-        setContentView(R.layout.activity_credit_card);
 
+        newAccount.put("species", ((Spinner) findViewById(R.id.PetSpeciesSpinner)).getSelectedItem().toString());
+        newAccount.put("size", ((Spinner) findViewById(R.id.PetSizeSpinner)).getSelectedItem().toString());
+        newAccount.put("temperament", ((Spinner) findViewById(R.id.PetTemperamentSpinner)).getSelectedItem().toString());
+
+        newAccount.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
+        newAccount.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
+
+        
+
+        int accountType = currentUser.accountInfo.getInt("accountType");
+        if(accountType == BOTH_ACCOUNT)
+            setContentView(R.layout.activity_credit_card);
+        else
+            goToDashBoard(v);
     }
 
     /**
