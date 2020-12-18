@@ -58,6 +58,7 @@ public class JobActivity extends AppCompatActivity {
 
         allJobsList();
     }
+    
 
     /**
      * This method flls the listview on the all jobs page with all jobs objects associated with this activity
@@ -126,7 +127,7 @@ public class JobActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.job_details_field)).setText(jobDetails);
 
             String sleepover = "yes";
-            if(currentJob.jobInfo.get("sleepover").toString() == "1") {
+            if(currentJob.jobInfo.get("sleepover").toString().equals("1")) {
                 sleepover = "Yes";
             }
             else {
@@ -171,6 +172,7 @@ public class JobActivity extends AppCompatActivity {
         if(jobType.equals("open")) {
             ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Available Jobs");
         }
+        setContentView(R.layout.activity_sitter_page);
         allJobsList();
     }
 
@@ -179,7 +181,6 @@ public class JobActivity extends AppCompatActivity {
      * @param v - the accept job button available in the open jobs view
      */
     public void acceptJob(View v) {
-        setContentView(R.layout.activity_sitter_page);
         SittingJob job = currentJob;
         try {
             Controller.model.deleteJob(currentJob);
@@ -189,6 +190,8 @@ public class JobActivity extends AppCompatActivity {
         catch(JSONException je) {
             Log.w("MA", "JSONException accepting a job");
         }
+        setContentView(R.layout.activity_sitter_page);
+        allJobsList();
     }
 
     /**
