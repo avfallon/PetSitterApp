@@ -97,6 +97,7 @@ public class Controller extends AppCompatActivity {
          * Gets the location data and sets the variables associated with it
          */
         generateLocationData();
+        newAccount = new JSONObject();
 
         setContentView(R.layout.activity_login);
     }
@@ -218,7 +219,6 @@ public class Controller extends AppCompatActivity {
 
         int accountType = 0;
 
-        newAccount = new JSONObject();
 
 
         newAccount.put("firstName", ((EditText)findViewById(R.id.FirstNameInput)).getText().toString());
@@ -258,10 +258,11 @@ public class Controller extends AppCompatActivity {
      * Save the credit card information of the users into the DB
      * @param v The credit card view that the method is called from
      */
-    public void saveCreditCard(View v) {
+    public void saveCreditCard(View v) throws JSONException{
         // FIXME Get all of the info in the fields, then save that in newAccount
         //  and save newAccount as a new account in the model, then
-        goToDashBoard(v);
+        model.createAccount(newAccount);
+        setContentView(R.layout.activity_login);
     }
 
     /**
@@ -280,13 +281,14 @@ public class Controller extends AppCompatActivity {
         newAccount.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
         newAccount.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
 
-        
 
-        int accountType = currentUser.accountInfo.getInt("accountType");
+
+        int accountType = Integer.parseInt(newAccount.getString("accountType"));
         if(accountType == BOTH_ACCOUNT)
             setContentView(R.layout.activity_credit_card);
         else
-            goToDashBoard(v);
+            model.createAccount(newAccount);
+            setContentView(R.layout.activity_login);
     }
 
     /**
