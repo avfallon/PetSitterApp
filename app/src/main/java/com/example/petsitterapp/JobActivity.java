@@ -1,6 +1,6 @@
 /**
- * This class is the main Controller of the Pet Sitter app, it switches between XML views and
- * the other controller classes (PetActivity and JobActivity), and sends data back and forth from the model
+ * This class is the controller handling the view showing all jobs, and the context switch to
+ * display a single job's information. It contains functionality to show open jobs, accepted jobs, and owner jobs
  * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
@@ -10,10 +10,8 @@ package com.example.petsitterapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 

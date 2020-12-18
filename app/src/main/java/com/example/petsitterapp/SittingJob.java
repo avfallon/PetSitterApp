@@ -1,6 +1,5 @@
 /**
- * This class creates an object represenation of an individual sitting job's data, including
- * open jobs, accepted jobs,and owner's jobs
+ * This class creates an object representation of an individual sitting job's data
  * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
