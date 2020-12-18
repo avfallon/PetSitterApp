@@ -301,6 +301,7 @@ public class Controller extends AppCompatActivity {
         newAccount.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
 
         int accountType = Integer.parseInt(newAccount.getString("accountType"));
+        Log.w("MA", "savePreferences");
         if(accountType == BOTH_ACCOUNT)
             setContentView(R.layout.activity_credit_card);
         else
@@ -357,7 +358,7 @@ public class Controller extends AppCompatActivity {
         try {
             JSONObject jobInfo = new JSONObject();
 
-            jobInfo.put("ownerIDKey", currentUser.userID);
+            jobInfo.put("ownerIDKey", currentUser.accountInfo.get("ownerIDKey"));
 
             String startDate = ((EditText) findViewById(R.id.year_input)).getText().toString() + "-" +
                     ((EditText) findViewById(R.id.month_input)).getText().toString() + "-" +
@@ -404,7 +405,7 @@ public class Controller extends AppCompatActivity {
             }
 
             SittingJob job = new SittingJob(jobInfo);
-            model.createJob(job);
+            model.createJob(job, true);
         }
         catch(JSONException je) {
             Log.w("MA", "JSONException Controller.saveSittingJob()");

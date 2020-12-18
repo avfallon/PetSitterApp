@@ -402,12 +402,18 @@ public class Model {
      * Create job
      * @param newJob
      */
-    public void createJob(SittingJob newJob){
+    public void createJob(SittingJob newJob, boolean owner){
         String createPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createJob.php?json="+newJob.jobInfo;
         CreateAccount getJSON = new CreateAccount(createPetURL);
         getJSON.execute();
-        ownersJobs.add(newJob);
-        Controller.currentUser.updateOwnerJobs(ownersJobs);
+        if(owner) {
+            ownersJobs.add(newJob);
+            Controller.currentUser.updateOwnerJobs(ownersJobs);
+        }
+        else {
+            sittersJobs.add(newJob);
+            Controller.currentUser.updateSitterJobs(ownersJobs);
+        }
     }
 
     /**

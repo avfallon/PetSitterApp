@@ -175,7 +175,12 @@ public class JobActivity extends AppCompatActivity {
         if(jobType.equals("open")) {
             ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Available Jobs");
         }
-        setContentView(R.layout.activity_sitter_page);
+        else if(jobType.equals("owner")) {
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");
+        }
+        else {
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Accepted Jobs");
+        }
         allJobsList();
     }
 
@@ -187,7 +192,9 @@ public class JobActivity extends AppCompatActivity {
         SittingJob job = currentJob;
         try {
             Controller.model.deleteJob(currentJob);
+            Controller.model.openJobs.remove(currentJob);
             job.jobInfo.put("sitterIDKey", ""+Controller.currentUser.accountInfo.get("ownerIDKey"));
+            Controller.model.createJob(job, false);
             Log.w("MA", "Success accepting job");
         }
         catch(JSONException je) {
