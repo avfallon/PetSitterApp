@@ -386,6 +386,7 @@ public class Model {
         String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
         CreateAccount getJSON = new CreateAccount(editPetURL);
         getJSON.execute();
+        getOwnerJSON();
 //        User newUser = new User(user, user, usersPets);
 //        return newUser;
     }
