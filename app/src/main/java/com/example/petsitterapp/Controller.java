@@ -211,6 +211,10 @@ public class Controller extends AppCompatActivity {
         
     }
 
+    /**
+     * Set the view back to the login screen
+     * @param v The view of the account creation page
+     */
     public void cancelAccount(View v){
         setContentView(R.layout.activity_login);
     }
@@ -260,24 +264,6 @@ public class Controller extends AppCompatActivity {
 
         }
 
-
-//        switch(findViewById(R.id.account_type_input).getId()) {
-//            case R.id.account_type_both_input:
-//                newAccount.put("accountType", "" + BOTH_ACCOUNT);
-//                accountType = BOTH_ACCOUNT;
-//                break;
-//            case R.id.account_type_owner_input:
-//                newAccount.put("accountType", "" + OWNER_ACCOUNT);
-//                accountType = OWNER_ACCOUNT;
-//                break;
-//            case R.id.account_type_sitter_input:
-//                newAccount.put("accountType", "" + SITTER_ACCOUNT);
-//                accountType = SITTER_ACCOUNT;
-//                break;
-//        }
-
-
-
         if(accountType == OWNER_ACCOUNT)
             setContentView(R.layout.activity_credit_card);
         else {
@@ -313,16 +299,6 @@ public class Controller extends AppCompatActivity {
 
         newAccount.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
         newAccount.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
-
-
-//        Log.w("MA", "ACCOUNT TYPE IS " + newAccount.getString("accountType"));
-
-//        while( newAccount.has("accountType") == false)
-//        {
-//
-////            wait(1000);
-//        }
-
 
         int accountType = Integer.parseInt(newAccount.getString("accountType"));
         if(accountType == BOTH_ACCOUNT)
@@ -371,8 +347,10 @@ public class Controller extends AppCompatActivity {
         params.height = listTextHeight * currentUser.getPets().length;
         listView.setLayoutParams(params);
     }
-    /*
-    jobID ownerIDKey petIDKey startDate endDate sleepover jobDetails sitterIDKey
+
+    /**
+     * Save the new sitting job that is being created by the user
+     * @param v The view of the new sitting post
      */
     public void saveSittingJob(View v) {
         Log.w("MA", "Saving Sitting Job");
@@ -508,6 +486,10 @@ public class Controller extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Set the layout of the screen to be the settings page when clicked
+     * @param v The view of the setting page
+     */
     public void goToSettingsActivity(View v) {
         setContentView(R.layout.activity_settings_page);
         EditText et = (EditText) findViewById(R.id.FirstNameInput);
@@ -527,6 +509,10 @@ public class Controller extends AppCompatActivity {
 //        et4.setText(object.toString()));
     }
 
+    /**
+     * Log the current user out
+     * @param v View of login page
+     */
     public void logOut(View v) {
         currentUser = null;
         //resets the pet list etc.
@@ -534,6 +520,10 @@ public class Controller extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    /**
+     * Returns back to the dashboard of the app
+     * @param v The Dashboard View
+     */
     public void goToDashBoard(View v) {
         setContentView(R.layout.activity_dashboard);
         int typeAccount = 0;
@@ -557,6 +547,9 @@ public class Controller extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets the current location of the phone
+     */
     public void getLocation() {
 
 
@@ -584,6 +577,12 @@ public class Controller extends AppCompatActivity {
 
     }
 
+    /**
+     * Request permissions and get location after being granted
+     * @param requestCode The request for accessing location
+     * @param permissions The permissions of the uer
+     * @param grantResults The results of the latest grants for permissions
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -616,6 +615,12 @@ public class Controller extends AppCompatActivity {
         }
     }
 
+    /**
+     * Get a latitude and longitude from ann address
+     * @param context The context of the app
+     * @param strAddress The address to get lat long from
+     * @return The latitude and longitude of the address
+     */
     public static LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
@@ -640,14 +645,25 @@ public class Controller extends AppCompatActivity {
         return p1;
     }
 
+    /**
+     * Set the context of the model to reference this instance
+     */
     public void setContext(){
         Model.context = this;
     }
 
+
+    /**
+     * Return back to the pets page
+     * @param v Dashboard
+     */
     public void goBackAllPets(View v) {
         goToDashBoard(v);
     }
 
+    /**
+     * Set the options for spinners being used
+     */
     public void setPrefSpinners() {
         //SET PETSPECIES SPINNER
         Spinner spinner_species = (Spinner) findViewById(R.id.PetSpeciesSpinner);
@@ -680,16 +696,11 @@ public class Controller extends AppCompatActivity {
         spinner_temp.setAdapter(adapter_temp);
     }
 
+
     /**
-     * Button to go back to the dashboard from the setting page
-     * @param v - the back button on the settings page
+     * Save the profile settings the user has changed
+     * @param v The settings page
      */
-    public void settingsGoBack(View v) {
-        setContentView(R.layout.activity_dashboard);
-    }
-
-
-
     public void saveAccountSettings(View v)
     {
         EditText et = (EditText) findViewById(R.id.FirstNameInput);
