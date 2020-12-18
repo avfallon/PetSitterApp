@@ -1,12 +1,17 @@
+/**
+ * This class is the controller handling the view showing all jobs, and the context switch to
+ * display a single job's information. It contains functionality to show open jobs, accepted jobs, and owner jobs
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * Date updated: 12/17/20
+ */
+
 package com.example.petsitterapp;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -59,9 +64,9 @@ public class JobActivity extends AppCompatActivity {
 
         if(jobArr != null && jobArr.length != 0) {
             ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_widget, R.id.listText, jobArr);
-
             ListView listView = (ListView) findViewById(R.id.acceptedJobsList);
             listView.setAdapter(adapter);
+            Log.w("MA", "test");
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,7 +113,6 @@ public class JobActivity extends AppCompatActivity {
             String jobDetails = currentJob.jobInfo.get("jobDetails").toString();
 
             ((TextView) findViewById(R.id.job_details_field)).setText(jobDetails);
-            Log.w("MA", "pre-sleepover");
 
             String sleepover = "yes";
             if(currentJob.jobInfo.get("sleepover").toString() == "1") {
@@ -120,13 +124,14 @@ public class JobActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.sleepover_value)).setText(sleepover);
 
             ((TextView) findViewById(R.id.address_value)).setText(Controller.currentUser.accountInfo.get("address").toString());
+            Log.w("MA", "post-addy");
 
             if(jobType.equals("open")) {
                 findViewById(R.id.accept_job).setVisibility(View.VISIBLE);
                 findViewById(R.id.complete_job).setVisibility(View.INVISIBLE);
             }
             else {
-                findViewById(R.id.submit_job).setVisibility(View.INVISIBLE);
+                findViewById(R.id.accept_job).setVisibility(View.INVISIBLE);
                 findViewById(R.id.complete_job).setVisibility(View.VISIBLE);
             }
 
@@ -143,6 +148,17 @@ public class JobActivity extends AppCompatActivity {
     }
 
     public void goBackViewJob(View v) {
+        setContentView(R.layout.activity_sitter_page);
+        allJobsList();
+    }
+
+    /**
+     * Mark a job as completed
+     * @param v - the "mark job as completed" button on the view job page
+     */
+    public void completeJob(View v) {
+        // FIXME save that it is completed somehow
+        Log.w("MA", "completeJob");
         setContentView(R.layout.activity_sitter_page);
         allJobsList();
     }

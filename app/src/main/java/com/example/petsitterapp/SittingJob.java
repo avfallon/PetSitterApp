@@ -1,3 +1,9 @@
+/**
+ * This class creates an object representation of an individual sitting job's data
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * Date updated: 12/17/20
+ */
+
 package com.example.petsitterapp;
 
 import android.util.Log;
