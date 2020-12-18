@@ -72,6 +72,8 @@ public class Controller extends AppCompatActivity {
 
     public static LatLng myAddy;
 
+    public JSONObject newAccount;
+
     /**
      * Create starting layout and needed components
      * @param savedInstanceState The last instance of the app
@@ -199,16 +201,7 @@ public class Controller extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
         JSONObject petInfo = new JSONObject();
         //petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
-
-//        petInfo.put("firstName", ((EditText) findViewById(R.id.FirstNameInput)).getText().toString());
-//        petInfo.put("firstName", ((EditText) findViewById(R.id.LastNameInput)).getText().toString());
-//        petInfo.put("firstName", ((EditText) findViewById(R.id.AddressInput)).getText().toString());
-//        petInfo.put("firstName", ((EditText) findViewById(R.id.EmailInput)).getText().toString());
-//        petInfo.put("firstName", ((EditText) findViewById(R.id.PasswordInput)).getText().toString());
-//        petInfo.put("firstName", ((EditText) findViewById(R.id.ConfirmPasswordInput)).getText().toString());
-
-
-
+        
     }
 
     public void cancelAccount(View v){
@@ -225,7 +218,7 @@ public class Controller extends AppCompatActivity {
 
         int accountType = 0;
 
-        JSONObject newAccount = new JSONObject();
+        newAccount = new JSONObject();
 
 
         newAccount.put("firstName", ((EditText)findViewById(R.id.FirstNameInput)).getText().toString());

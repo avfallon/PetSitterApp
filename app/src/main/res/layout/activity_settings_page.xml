@@ -23,7 +23,7 @@
                 style="@style/Button"
                 android:layout_margin="20dp"
                 android:text="@string/Go_Back"
-                android:onClick="settingsGoBack"/>
+                android:onClick="goToDashBoard"/>
 
             <TextView
                 android:id="@+id/Settings_Title"
