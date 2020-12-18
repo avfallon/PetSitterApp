@@ -30,7 +30,7 @@ public class User {
      * @param accountInfo the JSON of all account info, some fields may be missing if it's just an owner or sitter
      */
     public User(int userID, JSONObject accountInfo, ArrayList<Pet> pets)  {
-        Log.w("MA", "Inside User");
+        //Log.w("MA", "Inside User");
 
         this.userID = userID;
         this.accountInfo = accountInfo;

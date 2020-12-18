@@ -63,7 +63,7 @@ public class JobActivity extends AppCompatActivity {
      * This method flls the listview on the all jobs page with all jobs objects associated with this activity
      */
     public void allJobsList() {
-        Log.w("MA", "allJobsList");
+        //Log.w("MA", "allJobsList");
         String[] jobArr = getJobArr();
 
         if(jobArr != null && jobArr.length != 0) {
@@ -74,7 +74,7 @@ public class JobActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.w("MA", "selectedJob");
+                    //Log.w("MA", "selectedJob");
                     goToViewJob(jobList.get(position));
                 }
             });
