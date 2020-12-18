@@ -140,18 +140,32 @@ public class Model {
 
     }
 
+    /**
+     * Add pet to the database
+     */
     private class AddPet extends AsyncTask<Void, Void, String> {
         String urlPHP = "";
 
+        /**
+         * Constructor to set the php url
+         * @param url
+         */
         protected AddPet(String url){
             this.urlPHP = url;
         }
 
+        /**
+         * Execute the script
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
+        /**
+         * Execute the script with the php url script
+         * @param s
+         */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -160,6 +174,11 @@ public class Model {
             System.out.println("Added Pet");
         }
 
+        /**
+         * Runs the php script and returns when it has been added
+         * @param voids
+         * @return
+         */
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -201,9 +220,16 @@ public class Model {
         }
     }
 
+    /**
+     * Class in order to edit the pet
+     */
     private class EditPet extends AsyncTask<Void, Void, String> {
         String urlPHP = "";
 
+        /**
+         * constructor
+         * @param url
+         */
         protected EditPet(String url){
             this.urlPHP = url;
         }
@@ -213,6 +239,10 @@ public class Model {
             super.onPreExecute();
         }
 
+        /**
+         * execute the php script on post execute
+         * @param s
+         */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -221,6 +251,11 @@ public class Model {
             System.out.println("Edited Pet");
         }
 
+        /**
+         * runs the script and makes a json object
+         * @param voids
+         * @return
+         */
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -260,9 +295,16 @@ public class Model {
         }
     }
 
+    /**
+     * Delete a pet
+     */
     private class DeletePet extends AsyncTask<Void, Void, String> {
         String urlPHP = "";
 
+        /**
+         * constructor to delete pet
+         * @param url
+         */
         protected DeletePet(String url){
             this.urlPHP = url;
         }
@@ -272,6 +314,10 @@ public class Model {
             super.onPreExecute();
         }
 
+        /**
+         * run php script on post execute
+         * @param s
+         */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -280,91 +326,11 @@ public class Model {
             System.out.println("Deleted Pet");
         }
 
-        @Override
-        protected String doInBackground(Void... voids) {
-            try {
-                URL url = new URL(urlPHP);
-
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                StringBuilder sb = new StringBuilder();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String json;
-                while ((json = bufferedReader.readLine()) != null) {
-                    sb.append(json + "\n");
-                }
-                //System.out.println(sb.toString().trim());
-                return sb.toString().trim();
-            } catch (Exception e) {
-                return null;
-            }
-
-        }
-    }
-
-    public User createAccount(JSONObject user) throws JSONException {
-        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
-        CreateAccount getJSON = new CreateAccount(editPetURL);
-        getJSON.execute();
-        User newUser = new User(user.getInt("ownerIDKey"), user, usersPets);
-        return newUser;
-    }
-
-    public User editAccount(User newUser) throws JSONException {
-        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editAccount.php?json="+newUser.accountInfo;
-        CreateAccount getJSON = new CreateAccount(editPetURL);
-        getJSON.execute();
-        User editedUser = new User(newUser.accountInfo.getInt("ownerIDKey"), newUser.accountInfo, usersPets);
-        return editedUser;
-    }
-
-    public void deleteAccount(User currUser){
-        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteAccount.php?json="+currUser.accountInfo;
-        CreateAccount getJSON = new CreateAccount(editPetURL);
-        getJSON.execute();
-        Controller.currentUser = null;
-    }
-
-    public void createJob(SittingJob newJob){
-        String createPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createJob.php?json="+newJob.jobInfo;
-        CreateAccount getJSON = new CreateAccount(createPetURL);
-        getJSON.execute();
-        ownersJobs.add(newJob);
-        Controller.currentUser.updateOwnerJobs(ownersJobs);
-    }
-
-    public void deleteJob(SittingJob job) throws JSONException {
-        String deletePetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteJob.php?json="+job.jobInfo;
-        CreateAccount getJSON = new CreateAccount(deletePetURL);
-        getJSON.execute();
-        for (int i = 0; i < ownersJobs.size(); i++) {
-            JSONObject obj = ownersJobs.get(i).jobInfo;
-            if (obj.getInt("jobID") == job.jobInfo.getInt("jobID")) {
-                ownersJobs.remove(ownersJobs.get(i));
-            }
-        }
-        Controller.currentUser.updateOwnerJobs(ownersJobs);
-    }
-
-    private class CreateAccount extends AsyncTask<Void, Void, String> {
-        String urlPHP = "";
-
-        protected CreateAccount(String url){
-            this.urlPHP = url;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.w("MA", "DB Call execute");
-            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-            System.out.println("Deleted Pet");
-        }
-
+        /**
+         * create the json object from the script
+         * @param voids
+         * @return
+         */
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -387,7 +353,133 @@ public class Model {
     }
 
     /**
-     *
+     * create an account
+     * @param user
+     * @return the new account that was created
+     * @throws JSONException
+     */
+    public User createAccount(JSONObject user) throws JSONException {
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createAccount.php?json="+user;
+        CreateAccount getJSON = new CreateAccount(editPetURL);
+        getJSON.execute();
+        User newUser = new User(user.getInt("ownerIDKey"), user, usersPets);
+        return newUser;
+    }
+
+    /**
+     * Edit Account
+     * @param newUser
+     * @return the user json object but edited
+     * @throws JSONException
+     */
+    public User editAccount(User newUser) throws JSONException {
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/editAccount.php?json="+newUser.accountInfo;
+        CreateAccount getJSON = new CreateAccount(editPetURL);
+        getJSON.execute();
+        User editedUser = new User(newUser.accountInfo.getInt("ownerIDKey"), newUser.accountInfo, usersPets);
+        return editedUser;
+    }
+
+    /**
+     * Delete account
+     * @param currUser
+     */
+    public void deleteAccount(User currUser){
+        String editPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteAccount.php?json="+currUser.accountInfo;
+        CreateAccount getJSON = new CreateAccount(editPetURL);
+        getJSON.execute();
+        Controller.currentUser = null;
+    }
+
+    /**
+     * Create job
+     * @param newJob
+     */
+    public void createJob(SittingJob newJob){
+        String createPetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/createJob.php?json="+newJob.jobInfo;
+        CreateAccount getJSON = new CreateAccount(createPetURL);
+        getJSON.execute();
+        ownersJobs.add(newJob);
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+    }
+
+    /**
+     * Delete job
+     * @param job
+     * @throws JSONException
+     */
+    public void deleteJob(SittingJob job) throws JSONException {
+        String deletePetURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/deleteJob.php?json="+job.jobInfo;
+        CreateAccount getJSON = new CreateAccount(deletePetURL);
+        getJSON.execute();
+        for (int i = 0; i < ownersJobs.size(); i++) {
+            JSONObject obj = ownersJobs.get(i).jobInfo;
+            if (obj.getInt("jobID") == job.jobInfo.getInt("jobID")) {
+                ownersJobs.remove(ownersJobs.get(i));
+            }
+        }
+        Controller.currentUser.updateOwnerJobs(ownersJobs);
+    }
+
+    /**
+     * Class to create an account async
+     */
+    private class CreateAccount extends AsyncTask<Void, Void, String> {
+        String urlPHP = "";
+
+        /**
+         * constructor
+         * @param url
+         */
+        protected CreateAccount(String url){
+            this.urlPHP = url;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * runs the php script on post execute
+         * @param s
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.w("MA", "DB Call execute");
+            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            System.out.println("Deleted Pet");
+        }
+
+        /**
+         * runs the script and gets the created user json and builds the string for the json object
+         * @param voids
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(urlPHP);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                //System.out.println(sb.toString().trim());
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
+    }
+
+    /**
+     * Get a list of pets based on the owner id
      * @param userID ID of the user whose pets we are finding
      */
     public void buildPetList(int userID) throws JSONException {
@@ -402,6 +494,10 @@ public class Model {
         }
     }
 
+    /**
+     * Assign jobs to the owners with corresponding ids
+     * @throws JSONException
+     */
     public static void assignJobs() throws JSONException {
         for (int j = 0; j < allJobs.length(); j++) {
             JSONObject jobObj = allJobs.getJSONObject(j);
@@ -618,6 +714,11 @@ public class Model {
         getJSON.execute();
     }
 
+    /**
+     * Loads the users jobs
+     * @param json
+     * @throws JSONException
+     */
     private void loadUsersJobs(String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
         System.out.println(jsonArray.toString());
@@ -633,6 +734,12 @@ public class Model {
     }
 
 
+    /**
+     * Get the location of the current user based on their coordinates
+     * @param context
+     * @param strAddress
+     * @return
+     */
     public static LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
