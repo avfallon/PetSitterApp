@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/dashboard_title"
         android:layout_marginTop="50dp"
-        android:visibility="invisible"
+        android:visibility="visible"
 
         android:text="Available Jobs"
         android:onClick="openJobsActivity"
@@ -35,7 +35,7 @@
 
         android:layout_centerHorizontal="true"
         android:layout_below="@id/open_jobs_button"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
 
         android:text="Accepted Sitting Jobs"

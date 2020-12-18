@@ -1,5 +1,11 @@
+/**
+ * This class is the main Controller of the Pet Sitter app, it switches between XML views and
+ * the other controller classes (PetActivity and JobActivity), and sends data back and forth from the model
+ * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * Date updated: 12/17/20
+ */
+
 package com.example.petsitterapp;
-//        android:layout_centerHorizontal="true"
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -674,6 +680,10 @@ public class Controller extends AppCompatActivity {
         spinner_temp.setAdapter(adapter_temp);
     }
 
+    /**
+     * Button to go back to the dashboard from the setting page
+     * @param v - the back button on the settings page
+     */
     public void settingsGoBack(View v) {
         setContentView(R.layout.activity_dashboard);
     }

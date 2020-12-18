@@ -1,3 +1,10 @@
+/**
+ * This class is the model of the Pet Sitter app, it interacts with a PHP database that contains
+ * User, Job, and Pet data for the Pet Sitter app and website
+ * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * Date updated: 12/17/20
+ */
+
 package com.example.petsitterapp;
 
 import android.content.Context;
@@ -540,7 +547,9 @@ public class Model {
     //________________________________________________________________________________________________
 
 
-    // Class made by Derek that executes call to the database
+    /**
+     *  This method executes a call to the database
+     */
     private class GetPetJSON extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -582,6 +591,9 @@ public class Model {
         }
     }
 
+    /**
+     * This class generates an owner JSON from the database
+     */
     private class GetOwnerJSON extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -631,6 +643,9 @@ public class Model {
         getJSON.execute();
     }
 
+    /**
+     * Method to get owner JSONObject
+     */
     private void getOwnerJSON() {
         GetOwnerJSON ownerJSON = new GetOwnerJSON();
         ownerJSON.execute();
@@ -653,6 +668,11 @@ public class Model {
         }
     }
 
+    /**
+     * This method is called inside the getJSON class, it parses a returned JSONArray of owners
+     * @param json - the raw string of the json to be parsed
+     * @throws JSONException
+     */
     private void loadIntoListViewOwners(String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
         System.out.println(jsonArray.toString());
@@ -665,6 +685,9 @@ public class Model {
         }
     }
 
+    /**
+     * This class generates jobs data from the database
+     */
     private class GetJobsJson extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -763,7 +786,6 @@ public class Model {
 
         return p1;
     }
-
 
 }
 

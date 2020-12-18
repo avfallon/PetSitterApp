@@ -249,6 +249,7 @@
             android:text="MARK JOB AS COMPLETED"
             android:layout_below="@id/address_label"
             android:visibility="invisible"
+            android:onClick="completeJob"
             />
 
 
