@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Home</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="./js/cookie.js"></script>
+        <script src="./js/user.js"></script>
+        <script src="./js/getUsersPets.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="homepage.html" onclick="signOut()">DANJ</a>
+            <button class='btn btn-primary btn-xs' id="signOut">Sign Out</button>
+        </nav>
+
+
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="index.html" onclick="signOut()">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Homepage
+                            </a>
+
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <!-- <a class="nav-link" href="profile.html">Profile</a> -->
+                            </nav>
+
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer" id="user">
+                        <div class="small" id ="currentUser">Logged in as:</div>
+                        User
+                    </div>
+                </nav>
+            </div>
+
+
+            <div id="layoutSidenav_content" style="background:#5b5b5c">
+                <main >
+                    <div class="container-fluid">
+
+
+                        <div class="row">
+
+                            <div class="col-xl-3 col-md-6" id="CreatePost">
+                                <div class="card bg-primary text-white mb-4" id="card">
+                                    <div class="card-body" id="yo">Create Post</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="new-post.html"> + </a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-xl-3 col-md-6" id="RecentPosts">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Recent Posts</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="recent-posts.html">View Posts</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-xl-3 col-md-6" id="Preferences">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Preferences</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="preferences.html">Your Preferences</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6" id="NewJobs">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">New Jobs</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="job-list.html">New Jobs</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card mb-4">
+
+                            <div class="card-header" id="head1">
+                                <i class="fas fa-table mr-1"></i>
+                                Accepted Jobs
+                            </div>
+
+                            <div class="card-body" id="table">
+                                    <table class="table table-bordered " id="jobsTable" width="100%" cellspacing="0" >
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Species</th>
+                                                <th>Age</th>
+                                                <th>Breed</th>
+                                                <th>Size</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Sleepover</th>
+                                                <th>Job Details</th>
+                                                <th>Owner</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Species</th>
+                                                <th>Age</th>
+                                                <th>Breed</th>
+                                                <th>Size</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Sleepover</th>
+                                                <th>Job Details</th>
+                                                <th>Owner</th>
+                                            </tr>
+                                        </tfoot> -->
+                                        <tbody>
+                                          <tr>
+                                              <td><a href="view-pet.html">Dixie</a></td>
+                                              <td>Dog</td>
+                                              <td>8</td>
+                                              <td>12/11/2020</td>
+                                              <td>Medium</td>
+                                          </tr>
+                                          <tr>
+                                              <td><a href="view-pet.html">Steve</a></td>
+                                              <td>Fish</td>
+                                              <td>1</td>
+                                              <td>12/21/2020</td>
+                                              <td>Small</td>
+                                          </tr>
+                                          <tr>
+                                              <td><a href="view-pet.html">Charlie</a></td>
+                                              <td>Cat</td>
+                                              <td>3</td>
+                                              <td>12/25/2020</td>
+                                              <td>Small</td>
+                                          </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <!-- <h5 style="text-align: center" id="tokensTitle"> TOKENS </h5>
+                                    <h6 style="text-align: center" id = "numberOfTokens"> 12</h6>
+                                    <button class = "btn btn-primary btn-block" style="width: 100%" id="tokenBtn"> REDEEM TOKENS</button> -->
+                            </div>
+
+                            <div class="card-header" id="head2">
+                                <i class="fas fa-table mr-1"></i>
+                                Your Pets
+                                <button class='btn btn-primary btn-xs' id="addPet">+</button>
+                            </div>
+
+                            <div class="card-body" >
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Species</th>
+                                                <th>Age</th>
+                                                <th>Breed</th>
+                                                <th>Size</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Species</th>
+                                                <th>Age</th>
+                                                <th>Breed</th>
+                                                <th>Size</th>
+                                            </tr>
+                                        </tfoot> -->
+                                        <tbody>
+                                          <tr>
+                                              <td>Binkley</td>
+                                              <td>Dog</td>
+                                              <td>6</td>
+                                              <td>German Shepard</td>
+                                              <td>Medium</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Raunak</td>
+                                              <td>Bird</td>
+                                              <td>6</td>
+                                              <td>Eagle</td>
+                                              <td>Large</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Mehri</td>
+                                              <td>Cat</td>
+                                              <td>10</td>
+                                              <td>Bengal</td>
+                                              <td>Small</td>
+                                          </tr>
+
+                                        </tbody>
+                                    </table>
+                            </div>
+
+                            <div class="card-header" id="head3">
+                                <i class="fas fa-table mr-1"></i>
+                                Posted Jobs
+                            </div>
+
+                            <div class="card-body" >
+                                    <table class="table table-bordered" id="postedTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Species</th>
+                                                <th>Age</th>
+                                                <th>Breed</th>
+                                                <th>Size</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Sleepover</th>
+                                                <th>Job Details</th>
+                                                <th>Sitter</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Species</th>
+                                                <th>Age</th>
+                                                <th>Breed</th>
+                                                <th>Size</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Sleepover</th>
+                                                <th>Job Details</th>
+                                                <th>Sitter</th>
+                                            </tr>
+                                        </tfoot> -->
+                                        <tbody>
+                                          <tr>
+                                              <td>Binkley</td>
+                                              <td>Dog</td>
+                                              <td>6</td>
+                                              <td>German Shepard</td>
+                                              <td>Medium</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Raunak</td>
+                                              <td>Bird</td>
+                                              <td>6</td>
+                                              <td>Eagle</td>
+                                              <td>Large</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Mehri</td>
+                                              <td>Cat</td>
+                                              <td>10</td>
+                                              <td>Bengal</td>
+                                              <td>Small</td>
+                                          </tr>
+
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

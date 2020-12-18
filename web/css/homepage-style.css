@@ -1,0 +1,254 @@
+@charset "UTF-8";
+
+/*
+COLOR PALETTE
+ accent yellow: #FFE66D
+ kind of white: #f2f2f2
+ mustardish yellow: #A68626
+ kind of black: #343434
+
+teal #1ECC7E
+burg #4A050D
+light green #79C864
+cream #f0ead6
+tan #FFBF8E
+
+
+*/
+
+
+/* Global styles
+------------------------------------*/
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+body {
+  color: #343434;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+img {
+  width: 500px;
+}
+a {
+  color: #FFE66D;
+}
+
+p {
+  color: #2F3061;
+  font-size: 20px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+
+h1 {
+    font-family: 'BioRhyme', serif;
+    font-size: 100px;
+    line-height: 1;
+    font-weight: 800;
+}
+h2 {
+  font-size: 45px;
+}
+h1, h2 {
+  font-family: 'BioRhyme', serif;
+  font-weight: 400;
+  margin: 0;
+}
+.content-wrap {
+  max-width: 800px;
+  width: 85%;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+h3 {
+  margin-bottom: 0;
+}
+.item-details h3 + p {
+  font-style: italic;
+}
+.item-details h3 ~ p {
+  margin: 0;
+}
+.divider > section {
+  border-bottom: 1px dashed #343434;
+  padding: 25px 0;
+}
+.divider > section:last-of-type {
+  border-bottom: none;
+}
+
+nav {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  background-color: #4a4a4a;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+nav a:hover {
+  background-color: #15935b;
+  color: black;
+}
+
+nav a.active {
+  background-color: #1ECC7E;
+  color: white;
+}
+
+
+/* HEADER
+------------------------------------*/
+header {
+    background-image: url(assets/img/dogs.jpg);
+    background-size: cover;
+/*  background: #A68626;*/
+    color: #F7FFF7;
+}
+
+
+/* BOOKS
+------------------------------------*/
+.books {
+  background: #F7FFF7;
+}
+.books a {
+  color: #2F3061;
+  font-size: 20px;
+}
+.books .btn {
+  color: #fff;
+  background: #F2BE22;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.books .btn:hover {
+  background: #A68626;
+}
+.books-item {
+  overflow: hidden;
+}
+.books-item h3 {
+  margin-top: 0;
+}
+
+.books-item h2 {
+ font-size: 30px;
+  margin-top: 0;
+  text-align: center;
+}
+
+/* Work Experience
+------------------------------------*/
+.card {
+  background: #cbcbcb;
+}
+
+.card p {
+  color: #2F3061;
+  font-size: 20px;
+}
+
+/* Other Things
+------------------------------------*/
+.others {
+  background-image: url(../img/joanna-kosinska-unsplash.jpg);
+  background-size: cover;
+  background-position: top right;
+  padding-bottom: 100px;
+}
+.others p {
+  width: 60%;
+}
+
+.others a {
+    color: #fff;
+}
+
+
+/* Contact Info
+------------------------------------*/
+footer {
+  background: #343434;
+  color: #F7FFF7;
+}
+.contact-list {
+  list-style-type: none;
+  padding: 0;
+}
+.contact-list a {
+  padding: 15px;
+  display: inline-block;
+}
+
+
+/* Responsive
+------------------------------------*/
+@media screen and (min-width:750px){
+  header, footer {
+    padding: 2%;
+    text-align: center;
+  }
+  .books-item img {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .card-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+  }
+
+  .others-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+  }
+
+  .contact-list {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:749px){
+  h1 {
+    font-size: 75px;
+    line-height: 0.9;
+    margin-bottom: 20px;
+  }
+  h2 {
+    line-height: 1;
+    text-align: center;
+  }
+  .contact-list a {
+    padding: 5px;
+  }
+}

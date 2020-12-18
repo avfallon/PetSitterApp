@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>New Post</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="./js/cookie.js"></script>
+        <script src="./js/newPost.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html">Owner/Sitter</a>
+        </nav>
+
+
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="pet-ownerSitter.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <!-- <a class="nav-link" href="profile.html">Profile</a> -->
+                            </nav>
+
+                        </div>
+
+
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        User
+                    </div>
+                </nav>
+            </div>
+
+
+            <div id="layoutSidenav_content" style="background:#5b5b5c">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Create Post</h1>
+                        <ol class="breadcrumb mb-4">
+                        </ol>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                New Post
+                            </div>
+                            <div class="card-body">
+                            </div>
+
+                            <form>
+
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputStartDate">Start Date</label>
+                                            <input class="form-control py-4" id="inputStartDate" type="date" placeholder="Enter date for job" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputEndDate">End Date</label>
+                                            <input class="form-control py-4" id="inputEndDate" type="date" placeholder="Enter date for job" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label class="small mb-1" for="inputJobDetails">Job Details</label>
+                                        <input class="form-control h-auto" id="inputJobDetails" placeholder="Enter Job Details" style="height:100px" />
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class ="col">
+                                        <label class="form-group" for="inputSleepover">Sleepover? (Selected = Yes) </label>
+                                        <input class = "form-group" id="inputSleepover" style = "width: 2% " type="checkbox"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="small mb-1" for="inputPets">Select Pets</label>
+                                    <table class ="table" style="height:100px">
+                                        <tr>
+                                            <td><select class = "form-control" size="any" multiple="multiple" id="inputPets" style="height:100px">
+                                                <option value="11">Pet 1</option>
+                                                <option value="12">Pet 2</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <button class="form-control py-4" id="submitPost" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
