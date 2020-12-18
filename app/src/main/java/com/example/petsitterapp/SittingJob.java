@@ -48,7 +48,7 @@ public class SittingJob {
             }
         }
         catch(JSONException je) {
-            Log.w("MA", "JSONException SittingJob.toString()");
+            //Log.w("MA", "JSONException SittingJob.toString()");
         }
 
         return returnStr;

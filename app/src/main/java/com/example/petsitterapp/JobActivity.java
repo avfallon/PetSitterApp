@@ -21,9 +21,6 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-/**
- * A single class to represent the controller for Job Related activity
- */
 public class JobActivity extends AppCompatActivity {
     public static final int SLEEPOVER_YES = 1;
     public static final int SLEEPOVER_NO = 0;
@@ -32,10 +29,6 @@ public class JobActivity extends AppCompatActivity {
     public SittingJob currentJob;
     private String jobType;
 
-    /**
-     * onCreate method to display specific job on creation
-     * @param savedInstanceState The current instance of the application
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +38,8 @@ public class JobActivity extends AppCompatActivity {
             case "owner":
                 Log.w("MA", "OwnerJob");
                 this.jobList = Controller.model.ownersJobs;
-                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");                break;
+                ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Your Open Jobs");
+                break;
             case "sitter":
                 Log.w("MA", "SitterJob");
                 this.jobList = Controller.model.sittersJobs;
@@ -66,10 +60,10 @@ public class JobActivity extends AppCompatActivity {
     }
 
     /**
-     * Get a list of all the jobs
+     * This method flls the listview on the all jobs page with all jobs objects associated with this activity
      */
     public void allJobsList() {
-        Log.w("MA", "allJobsList");
+        //Log.w("MA", "allJobsList");
         String[] jobArr = getJobArr();
 
         if(jobArr != null && jobArr.length != 0) {
@@ -80,7 +74,7 @@ public class JobActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.w("MA", "selectedJob");
+                    //Log.w("MA", "selectedJob");
                     goToViewJob(jobList.get(position));
                 }
             });
@@ -103,8 +97,8 @@ public class JobActivity extends AppCompatActivity {
     }
 
     /**
-     * View a single job
-     * @param job The job to look at
+     * This method switches the context to the view job screen and populates it with the given info
+     * @param job - the job whose info will be shown on the view job page
      */
     public void goToViewJob(SittingJob job) {
         setContentView(R.layout.activity_view_job);
@@ -114,7 +108,7 @@ public class JobActivity extends AppCompatActivity {
     }
 
     /**
-     * Fill the job screens information with relevant information
+     * This method fills all the fields in the view job page when the user selects a job from the listview
      */
     public void populateViewJob() {
         try {
@@ -160,22 +154,41 @@ public class JobActivity extends AppCompatActivity {
         }
     }
 
-
     /**
-     * Go back to the dashboard
-     * @param v The reference to the job page
+     * This method ends the activity
+     * @param v - the go back button in the all jobs page
      */
     public void goBackAllJobs(View v) {
         finish();
     }
 
     /**
-     * Go back to the sitter page
-     * @param v The reference to the single view job page
+     * This method goes back from viewing a job, to the all jobs page
+     * @param v - the go back button in the view job page
      */
     public void goBackViewJob(View v) {
         setContentView(R.layout.activity_sitter_page);
+        if(jobType.equals("open")) {
+            ((TextView) findViewById(R.id.allAcceptedJobsTitle)).setText("Available Jobs");
+        }
         allJobsList();
+    }
+
+    /**
+     * This method accepts the job currently being viewed, adding it to the user account
+     * @param v - the accept job button available in the open jobs view
+     */
+    public void acceptJob(View v) {
+        setContentView(R.layout.activity_sitter_page);
+        SittingJob job = currentJob;
+        try {
+            Controller.model.deleteJob(currentJob);
+            job.jobInfo.put("sitterIDKey", ""+Controller.currentUser.accountInfo.get("ownerIDKey"));
+            Log.w("MA", "Success accepting job");
+        }
+        catch(JSONException je) {
+            Log.w("MA", "JSONException accepting a job");
+        }
     }
 
     /**
