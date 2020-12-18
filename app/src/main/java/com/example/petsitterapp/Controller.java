@@ -404,7 +404,7 @@ public class Controller extends AppCompatActivity {
             }
 
             SittingJob job = new SittingJob(jobInfo);
-            model.createJob(job);
+            model.createJob(job, true);
         }
         catch(JSONException je) {
             Log.w("MA", "JSONException Controller.saveSittingJob()");
@@ -659,6 +659,10 @@ public class Controller extends AppCompatActivity {
      */
     public void goBackAllPets(View v) {
         goToDashBoard(v);
+    }
+
+    public void goBackPreferences(View v) {
+        setContentView(R.layout.activity_create_account);
     }
 
     /**
