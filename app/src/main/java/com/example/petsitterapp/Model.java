@@ -108,30 +108,30 @@ public class Model {
         System.out.println(usersPets.toString());
         for(int i = 0; i < allOwners.length(); i++){
             JSONObject obj = allOwners.getJSONObject(i);
-            if(Integer.parseInt(obj.getString("typeOfAccount")) == Controller.SITTER_ACCOUNT){
-                LatLng myAddy = getLocationFromAddress(context, obj.getString("address"));
-                if(myAddy == null){
-                    break;
-                }
-                else{
-                    System.out.println(myAddy.toString());
-                }
-
-                float[] distance = new float[1];
-                Location.distanceBetween(Controller.wayLatitude, Controller.wayLongitude,
-                        myAddy.latitude, myAddy.longitude, distance);
-
-                double radiusInMeters = 48.2803*1000.0; //1 KM = 1000 Meter
-
-                if( distance[0]/1000 > radiusInMeters ){
-                    System.out.println("Outside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
-                } else {
-                    System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
-                    String emailURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/sendEmail.php?email="+obj.getString("email");
-                    AddPet sendEmail = new AddPet(emailURL);
-                    sendEmail.execute();
-                }
-            }
+//            if(Integer.parseInt(obj.getString("typeOfAccount")) == Controller.SITTER_ACCOUNT){
+//                LatLng myAddy = getLocationFromAddress(context, obj.getString("address"));
+//                if(myAddy == null){
+//                    break;
+//                }
+//                else{
+//                    System.out.println(myAddy.toString());
+//                }
+//
+//                float[] distance = new float[1];
+//                Location.distanceBetween(Controller.wayLatitude, Controller.wayLongitude,
+//                        myAddy.latitude, myAddy.longitude, distance);
+//
+//                double radiusInMeters = 48.2803*1000.0; //1 KM = 1000 Meter
+//
+//                if( distance[0]/1000 > radiusInMeters ){
+//                    System.out.println("Outside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
+//                } else {
+//                    System.out.println("Inside, distance from center: " + distance[0]/1000 + " radius: " + radiusInMeters);
+//                    String emailURL = "http://damorales.cs.loyola.edu/PetSitterApp/app/src/main/php/sendEmail.php?email="+obj.getString("email");
+//                    AddPet sendEmail = new AddPet(emailURL);
+//                    sendEmail.execute();
+//                }
+//            }
         }
     }
 

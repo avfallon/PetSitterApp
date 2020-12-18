@@ -35,7 +35,6 @@
     <RelativeLayout
         android:id="@+id/RelativeLayout_PetView_SubmitButton"
         android:layout_toRightOf="@+id/PetViewTitle"
-        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
