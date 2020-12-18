@@ -132,9 +132,26 @@ public class Model {
                     sendEmail.execute();
                 }
             }
-
         }
     }
+
+//    public void checkWithin30() {
+//        LatLng myAddy = getLocationFromAddress(context, obj.getString("address"));
+//        if(myAddy == null){
+//            break;
+//        }
+//        else{
+//            System.out.println(myAddy.toString());
+//        }
+//
+//        float[] distance = new float[1];
+//        Location.distanceBetween(Controller.wayLatitude, Controller.wayLongitude,
+//                myAddy.latitude, myAddy.longitude, distance);
+//
+//        double radiusInMeters = 48.2803*1000.0; //1 KM = 1000 Meter
+//
+//        if( distance[0]/1000 > radiusInMeters ){
+//    }
 
     /**
      * Clears the global variables carrying the specific user information: called when logging outjj
