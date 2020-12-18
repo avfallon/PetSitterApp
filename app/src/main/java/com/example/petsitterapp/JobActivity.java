@@ -21,6 +21,9 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+/**
+ * A single class to represent the controller for Job Related activity
+ */
 public class JobActivity extends AppCompatActivity {
     public static final int SLEEPOVER_YES = 1;
     public static final int SLEEPOVER_NO = 0;
@@ -29,6 +32,10 @@ public class JobActivity extends AppCompatActivity {
     public SittingJob currentJob;
     private String jobType;
 
+    /**
+     * onCreate method to display specific job on creation
+     * @param savedInstanceState The current instance of the application
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +65,9 @@ public class JobActivity extends AppCompatActivity {
         allJobsList();
     }
 
+    /**
+     * Get a list of all the jobs
+     */
     public void allJobsList() {
         Log.w("MA", "allJobsList");
         String[] jobArr = getJobArr();
@@ -92,6 +102,10 @@ public class JobActivity extends AppCompatActivity {
         return jobArr;
     }
 
+    /**
+     * View a single job
+     * @param job The job to look at
+     */
     public void goToViewJob(SittingJob job) {
         setContentView(R.layout.activity_view_job);
         currentJob = job;
@@ -99,6 +113,9 @@ public class JobActivity extends AppCompatActivity {
         populateViewJob();
     }
 
+    /**
+     * Fill the job screens information with relevant information
+     */
     public void populateViewJob() {
         try {
             String[] startDate = currentJob.jobInfo.getString("startDate").split("-");
@@ -143,10 +160,19 @@ public class JobActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * Go back to the dashboard
+     * @param v The reference to the job page
+     */
     public void goBackAllJobs(View v) {
         finish();
     }
 
+    /**
+     * Go back to the sitter page
+     * @param v The reference to the single view job page
+     */
     public void goBackViewJob(View v) {
         setContentView(R.layout.activity_sitter_page);
         allJobsList();

@@ -14,10 +14,19 @@ import org.json.JSONObject;
 public class SittingJob {
     public JSONObject jobInfo;
 
+    /**
+     * Constructor
+     * @param info The information about a sitting job
+     */
     public SittingJob(JSONObject info) {
         this.jobInfo = info;
     }
 
+    /**
+     * Get information about the job
+     * @param jobType Either owner or pet sitter
+     * @return String of the job information
+     */
     public String listString(String jobType) {
         String returnStr = "";
         try {
@@ -45,6 +54,11 @@ public class SittingJob {
         return returnStr;
     }
 
+    /**
+     * Format the date to follow specific calendar style
+     * @param date The date to format
+     * @return The date reformatted
+     */
     public String formatDate(String date) {
         String[] splitList = date.split("-");
         return splitList[1]+"/"+splitList[2];

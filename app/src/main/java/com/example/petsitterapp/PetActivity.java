@@ -220,6 +220,11 @@ public class PetActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Get the information about a single pet
+     * @return The information about the pet
+     * @throws JSONException
+     */
     public JSONObject getPetInfo() throws JSONException{
         JSONObject petInfo = new JSONObject();
         petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
@@ -240,11 +245,20 @@ public class PetActivity extends AppCompatActivity {
         return petInfo;
     }
 
+    /**
+     * Set the visibility of an error message
+     * @param visibility THe visiblity of the error tag
+     * @param errorID The ID of the error
+     */
     public void setError(int visibility, int errorID) {
         TextView ErrorTag = findViewById( errorID );
         ErrorTag.setVisibility(visibility);
     }
 
+    /**
+     * Go back the pet form page
+     * @param v The reference to the petform
+     */
     public void goBackPetForm(View v) {
         if(editing) {
             setContentView(R.layout.activity_view_pet);
@@ -254,10 +268,18 @@ public class PetActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Go back to main view
+     * @param v The reference to view where this is being called
+     */
     public void goBackViewPet(View v) {
         finish();
     }
 
+    /**
+     * Delete a pet from the account
+     * @param v The view of where this method is being called
+     */
     public void deletePet(View v) {
         try {
             Controller.model.deletePet(currentPet.petInfo);

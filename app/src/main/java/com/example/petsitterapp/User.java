@@ -52,14 +52,27 @@ public class User {
         return pets;
     }
 
+    /**
+     * Update the list of pets of the user
+     * @param newList The new list of pets for the user
+     */
     public void updatePetList(ArrayList<Pet> newList) {
         petList = (ArrayList<Pet>) newList.clone();
     }
 
+
+    /**
+     * Update the ownerJobs of the user
+     * @param ownerJobs The list of jobs they have
+     */
     public void updateOwnerJobs(ArrayList<SittingJob> ownerJobs) {
         this.openJobsOwner = (ArrayList<SittingJob>) ownerJobs.clone();
     }
 
+    /**
+     * Update the list of open sitter jobs
+     * @param sitterJobs The new list of sitter jobs available
+     */
     public void updateSitterJobs(ArrayList<SittingJob> sitterJobs) {
         this.openJobsOwner = (ArrayList<SittingJob>) sitterJobs.clone();
 
