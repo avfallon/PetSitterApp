@@ -97,7 +97,6 @@ public class Controller extends AppCompatActivity {
          * Gets the location data and sets the variables associated with it
          */
         generateLocationData();
-        newAccount = new JSONObject();
 
         setContentView(R.layout.activity_login);
     }
@@ -201,6 +200,7 @@ public class Controller extends AppCompatActivity {
     public void createAccount(View v) throws JSONException {
         setContentView(R.layout.activity_create_account);
         JSONObject petInfo = new JSONObject();
+        newAccount = new JSONObject();
         //petInfo.put("ownerIDKey", Controller.currentUser.accountInfo.get("ownerIDKey"));
         
     }
@@ -217,7 +217,7 @@ public class Controller extends AppCompatActivity {
         // FIXME Save the info into a new jsonObject, then save that in newAccount
         // if sitter, send to sitter preferences first
 
-        int accountType = 0;
+        int accountType = 3;
 
 
 
@@ -230,20 +230,47 @@ public class Controller extends AppCompatActivity {
 
 
 
+         RadioGroup rg = (RadioGroup) findViewById(R.id.account_type_input);
 
-        switch(v.getId()) {
-            case R.id.account_type_both_input:
-                newAccount.put("accountType", BOTH_ACCOUNT);
-                break;
-            case R.id.account_type_owner_input:
-                newAccount.put("accountType", OWNER_ACCOUNT);
-                accountType = OWNER_ACCOUNT;
-                break;
-            case R.id.account_type_sitter_input:
-                newAccount.put("accountType", SITTER_ACCOUNT);
-                accountType = SITTER_ACCOUNT;
-                break;
+         RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+
+
+         if(rb.getText().equals("Both"))
+         {
+            newAccount.put("accountType", "" + BOTH_ACCOUNT);
+            accountType = BOTH_ACCOUNT;
+
+         }
+        else if(rb.getText().equals("Owner"))
+        {
+            newAccount.put("accountType", "" + OWNER_ACCOUNT);
+            accountType = OWNER_ACCOUNT;
+
         }
+        else
+        {
+            newAccount.put("accountType", "" + SITTER_ACCOUNT);
+            accountType = SITTER_ACCOUNT;
+
+        }
+
+
+//        switch(findViewById(R.id.account_type_input).getId()) {
+//            case R.id.account_type_both_input:
+//                newAccount.put("accountType", "" + BOTH_ACCOUNT);
+//                accountType = BOTH_ACCOUNT;
+//                break;
+//            case R.id.account_type_owner_input:
+//                newAccount.put("accountType", "" + OWNER_ACCOUNT);
+//                accountType = OWNER_ACCOUNT;
+//                break;
+//            case R.id.account_type_sitter_input:
+//                newAccount.put("accountType", "" + SITTER_ACCOUNT);
+//                accountType = SITTER_ACCOUNT;
+//                break;
+//        }
+
+
 
         if(accountType == OWNER_ACCOUNT)
             setContentView(R.layout.activity_credit_card);
@@ -269,7 +296,7 @@ public class Controller extends AppCompatActivity {
      * Get all of the info in the fields and add it to newAccount
      * @param v The preferences form view where save is being called
      */
-    public void savePreferences(View v) throws JSONException{
+    public void savePreferences(View v) throws JSONException, InterruptedException {
         // FIXME Get all of the info in the fields, add it to newAccount
         // If newAccount is not an owner, then use it to save a new account in the model and go to dashboard
         // otherwise, go to activity_credit_card
@@ -281,6 +308,14 @@ public class Controller extends AppCompatActivity {
         newAccount.put("breed", ((EditText) findViewById(R.id.PetBreedInput)).getText().toString());
         newAccount.put("age", ((EditText) findViewById(R.id.PetAgeInput)).getText().toString());
 
+
+//        Log.w("MA", "ACCOUNT TYPE IS " + newAccount.getString("accountType"));
+
+//        while( newAccount.has("accountType") == false)
+//        {
+//
+////            wait(1000);
+//        }
 
 
         int accountType = Integer.parseInt(newAccount.getString("accountType"));
