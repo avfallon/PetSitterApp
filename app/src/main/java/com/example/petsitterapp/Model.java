@@ -1,7 +1,7 @@
 /**
  * This class is the model of the Pet Sitter app, it interacts with a PHP database that contains
  * User, Job, and Pet data for the Pet Sitter app and website
- * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
 

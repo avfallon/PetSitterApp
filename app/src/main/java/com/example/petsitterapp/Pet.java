@@ -1,7 +1,7 @@
 /**
  * This class creates an object represenation of an individual pet's data, it is included in both
  * User objects and SittingJob objects
- * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
 package com.example.petsitterapp;

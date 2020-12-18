@@ -1,7 +1,7 @@
 /**
  * This class is the controller handling the view showing all jobs, and the context switch to
  * display a single job's information. It contains functionality to show open jobs, accepted jobs, and owner jobs
- * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
 

@@ -1,6 +1,6 @@
 /**
  * This class creates an object representation of an individual sitting job's data
- * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
 

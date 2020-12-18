@@ -1,7 +1,7 @@
 /**
  * This class is the main Controller of the Pet Sitter app, it switches between XML views and
  * the other controller classes (PetActivity and JobActivity), and sends data back and forth from the model
- * Authors: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
+ * @author: Andrew Fallon, Jeff Umanzor, Derek Morales, Nick Pierce-Ptak
  * Date updated: 12/17/20
  */
 
